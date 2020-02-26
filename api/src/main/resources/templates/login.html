@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet"/>
+    <link th:href="@{/usermanager.css}"/>
+</head>
+
+<style>
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        background-color: #dedef8;
+    }
+</style>
+
+<body>
+<div class="panel-title" style="margin-left:500px;margin-top: 300px">
+    <form  class="bs-example bs-example-form" role="form" action="/front/addlogin" name="loginfrom" accept-charset="utf-8" method="post">
+        <div class="input-group input-group-lg">
+            <label class="input-group-addon" for="userName">账号:</label>
+            <input class="form-control" style="width: 280px" type="text" id="userName" name="userName" />
+        </div>
+        <div class="input-group input-group-lg" style="margin-top: 15px">
+            <label class="input-group-addon" for="password">密码:</label>
+            <input th:type="password" id="password" name="password"  class="form-control" style="width: 280px" />
+        </div>
+        <div class="input-group input-group-lg" style="margin-top:15px">
+            <input class="btn btn-default" style="margin-left: 80px" type="submit" name="登录"/>
+            <!--<input class="zcxy" th:href="register.html" th:type="button"  th:value="注册" th:target="_blank" >-->
+            <a class="btn btn-default" style="margin-left: 80px" href="register.html" target="_blank">注册</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
