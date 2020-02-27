@@ -1,6 +1,6 @@
 package com.hosiang.dev.ueditor.upload;
 
-import com.demo.baidu.ueditor.define.State;
+import  com.hosiang.dev.ueditor.define.State;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,9 +23,8 @@ import java.util.Map;
 
 @Api(value = "/wxpage", description = "微信小程序支付")
 @RestController
+@Slf4j
 public class PayController {
-
-    private static Logger log = Logger.getLogger(PayController.class);
 
     @ResponseBody
     @RequestMapping(value = "/prepay", produces = "text/html;charset=UTF-8")

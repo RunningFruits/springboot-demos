@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-/**
- * @author xwf
- */
+
 @RestController
 @RequestMapping("/report/echarts")
 public class AreaController extends BaseController {

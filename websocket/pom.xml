@@ -9,18 +9,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.1.7.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-        <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
-        <weixin-java-miniapp.version>3.3.0</weixin-java-miniapp.version>
-        <io.springfox.version>2.5.0</io.springfox.version>
-        <log4j2.version>2.6.2</log4j2.version>
     </properties>
     <dependencies>
         <dependency>

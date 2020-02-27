@@ -12,7 +12,7 @@ public class IndexController{
 
     @GetMapping(value = "/")
     public String index() {
-        return "echarts/extra";
+        return "echarts/index";
     }
 
     @GetMapping(value = "/pie")

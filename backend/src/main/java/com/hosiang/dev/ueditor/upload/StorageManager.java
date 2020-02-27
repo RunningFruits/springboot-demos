@@ -1,8 +1,8 @@
 package com.hosiang.dev.ueditor.upload;
 
-import com.demo.baidu.ueditor.define.AppInfo;
-import com.demo.baidu.ueditor.define.BaseState;
-import com.demo.baidu.ueditor.define.State;
+import  com.hosiang.dev.ueditor.define.AppInfo;
+import  com.hosiang.dev.ueditor.define.BaseState;
+import  com.hosiang.dev.ueditor.define.State;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;

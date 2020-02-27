@@ -1,11 +1,11 @@
 package com.hosiang.dev.ueditor.upload;
 
-import com.demo.baidu.ueditor.PathFormat;
-import com.demo.baidu.ueditor.define.AppInfo;
-import com.demo.baidu.ueditor.define.BaseState;
-import com.demo.baidu.ueditor.define.FileType;
-import com.demo.baidu.ueditor.define.State;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import  com.hosiang.dev.ueditor.PathFormat;
+import  com.hosiang.dev.ueditor.define.AppInfo;
+import  com.hosiang.dev.ueditor.define.BaseState;
+import  com.hosiang.dev.ueditor.define.FileType;
+import  com.hosiang.dev.ueditor.define.State;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 

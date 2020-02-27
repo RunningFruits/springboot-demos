@@ -1,6 +1,6 @@
 package com.hosiang.dev.ueditor.define;
 
-import com.demo.baidu.ueditor.Encoder;
+import  com.hosiang.dev.ueditor.Encoder;
 
 import java.util.*;
 

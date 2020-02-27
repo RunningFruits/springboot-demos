@@ -1,8 +1,8 @@
 package com.hosiang.dev.ueditor.hunter;
 
-import com.demo.baidu.ueditor.PathFormat;
-import com.demo.baidu.ueditor.define.*;
-import com.demo.baidu.ueditor.upload.StorageManager;
+import  com.hosiang.dev.ueditor.PathFormat;
+import  com.hosiang.dev.ueditor.define.*;
+import  com.hosiang.dev.ueditor.upload.StorageManager;
 
 import java.net.HttpURLConnection;
 import java.net.InetAddress;

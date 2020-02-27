@@ -1,12 +1,12 @@
 package com.hosiang.dev.ueditor;
 
-import com.demo.baidu.ueditor.define.ActionMap;
-import com.demo.baidu.ueditor.define.AppInfo;
-import com.demo.baidu.ueditor.define.BaseState;
-import com.demo.baidu.ueditor.define.State;
-import com.demo.baidu.ueditor.hunter.FileManager;
-import com.demo.baidu.ueditor.hunter.ImageHunter;
-import com.demo.baidu.ueditor.upload.Uploader;
+import com.hosiang.dev.ueditor.define.ActionMap;
+import com.hosiang.dev.ueditor.define.AppInfo;
+import com.hosiang.dev.ueditor.define.BaseState;
+import com.hosiang.dev.ueditor.define.State;
+import com.hosiang.dev.ueditor.hunter.FileManager;
+import com.hosiang.dev.ueditor.hunter.ImageHunter;
+import com.hosiang.dev.ueditor.upload.Uploader;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

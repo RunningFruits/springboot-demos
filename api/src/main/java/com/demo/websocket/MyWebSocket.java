@@ -12,7 +12,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-@ServerEndpoint(value = "/tvSocket/{mac}", configurator = GetHttpSessionConfigurator.class)
+@ServerEndpoint(value = "/socket/{id}", configurator = GetHttpSessionConfigurator.class)
 @Component
 @Configurable
 @EnableScheduling
@@ -28,15 +28,15 @@ public class MyWebSocket {
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
 
-    private String mac;
+    private String id;
 
     /**
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(@PathParam(value = "mac") String mac, Session session, EndpointConfig config) {
+    public void onOpen(@PathParam(value = "id") String id, Session session, EndpointConfig config) {
         this.session = session;
-        this.mac = mac;
+        this.id = id;
         try {
             webSocketSet.add(this);     //加入set中
             addOnlineCount();           //在线数加1

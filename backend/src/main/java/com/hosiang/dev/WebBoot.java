@@ -6,10 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-@ComponentScan(value = "com.huajie.config")
+@ComponentScan(basePackages = {"com.huajie.config", "com.hosiang.dev"})
 public class WebBoot {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WebBoot.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WebBoot.class, args);
+    }
 }
