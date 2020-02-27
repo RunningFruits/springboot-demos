@@ -24,7 +24,7 @@ public final class ActionMap {
 	
 	static {
 		mapping = new HashMap<String, Integer>(){{
-			put( "config", ActionMap.CONFIG );
+			put( "constant", ActionMap.CONFIG );
 			put( "uploadimage", ActionMap.UPLOAD_IMAGE );
 			put( "uploadscrawl", ActionMap.UPLOAD_SCRAWL );
 			put( "uploadvideo", ActionMap.UPLOAD_VIDEO );

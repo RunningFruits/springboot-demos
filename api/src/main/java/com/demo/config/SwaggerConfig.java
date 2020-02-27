@@ -31,7 +31,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/wechat/**")
+        registry.addMapping("/wxpage/**")
                 .allowedMethods("*")
                 .allowedOrigins("*")
                 .allowedHeaders("*");

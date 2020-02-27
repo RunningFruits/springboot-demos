@@ -3,10 +3,11 @@ server:
     uri-encoding: UTF-8
   port: 8084
   servlet:
-    context-path: /epidemic
+    context-path: /epidemic/wxjspay
 
-spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
+
+wechat:
+  domain:
+    url: ''
+    callbackUrl: ''
+    oauth2Url: ''

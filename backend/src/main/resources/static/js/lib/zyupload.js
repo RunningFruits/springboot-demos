@@ -1506,10 +1506,10 @@ layui.define("jquery", function(exports) {
           var editHtml = "";
           var delHtml = "";
           if(para.tailor) {
-            editHtml = '<span class="file_edit" data-index="' + file.index + '" title="编辑"></span>'
+            editHtml = '<span class="file_edit" data-extra="' + file.index + '" title="编辑"></span>'
           }
           if(para.del) {
-            delHtml = '<span class="file_del" data-index="' + file.index + '" title="删除"></span>'
+            delHtml = '<span class="file_del" data-extra="' + file.index + '" title="删除"></span>'
           }
           var newStr = file.name.split("").reverse().join("");
           var type = newStr.split(".")[0].split("").reverse().join("");
@@ -1658,13 +1658,13 @@ layui.define("jquery", function(exports) {
               var funBindDelEvent = function() {
                 if($(".file_del").length > 0) {
                   $(".file_del").click(function() {
-                    ZYFILE.funDeleteFile(parseInt($(this).attr("data-index")), true);
+                    ZYFILE.funDeleteFile(parseInt($(this).attr("data-extra")), true);
                     return false
                   })
                 }
                 if($(".file_edit").length > 0) {
                   $(".file_edit").click(function() {
-                    var imgIndex = $(this).attr("data-index");
+                    var imgIndex = $(this).attr("data-extra");
                     var imgName = $(this).prev(".file_name").attr("title");
                     var imgSrc = $("#uploadImage_" + imgIndex).attr("src");
                     self.createPopupPlug(imgSrc, imgIndex, imgName);

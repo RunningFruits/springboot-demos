@@ -12,7 +12,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-@ServerEndpoint(value = "/tvSocket/{mac}", configurator = GetHttpSessionConfigurator.class)
+@ServerEndpoint(value = "/socket/{id}", configurator = GetHttpSessionConfigurator.class)
 @Component
 @Configurable
 @EnableScheduling
@@ -28,15 +28,15 @@ public class MyWebSocket {
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
 
-    private String mac;
+    private String id;
 
     /**
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(@PathParam(value = "mac") String mac, Session session, EndpointConfig config) {
+    public void onOpen(@PathParam(value = "id") String id, Session session, EndpointConfig config) {
         this.session = session;
-        this.mac = mac;
+        this.id = id;
         try {
             webSocketSet.add(this);     //加入set中
             addOnlineCount();           //在线数加1
@@ -55,7 +55,6 @@ public class MyWebSocket {
     public void onClose() {
         webSocketSet.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1
-//        //System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
 
     /**
@@ -65,7 +64,8 @@ public class MyWebSocket {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-//        //System.out.println("来自客户端的消息:" + message);
+        //System.out.println("来自客户端的消息:" + message);
+
         //群发消息
         for (MyWebSocket item : webSocketSet) {
             try {
@@ -81,14 +81,13 @@ public class MyWebSocket {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-//        //System.out.println("发生错误");
+        //System.out.println("发生错误");
 //        error.printStackTrace();
     }
 
 
     public void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
-        //this.session.getAsyncRemote().sendText(message);
     }
 
     public void sendMessage(String mac, String message) throws IOException {
@@ -99,27 +98,6 @@ public class MyWebSocket {
                 continue;
             }
         }
-    }
-
-    /**
-     * 群发自定义消息
-     */
-    public static void sendInfo(String message) throws IOException {
-        for (MyWebSocket item : webSocketSet) {
-            try {
-                item.sendMessage(message);
-            } catch (IOException e) {
-                continue;
-            }
-        }
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public static synchronized int getOnlineCount() {
-        return onlineCount;
     }
 
     public static synchronized void addOnlineCount() {

@@ -18,9 +18,9 @@ EchartsTool.prototype = (function () {
             //var defaultPieColor = ['#7b86de','#7bcbde','#ab7bde','#7bdead'];
             var pieColor = [];
             for (var op in conf['seriesData']) { //遍历传进来的seriesData
-                //var index = op % (defaultPieColor.length);
+                //var extra = op % (defaultPieColor.length);
                 legendData[op] = conf['seriesData'][op]['name'];
-                //pieColor[op] = defaultPieColor[index]; //每个pie的color，如果pie的长度超过默认颜色数组长度，则循环使用
+                //pieColor[op] = defaultPieColor[extra]; //每个pie的color，如果pie的长度超过默认颜色数组长度，则循环使用
             }
 
             var tooltipShow = true; //默认tooltip设置为显示

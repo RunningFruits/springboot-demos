@@ -20,8 +20,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.code.weixinjspay.config.Constant;
-import com.code.weixinjspay.model.AuthToken;
+import com.code.weixinjspay.constant.Constant;
 import com.code.weixinjspay.model.PaySendData;
 
 import com.thoughtworks.xstream.XStream;

@@ -21,7 +21,7 @@ public class ProducerApplication {
                         .run(args);
         //发送的消息
         Message message = MessageBuilder.withPayload("mqtt message")
-        //发送的主题
+                //发送的主题
                 .setHeader(MqttHeaders.TOPIC, "topic3").build();
         MqttMessageGateway gateway = context.getBean(MqttMessageGateway.class);
         gateway.sendMessage(message);

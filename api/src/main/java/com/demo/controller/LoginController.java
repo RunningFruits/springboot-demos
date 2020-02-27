@@ -58,7 +58,7 @@ public class LoginController {
         modelMap.addAttribute("user", userInfo);
         String str = "";
         if (userInfo != null) {
-            str = "index";
+            str = "extra";
         } else {
             str = "login";
         }

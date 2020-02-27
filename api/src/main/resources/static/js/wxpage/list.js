@@ -16,7 +16,7 @@ jQuery(function ($) {
                     ' <div class="singo">\n' +
                     '<input type="hidden" class="companyId" value="' + obj.companyId + '">' +
                     '        <div class="left">\n' +
-                    '            <div style="position: absolute;z-index: 2" >荐</div>\n' +
+                    '            <div style="position: absolute;z-extra: 2" >荐</div>\n' +
                     '            <div><img src="' + obj.photo + '"></div>\n' +
                     '        </div> ' +
                     '<div class="right">' +
@@ -56,6 +56,6 @@ jQuery(function ($) {
     var companyId;
     $("body").on("click", ".singo", function (e) {
         companyId = $(this).find(".companyId").val();
-        window.location.href = contextPath + '/wechat/wxpage/detail?companyId=' + companyId
+        window.location.href = contextPath + '/wxpage/wxpage/detail?companyId=' + companyId
     })
 });

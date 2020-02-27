@@ -6,7 +6,7 @@ import java.security.KeyStore;
 
 import javax.net.ssl.SSLContext;
 
-import com.code.weixinjspay.config.Constant;
+import com.code.weixinjspay.constant.Constant;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContexts;
 

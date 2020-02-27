@@ -18,7 +18,7 @@ document.createElement('track');
  *     var myPlayer = vjs('my_video_id');
  *
  * @param  {String|Element} id      Video element or video element ID
- * @param  {Object=} options        Optional options object for config/settings
+ * @param  {Object=} options        Optional options object for constant/settings
  * @param  {Function=} ready        Optional ready callback
  * @return {vjs.Player}             A player instance
  * @namespace
@@ -6497,10 +6497,10 @@ vjs.TextTrack.prototype.update = function(){
       // Check if time is going forwards or backwards (scrubbing/rewinding)
       // If we know the direction we can optimize the starting position and direction of the loop through the cues array.
       if (time >= this.nextChange || this.nextChange === undefined) { // NextChange should happen
-        // Forwards, so start at the index of the first active cue and loop forward
+        // Forwards, so start at the extra of the first active cue and loop forward
         i = (this.firstActiveIndex !== undefined) ? this.firstActiveIndex : 0;
       } else {
-        // Backwards, so start at the index of the last active cue and loop backward
+        // Backwards, so start at the extra of the last active cue and loop backward
         reverse = true;
         i = (this.lastActiveIndex !== undefined) ? this.lastActiveIndex : cues.length - 1;
       }

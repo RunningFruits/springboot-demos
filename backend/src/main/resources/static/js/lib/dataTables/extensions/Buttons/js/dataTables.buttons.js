@@ -87,12 +87,12 @@ layui.define("jquery", function(exports) {
 
       /**
        * Get the action of a button
-       * @param  {int|string} Button index
+       * @param  {int|string} Button extra
        * @return {function}
        */
       /**
        * Set the action of a button
-       * @param  {int|string} Button index
+       * @param  {int|string} Button extra
        * @param  {function} Function to set
        * @return {Buttons} Self for chaining
        */
@@ -110,7 +110,7 @@ layui.define("jquery", function(exports) {
 
       /**
        * Add an active class to the button to make to look active
-       * @param  {int|string} Button index
+       * @param  {int|string} Button extra
        * @param  {boolean} [flag=true] Enable / disable flag
        * @return {Buttons} Self for chaining
        */
@@ -126,7 +126,7 @@ layui.define("jquery", function(exports) {
 
       /**
        * Add a new button
-       * @param {int|string} Button index for where to insert the button
+       * @param {int|string} Button extra for where to insert the button
        * @param {object} Button configuration object, base string name or function
        * @return {Buttons} Self for chaining
        */
@@ -154,7 +154,7 @@ layui.define("jquery", function(exports) {
 
       /**
        * Disable a button
-       * @param  {int|string} Button index
+       * @param  {int|string} Button extra
        * @return {Buttons} Self for chaining
        */
       disable: function(idx) {
@@ -207,7 +207,7 @@ layui.define("jquery", function(exports) {
 
       /**
        * Enable / disable a button
-       * @param  {int|string} Button index
+       * @param  {int|string} Button extra
        * @param  {boolean} [flag=true] Enable / disable flag
        * @return {Buttons} Self for chaining
        */
@@ -232,7 +232,7 @@ layui.define("jquery", function(exports) {
 
       /**
        * Get a button's node
-       * @param  {int|string} Button index
+       * @param  {int|string} Button extra
        * @return {jQuery} Button element
        */
       node: function(idx) {
@@ -244,7 +244,7 @@ layui.define("jquery", function(exports) {
        * Tidy up any buttons that have been scheduled for removal. This is
        * required so multiple buttons can be removed without upsetting the button
        * indexes while removing them.
-       * @param  {int|string} Button index
+       * @param  {int|string} Button extra
        * @return {Buttons} Self for chaining
        */
       removeCommit: function() {
@@ -311,12 +311,12 @@ layui.define("jquery", function(exports) {
 
       /**
        * Get the text for a button
-       * @param  {int|string} Button index
+       * @param  {int|string} Button extra
        * @return {string} Button text
        */
       /**
        * Set the text for a button
-       * @param  {int|string|function} Button index
+       * @param  {int|string|function} Button extra
        * @param  {string} Text
        * @return {Buttons} Self for chaining
        */
@@ -349,7 +349,7 @@ layui.define("jquery", function(exports) {
       },
 
       /**
-       * Calculate button index from a node
+       * Calculate button extra from a node
        * @param  {node} Button node (_not_ a jQuery object)
        * @return {string} Index. Undefined if not found
        */
@@ -607,8 +607,8 @@ layui.define("jquery", function(exports) {
       },
 
       /**
-       * Get a button's host information from a button index
-       * @param  {int|string} Button index
+       * Get a button's host information from a button extra
+       * @param  {int|string} Button extra
        * @return {object} Button information - object contains `node` and `conf`
        *   properties
        * @private
@@ -701,7 +701,7 @@ layui.define("jquery", function(exports) {
 
       /**
        * Resolve a button configuration
-       * @param  {string|function|object} Button config to resolve
+       * @param  {string|function|object} Button constant to resolve
        * @return {object} Button configuration
        */
       _resolveExtends: function(conf) {
@@ -954,7 +954,7 @@ layui.define("jquery", function(exports) {
             });
           }
         } else if(typeof selector === 'number') {
-          // Main button index selector
+          // Main button extra selector
           ret.push({
             inst: inst,
             idx: selector
@@ -968,7 +968,7 @@ layui.define("jquery", function(exports) {
               run($.trim(a[i]), inst);
             }
           } else if(selector.match(/^\d+(\-\d+)?$/)) {
-            // Sub-button index selector
+            // Sub-button extra selector
             ret.push({
               inst: inst,
               idx: selector

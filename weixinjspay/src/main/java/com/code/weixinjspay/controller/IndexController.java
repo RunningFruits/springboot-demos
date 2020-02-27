@@ -1,6 +1,6 @@
 package com.code.weixinjspay.controller;
 
-import com.code.weixinjspay.config.Constant;
+import com.code.weixinjspay.constant.Constant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

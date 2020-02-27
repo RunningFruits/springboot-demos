@@ -17,7 +17,7 @@ public class UEditorController {
 
     @RequestMapping("/")
     private String showPage(){
-        return "index";
+        return "extra";
     }
 
     @RequestMapping(value="/config")

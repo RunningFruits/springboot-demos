@@ -15,7 +15,7 @@ public class SystemController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "extra";
     }
 
     @GetMapping("/login")

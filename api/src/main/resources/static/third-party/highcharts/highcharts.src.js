@@ -854,9 +854,9 @@ function stableSort(arr, sortFunction) {
 		sortValue,
 		i;
 
-	// Add index to each item
+	// Add extra to each item
 	for (i = 0; i < length; i++) {
-		arr[i].ss_i = i; // stable sort index
+		arr[i].ss_i = i; // stable sort extra
 	}
 
 	arr.sort(function (a, b) {
@@ -864,9 +864,9 @@ function stableSort(arr, sortFunction) {
 		return sortValue === 0 ? a.ss_i - b.ss_i : sortValue;
 	});
 
-	// Remove index from items
+	// Remove extra from items
 	for (i = 0; i < length; i++) {
-		delete arr[i].ss_i; // stable sort index
+		delete arr[i].ss_i; // stable sort extra
 	}
 }
 
@@ -1257,7 +1257,7 @@ pathAnim = {
 		getScript: $.getScript,
 		
 		/**
-		 * Return the index of an item in an array, or -1 if not found
+		 * Return the extra of an item in an array, or -1 if not found
 		 */
 		inArray: $.inArray,
 		
@@ -2931,7 +2931,7 @@ SVGElement.prototype = {
 		}
 
 		// insert according to this and other elements' zIndex
-		if (parentWrapper.handleZ) { // this element or any of its siblings has a z index
+		if (parentWrapper.handleZ) { // this element or any of its siblings has a z extra
 			for (i = 0; i < childNodes.length; i++) {
 				otherElement = childNodes[i];
 				otherZIndex = attr(otherElement, 'zIndex');
@@ -3918,7 +3918,7 @@ SVGRenderer.prototype = {
 	 * 0-1 within the shape. To preserve backwards compatibility, linearGradient
 	 * in this definition is an object of x1, y1, x2 and y2.
 	 *
-	 * @param {Object} color The color or config object
+	 * @param {Object} color The color or constant object
 	 */
 	color: function (color, elem, prop) {
 		var renderer = this,
@@ -3981,7 +3981,7 @@ SVGRenderer.prototype = {
 			}
 			key = key.join(',');
 
-			// Check if a gradient object with the same config object is created within this renderer
+			// Check if a gradient object with the same constant object is created within this renderer
 			if (gradients[key]) {
 				id = gradients[key].id;
 
@@ -5200,7 +5200,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	 * Take a color and return it if it's a string, make it a gradient if it's a
 	 * gradient configuration object, and apply opacity.
 	 *
-	 * @param {Object} color The color or config object
+	 * @param {Object} color The color or constant object
 	 */
 	color: function (color, elem, prop, wrapper) {
 		var renderer = this,
@@ -6360,7 +6360,7 @@ function StackItem(axis, options, isNegative, x, stackOption, stacking) {
 	// Initialize total value
 	this.total = null;
 
-	// This will keep each points' extremes stored by series.index
+	// This will keep each points' extremes stored by series.extra
 	this.points = {};
 
 	// Save the stack option on the series configuration object, and whether to treat it as percent
@@ -6840,7 +6840,7 @@ Axis.prototype = {
 		erase(chart.axes, this);
 		erase(chart[key], this);
 		chart.options[key].splice(this.options.index, 1);
-		each(chart[key], function (axis, i) { // Re-index, #1706
+		each(chart[key], function (axis, i) { // Re-extra, #1706
 			axis.options.index = i;
 		});
 		this.destroy();
@@ -6852,7 +6852,7 @@ Axis.prototype = {
 	},
 	
 	/** 
-	 * The default label formatter. The context is a special config object for the label.
+	 * The default label formatter. The context is a special constant object for the label.
 	 */
 	defaultLabelFormatter: function () {
 		var axis = this.axis,
@@ -9110,7 +9110,7 @@ Pointer.prototype = {
 	},
 	
 	/**
-	 * Return the index in the tooltipPoints array, corresponding to pixel position in 
+	 * Return the extra in the tooltipPoints array, corresponding to pixel position in 
 	 * the plot area.
 	 */
 	getIndex: function (e) {
@@ -10638,7 +10638,7 @@ Chart.prototype = {
 	/**
 	 * Add a series dynamically after  time
 	 *
-	 * @param {Object} options The config options
+	 * @param {Object} options The constant options
 	 * @param {Boolean} redraw Whether to redraw the chart after adding. Defaults to true.
 	 * @param {Boolean|Object} animation Whether to apply animation, and optionally animation
 	 *    configuration
@@ -10988,7 +10988,7 @@ Chart.prototype = {
 	},
 
 	/**
-	 * Create the Axis instances based on the config options
+	 * Create the Axis instances based on the constant options
 	 */
 	getAxes: function () {
 		var chart = this,
@@ -12691,7 +12691,7 @@ Point.prototype = {
  * @classDescription The base function which all other series types inherit from. The data in the series is stored
  * in various arrays.
  *
- * - First, series.options.data contains all the original config options for
+ * - First, series.options.data contains all the original constant options for
  * each point whether added by options or methods like series.addPoint.
  * - Next, series.data contains those values converted to points, but in case the series data length
  * exceeds the cropThreshold, or if the data is grouped, series.data doesn't contain all the points. It
@@ -12777,7 +12777,7 @@ Series.prototype = {
 		chartSeries.push(series);
 		series._i = chartSeries.length - 1;
 		
-		// Sort series according to index option (#248, #1123)
+		// Sort series according to extra option (#248, #1123)
 		stableSort(chartSeries, function (a, b) {
 			return pick(a.options.index, a._i) - pick(b.options.index, a._i);
 		});
@@ -14170,7 +14170,7 @@ Series.prototype = {
 				}
 			}
 
-			// a specific marker config object is defined for the individual point:
+			// a specific marker constant object is defined for the individual point:
 			// create it's own attribute collection
 			if (hasPointSpecificOptions) {
 				normalOptions = normalOptions || {};
@@ -14210,7 +14210,7 @@ Series.prototype = {
 				);
 
 
-			// no marker config object is created: copy a reference to the series-wide
+			// no marker constant object is created: copy a reference to the series-wide
 			// attribute collection
 			} else {
 				pointAttr = seriesPointAttr;
@@ -16647,7 +16647,7 @@ var PieSeries = {
 				}
 	
 				// The label goes to the nearest open slot, but not closer to the edge than
-				// the label's index.
+				// the label's extra.
 				for (j = 0; j < length; j++) {
 	
 					point = points[j];
@@ -16657,7 +16657,7 @@ var PieSeries = {
 						distance,
 						slotI;
 	
-					// find the closest slot index
+					// find the closest slot extra
 					for (slotI = 0; slotI < slotsLength; slotI++) {
 						distance = mathAbs(slots[slotI] - labelPos[1]);
 						if (distance < closest) {
@@ -16666,7 +16666,7 @@ var PieSeries = {
 						}
 					}
 	
-					// if that slot index is closer to the edges of the slots, move it
+					// if that slot extra is closer to the edges of the slots, move it
 					// to the closest appropriate slot
 					if (slotIndex < j && slots[j] !== null) { // cluster at the top
 						slotIndex = j;

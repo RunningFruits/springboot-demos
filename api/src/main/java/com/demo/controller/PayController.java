@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@Api(value = "/wxpay", description = "微信小程序支付")
+@Api(value = "/wxpage", description = "微信小程序支付")
 @RestController
 public class PayController {
 

@@ -1,4 +1,4 @@
 $('.arrow-left').on('click', function () {
-    window.location.href = contextPath + '/wechat/wxpage/detail';
+    window.location.href = contextPath + '/wxpage/wxpage/detail';
 });
 $('#content').html(options.content);

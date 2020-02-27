@@ -1,6 +1,6 @@
 package com.code.weixinjspay.service.impl;
 
-import com.code.weixinjspay.config.Constant;
+import com.code.weixinjspay.constant.Constant;
 import com.code.weixinjspay.model.AuthToken;
 import com.code.weixinjspay.model.PaySendData;
 import com.code.weixinjspay.service.PayService;

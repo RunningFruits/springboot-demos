@@ -23,13 +23,13 @@ public class WechatController {
     @Autowired
     IWeChatService wechatService;
 
-    @Value("${domain.url}")
+    @Value("${wechat.domain.url}")
     private String domain;
 
-    @Value("${domain.callbackUrl}")
+    @Value("${wechat.domain.callbackUrl}")
     private String callbackDomain;
 
-    @Value("${domain.oauth2Url}")
+    @Value("${wechat.domain.oauth2Url}")
     private String oauth2Url;
 
     @PostMapping("/scene/list")
@@ -52,7 +52,7 @@ public class WechatController {
         }
 
         view.addObject("domain", domain);
-        view.setViewName("wechat/scene/list");
+        view.setViewName("wxpage/list");
         return view;
     }
 
@@ -60,7 +60,7 @@ public class WechatController {
     public ModelAndView sceneDetail(HttpServletRequest request) {
         ModelAndView view = new ModelAndView();
         view.addObject("domain", domain);
-        view.setViewName("wechat/scene/detail");
+        view.setViewName("wxpage/detail");
         return view;
     }
 
@@ -68,7 +68,7 @@ public class WechatController {
     public ModelAndView sceneIntroduce(HttpServletRequest request) {
         ModelAndView view = new ModelAndView();
         view.addObject("domain", domain);
-        view.setViewName("wechat/scene/introduce");
+        view.setViewName("wxpage/introduce");
         return view;
     }
 
@@ -77,7 +77,7 @@ public class WechatController {
     public ModelAndView sceneBuyNotice(HttpServletRequest request) {
         ModelAndView view = new ModelAndView();
         view.addObject("domain", domain);
-        view.setViewName("wechat/scene/buyNotice");
+        view.setViewName("wxpage/buyNotice");
         return view;
     }
 
@@ -94,7 +94,7 @@ public class WechatController {
     public ModelAndView sceneAppoint(HttpServletRequest request) {
         ModelAndView view = new ModelAndView();
         view.addObject("domain", domain);
-        view.setViewName("wechat/scene/appoint");
+        view.setViewName("wxpage/appoint");
         return view;
     }
 
@@ -103,7 +103,7 @@ public class WechatController {
     public ModelAndView buyAgreement(HttpServletRequest request) {
         ModelAndView view = new ModelAndView();
         view.addObject("domain", domain);
-        view.setViewName("wechat/scene/buyAgreement");
+        view.setViewName("wxpage/buyAgreement");
         return view;
     }
 
