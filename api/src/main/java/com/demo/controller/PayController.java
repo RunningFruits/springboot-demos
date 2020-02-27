@@ -2,15 +2,15 @@ package com.demo.controller;
 
 
 import com.demo.constant.WxPayConstant;
-import com.demo.model.wx.PayInfo;
+import com.demo.utils.wxpay.PayInfo;
 import com.demo.utils.*;
+import com.demo.utils.wxpay.WxPayUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,7 +73,6 @@ public class PayController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return content;
     }
 
@@ -99,7 +98,6 @@ public class PayController {
                 } else {
                     return obj.get("openid").toString();
                 }
-                //return httpResult.getBody();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,9 +111,7 @@ public class PayController {
      * @param openId
      */
     private String unifiedOrder(String openId, String clientIP, String randomNonceStr) {
-
         try {
-
             String url = WxPayConstant.URL_UNIFIED_ORDER;
 
             PayInfo payInfo = createPayInfo(openId, clientIP, randomNonceStr);
@@ -159,7 +155,7 @@ public class PayController {
     private PayInfo createPayInfo(String openId, String clientIP, String randomNonceStr) {
         Date date = new Date();
         String timeStart = DateUtil.format(date, WxPayConstant.TIME_FORMAT);
-        String timeExpire = TimeUtils.getFormatTime(TimeUtils.addDay(date, WxPayConstant.TIME_EXPIRE), WxPayConstant.TIME_FORMAT);
+        String timeExpire = DateUtil.formatTime(DateUtil.addDay(date, WxPayConstant.TIME_EXPIRE), WxPayConstant.TIME_FORMAT);
 
         String randomOrderId = WxPayUtil.getRandomOrderId();
 
@@ -170,7 +166,7 @@ public class PayController {
         payInfo.setNonce_str(randomNonceStr);
         payInfo.setSign_type("MD5");  //默认即为MD5
         payInfo.setBody("JSAPI支付测试");
-        payInfo.setAttach("支付测试4luluteam");
+        payInfo.setAttach("支付测试");
         payInfo.setOut_trade_no(randomOrderId);
         payInfo.setTotal_fee(1);
         payInfo.setSpbill_create_ip(clientIP);

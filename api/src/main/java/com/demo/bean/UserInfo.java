@@ -9,10 +9,6 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author lihj
- * @create 2018-01-03 18:16
- **/
 
 @Entity(name = "userinfo")
 @Data

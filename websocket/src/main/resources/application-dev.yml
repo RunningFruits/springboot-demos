@@ -1,0 +1,6 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8083
+  servlet:
+    context-path: epidemic

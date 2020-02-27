@@ -1,0 +1,13 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #dedef8;
+}
+
+.web-login {
+    background-color: #dedef8;
+    font-size: large;
+    box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;
+}

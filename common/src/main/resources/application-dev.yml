@@ -1,0 +1,35 @@
+server:
+  context-path: epidemic
+
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/xiaoxiao
+    username: root
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+  thymeleaf:
+    cache: false
+    content-type: text/html
+    enabled: true
+    encoding: utf-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+
+
+#mqtt配置
+mqtt:
+  broker:
+    serverUri: tcp://localhost:1883
+    username: guest
+    password: guest
+  clientId: mqtt-producer

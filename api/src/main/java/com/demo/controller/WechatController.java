@@ -1,7 +1,7 @@
 package com.demo.controller;
 
 
-import com.demo.service.IWechatService;
+import com.demo.service.IWeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import java.io.IOException;
 public class WechatController {
 
     @Autowired
-    IWechatService wechatService;
+    IWeChatService wechatService;
 
     @Value("${domain.url}")
     private String domain;

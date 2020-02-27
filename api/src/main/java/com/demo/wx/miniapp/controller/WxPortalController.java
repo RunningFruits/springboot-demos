@@ -59,7 +59,7 @@ public class WxPortalController {
         }
     }
 
-    @PostMapping(produces = "application/xml; charset=UTF-8")
+    @PostMapping(produces = "application/excel; charset=UTF-8")
     public String post(@PathVariable String appid,
                        @RequestBody String requestBody,
                        @RequestParam("msg_signature") String msgSignature,
@@ -80,7 +80,7 @@ public class WxPortalController {
             WxMaMessage inMessage;
             if (isJson) {
                 inMessage = WxMaMessage.fromJson(requestBody);
-            } else {//xml
+            } else {//excel
                 inMessage = WxMaMessage.fromXml(requestBody);
             }
 
@@ -93,7 +93,7 @@ public class WxPortalController {
             WxMaMessage inMessage;
             if (isJson) {
                 inMessage = WxMaMessage.fromEncryptedJson(requestBody, wxService.getWxMaConfig());
-            } else {//xml
+            } else {//excel
                 inMessage = WxMaMessage.fromEncryptedXml(requestBody, wxService.getWxMaConfig(),
                     timestamp, nonce, msgSignature);
             }

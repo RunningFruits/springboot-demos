@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>购买协议</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+
+    <link rel="stylesheet" th:href="@{/static/wechat/css/weui.min.css}">
+    <link rel="stylesheet" th:href="@{/static/wechat/css/jquery-weui.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/wxpage/buyAgreement.css}">
+    <link rel="stylesheet" th:href="@{/static/css/wxpage/navBar.css}">
+
+</head>
+
+<body>
+<div class="nav-bar">
+    <div class="arrow-left"></div>
+    <div class="nav-bar-title">购买协议</div>
+</div>
+
+
+<div id="container">
+    <div class="title">
+        景区购买协议条款
+    </div>
+    <div class="content" id="content">
+    </div>
+</div>
+
+</body>
+
+<script th:inline="javascript">
+    //全局项目路径,不需要重新定义
+    var contextPath = [[${#request.getContextPath()}]];
+    var options = [[${#request.getAttribute('options')}]];
+</script>
+<!-- 微信h5支付 -->
+<script th:src="@{/static/wechat/js/jweixin-1.0.0.js}"></script>
+
+<!-- body 最后 -->
+<script th:src="@{/static/wechat/js/jquery-1.11.0.min.js}"></script>
+<script th:src="@{/static/wechat/js/jquery-weui.min.js}"></script>
+
+<!-- 如果使用了某些拓展插件还需要额外的JS -->
+<script th:src="@{/static/wechat/js/swiper.min.js}"></script>
+<script th:src="@{/static/wechat/js/city-picker.min.js}"></script>
+
+<script th:src="@{/static/js/wxpage/buyAgreement.js}"></script>
+
+</html>
