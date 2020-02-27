@@ -11,7 +11,8 @@
         <module>api</module>
         <module>backend</module>
         <module>websocket</module>
-        <module>weixinjspay</module>
+        <module>wxjspay</module>
+        <module>wxminiapp</module>
         <module>mqtt.customer</module>
         <module>mqtt.producer</module>
     </modules>
