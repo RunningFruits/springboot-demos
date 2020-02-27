@@ -1,4 +1,4 @@
-package com.demo.sms;
+package com.demo.utils.sms;
 
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.DefaultAcsClient;
@@ -8,9 +8,6 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.demo.utils.sms.SmsSendRequest;
-import com.demo.utils.sms.SmsSendResponse;
-import com.demo.utils.sms.SmsUtil;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;

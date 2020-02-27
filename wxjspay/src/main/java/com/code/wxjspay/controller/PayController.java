@@ -1,10 +1,10 @@
-package com.demo.controller;
+package com.code.wxjspay.controller;
 
 
-import com.demo.constant.WxPayConstant;
-import com.demo.utils.wxpay.PayInfo;
+import com.code.wxjspay.constant.WxPayConstant;
+import com.code.wxjspay.utils.wxpay.PayInfo;
+import com.code.wxjspay.utils.wxpay.WxPayUtil;
 import com.demo.utils.*;
-import com.demo.utils.wxpay.WxPayUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

@@ -90,7 +90,7 @@ public class ExcelWaterRemarkUtils {
     public static final String inFilePath = "G:\\MyFiles\\test.xlsx";
     public static final String saveFilePath = "G:\\MyFiles\\watermark.xlsx";
 
-    public static void main(String[] args) throws IOException {
+    public static void testmain(String[] args) throws IOException {
         //读取excel文件
         Workbook wb = new XSSFWorkbook(new FileInputStream(inFilePath));
         //设置水印图片路径

@@ -1,4 +1,4 @@
-package com.demo.sms;
+package com.demo.utils.sms;
 
 public class ErrorCode {
 

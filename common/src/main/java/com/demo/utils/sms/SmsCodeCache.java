@@ -1,4 +1,4 @@
-package com.demo.sms;
+package com.demo.utils.sms;
 
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;

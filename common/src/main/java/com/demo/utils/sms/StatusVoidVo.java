@@ -1,4 +1,4 @@
-package com.demo.sms;
+package com.demo.utils.sms;
 
 
 import com.google.gson.Gson;

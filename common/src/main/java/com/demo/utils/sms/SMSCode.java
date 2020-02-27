@@ -1,4 +1,4 @@
-package com.demo.sms;
+package com.demo.utils.sms;
 
 import java.io.Serializable;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package com.demo.constant;
+package com.code.wxjspay.constant;
 
 public class WxPayConstant {
     public static final String DOMAIN = "";
