@@ -2,7 +2,7 @@ server:
   tomcat:
     uri-encoding: UTF-8
   port: 8082
-  context-path: epidemic
+  context-path: /epidemic
 
 spring:
   datasource:
@@ -12,11 +12,11 @@ spring:
     username: root
     password: 123456
 
-  devtools:
-    restart:
-      additional-paths: src/main/java
-      enabled: true
-      exclude: webapp/**
+#  devtools:
+#    restart:
+#      additional-paths: src/main/java
+#      enabled: true
+#      exclude: webapp/**
 
   jackson:
     serialization:

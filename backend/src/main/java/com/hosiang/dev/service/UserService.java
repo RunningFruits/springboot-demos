@@ -2,7 +2,7 @@ package com.hosiang.dev.service;
 
 import java.util.List;
 
-import com.hosiang.dev.bean.UserBean;
+import com.hosiang.dev.bean.UserInfo;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,13 +13,13 @@ public interface UserService {
 	 * 
 	 * @return
 	 */
-    List<UserBean> findAll();
+    List<UserInfo> findAll();
 
 	/**
 	 * 持久化
 	 * 
-	 * @param userBean
+	 * @param userInfo
 	 * @return
 	 */
-    void save(UserBean userBean) throws Exception;
+    void save(UserInfo userInfo) throws Exception;
 }

@@ -72,9 +72,7 @@ public final class ConfigManager {
     }
 
     public JSONObject getAllConfig() {
-
         return this.jsonConfig;
-
     }
 
     public Map<String, Object> getConfig(int type) {

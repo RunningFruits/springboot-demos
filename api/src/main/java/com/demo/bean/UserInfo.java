@@ -17,8 +17,7 @@ public class UserInfo implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    private String openId;
-    private String name;
+    private String username;
     private String password;
     private String headIcon;
     private String gender;

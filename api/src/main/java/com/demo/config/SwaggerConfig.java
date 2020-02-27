@@ -59,7 +59,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
 
     @Bean
     public Docket apiDocket() {
-        // log.info("Starting Swagger");
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(swagger_is_enable)
                 .groupName("api")

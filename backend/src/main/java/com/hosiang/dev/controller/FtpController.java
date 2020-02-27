@@ -14,13 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/ftp")
-//@Slf4j(topic = "请求ftp服务器")
+@Slf4j(topic = "请求ftp服务器")
 public class FtpController {
 
     @Autowired
     FtpConfig ftpConfig;
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/upload")
     public String upload() {

@@ -3,7 +3,7 @@ server:
     uri-encoding: UTF-8
   port: 8084
   servlet:
-    context-path: epidemic
+    context-path: /epidemic
 
 spring:
   mvc:

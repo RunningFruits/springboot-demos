@@ -25,6 +25,7 @@ public class ApiBoot extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(ApiBoot.class);
 	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(ApiBoot.class, args);
 	}

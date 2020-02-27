@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-/*@RequestMapping("/libra/product")*/
 @RequestMapping("/product")
 public class ProductController {
 
-	@GetMapping("/productlist")
+	@GetMapping("/list")
 	public String productList() {
 		return "product/productList";
 	}

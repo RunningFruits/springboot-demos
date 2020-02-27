@@ -3,7 +3,7 @@ server:
   tomcat:
     uri-encoding: UTF-8
   port: 8081
-  context-path: epidemic
+  context-path: /epidemic
 
 spring:
   datasource:
@@ -37,3 +37,23 @@ mqtt:
     username: guest
     password: guest
   clientId: mqtt-producer
+
+# 配置ftp服务器信息
+ftp:
+  # ftp服务器的IP地址
+  url: 172.17.0.2
+  # 默认端口是21
+  port: 21
+  username: test
+  password: test
+  # ftp服务器存放文件的路径
+  remotePath: /home/vsftpd/test
+  # 本地需要上传的文件的路径
+  localDir: G:/MyFiles/test
+  # ftp上文件下载到本地存放的路径
+  downDir: G:/MyFiles/test
+
+
+swagger:
+  is:
+    enable: true

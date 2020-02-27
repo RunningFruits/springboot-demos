@@ -9,14 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @author lihj
- * @create 2018-01-03 18:24
- **/
-
 
 @Controller
-@RequestMapping("/api/*")
+@RequestMapping("/api")
 public class LoginController {
 
     @Autowired
@@ -45,7 +40,7 @@ public class LoginController {
 
         if (password.equals(password2)) {
             UserInfo user = new UserInfo();
-            user.setName(userName);
+            user.setUsername(userName);
             user.setPassword(password);
             userInfoDao.save(user);
             return "index";

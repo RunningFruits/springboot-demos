@@ -53,7 +53,7 @@ public class MinigramLoginController {
         } else {
             UserInfo insert_user = new UserInfo();
             insert_user.setHeadIcon(userHead);
-            insert_user.setName(userName);
+            insert_user.setUsername(userName);
             insert_user.setGender(userGender);
             insert_user.setLastLogin(new Date());
             insert_user.setCity(userCity);

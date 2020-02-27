@@ -1,6 +1,6 @@
 package com.hosiang.dev.repos;
 
-import com.hosiang.dev.bean.UserBean;
+import com.hosiang.dev.bean.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Howe Hsiang
  *
  */
-public interface UserRepository extends JpaRepository<UserBean, String> {
+public interface UserRepository extends JpaRepository<UserInfo, String> {
 
 }

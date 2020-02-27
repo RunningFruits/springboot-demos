@@ -8,16 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Blog：http://www.hosiang.cn
  *
  * @author Howe Hsiang
- *
  */
 @Controller
-/*@RequestMapping("/libra/report")*/
 @RequestMapping("/report")
 public class ReportController {
 
-	@GetMapping("/reportlist")
-	public String productList() {
-		return "report/reportList";
-	}
+    @GetMapping("/list")
+    public String productList() {
+        return "report/reportList";
+    }
 
 }

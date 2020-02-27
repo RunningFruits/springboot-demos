@@ -6,12 +6,7 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
-/**
- * Blog：http://www.hosiang.cn
- *
- * @author Howe Hsiang
- *
- */
+
 @Entity
 @Table(name = "t_order")
 public class Order {

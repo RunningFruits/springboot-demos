@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet"/>
+    <link th:href="@{/usermanager.css}"/>
+
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+            background-color: #dedef8;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-default"
+         style="margin-top: 300px; margin-left:300px;width: 500px;  background-color: #dedef8;">
+        <form name="bs-example bs-example-form" accept-charset="UTF-8" action="/front/addRegister" method="post">
+                <div  class="input-group input-group-lg">
+                    <label for="userName" class="input-group-addon">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</label>
+                    <input type="text" id="userName" name="userName" maxlength="16" class="form-control"/>
+                </div>
+                <div  class="input-group input-group-lg" style="margin-top: 10px">
+                    <label for="password" class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+                    <input type="password" id="password" name="password" maxlength="16"  class="form-control"/>
+                </div>
+                <div class="input-group input-group-lg" style="margin-top: 10px">
+                    <label for="password2" class="input-group-addon">确认密码&nbsp;:</label>
+                    <input type="password" id="password2" name="password2" maxlength="16"  class="form-control" />
+                </div>
+                <div class="input-group input-group-lg" style="margin-top: 10px">
+                    <input type="submit" id="reg" style="margin-top: 10px;margin-left: 85px;" class="btn btn-primary" value="同意协议并注册"/>
+                    <a href="#" class="zcxy" target="_blank">注册协议</a>
+                </div>
+                <div class="cl"></div>
+        </form>
+    </div>
+
+</div>
+<div>
+    <footer class="site-footer page-footer"></footer>
+</div>
+</body>
+</html>
