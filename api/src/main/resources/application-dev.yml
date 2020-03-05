@@ -1,16 +1,16 @@
-
 server:
   tomcat:
     uri-encoding: UTF-8
   port: 8081
-  context-path: /epidemic
+  servlet:
+    context-path: /epidemic
 
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    password: 123456
     url: jdbc:mysql://127.0.0.1:3306/xiaoxiao
     username: root
+    password: 123456
   jpa:
     database: MYSQL
     hibernate:
@@ -22,12 +22,17 @@ spring:
     show-sql: true
   thymeleaf:
     cache: false
-    content-type: text/html
     enabled: true
     encoding: utf-8
     mode: HTML5
     prefix: classpath:/templates/
     suffix: .html
+    servlet:
+      content-type: text/html
+
+  #jms
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
 
 
 #mqtt配置
@@ -57,3 +62,5 @@ ftp:
 swagger:
   is:
     enable: true
+
+

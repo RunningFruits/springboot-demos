@@ -1,6 +1,6 @@
 package com.hosiang.dev.controller;
 
-import com.hosiang.dev.bean.UserInfo;
+import com.hosiang.dev.bean.User;
 import com.hosiang.dev.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,14 +45,14 @@ public class UserController {
 	/**
 	 * 持久化
 	 * 
-	 * @param userInfo
+	 * @param user
 	 * @return
 	 */
 	@PostMapping("/save")
-	public @ResponseBody Map<String, Object> save(@RequestBody UserInfo userInfo) {
+	public @ResponseBody Map<String, Object> save(@RequestBody User user) {
 		Map<String, Object> result = new HashMap<>();
 		try {
-			userService.save(userInfo);
+			userService.save(user);
 			result.put("success", true);
 		} catch (Exception e) {
 			result.put("success", false);

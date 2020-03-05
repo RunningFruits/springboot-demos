@@ -1,7 +1,7 @@
 package com.hosiang.dev.service.impl;
 
 import com.hosiang.dev.bean.Order;
-import com.hosiang.dev.repos.OrderRepository;
+import com.hosiang.dev.dao.OrderRepository;
 import com.hosiang.dev.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

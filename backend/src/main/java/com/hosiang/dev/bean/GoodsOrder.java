@@ -7,12 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Blog：http://www.hosiang.cn
- * 订单信息表
- *
- * @author Howe Hsiang
- */
+
 @Entity
 @Table(name = "goods_order")
 public class GoodsOrder {
