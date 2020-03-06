@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.huajie</groupId>
     <artifactId>boot-jpa-base</artifactId>
@@ -10,11 +11,12 @@
         <module>common</module>
         <module>api</module>
         <module>backend</module>
-        <module>websocket</module>
         <module>wxjspay</module>
         <module>wxminiapp</module>
         <module>mqtt.customer</module>
         <module>mqtt.producer</module>
+        <module>websocket</module>
+        <module>officialWebsite</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
