@@ -3,11 +3,11 @@ server:
     uri-encoding: UTF-8
   port: 8082
   servlet:
-    context-path: /epidemic/web
+    context-path: /web
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/xiaoxiao?serverTimezone=UTC&useUnicode=true&charaterEncoding=utf-8&useSSL=false
     username: root
     password: 123456

@@ -1,10 +1,11 @@
 spring:
   mqtt:
+    client:
+      id: mqttId
     completionTimeout: 10000
     default:
       topic: topic
     password: admin
-    service:
-      id: serverId
+    qos: 1
     url: tcp://47.98.119.123:1883
     username: admin
