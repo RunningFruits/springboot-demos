@@ -1,17 +1,7 @@
-/**
- * Copyright (C), 2018-2018
- * FileName: SendController
- * Author:   LoadHao
- * Date:     2018/12/13 14:35
- * Description:
- * History:
- * <author>          <time>          <version>          <desc>
- * 作者姓名           修改时间           版本号              描述
- */
-
 package indi.zqc.mqtt.producer.mqtt.controller;
 
-import com.iwhalecloud.mqtt.instance.server.mqtt.MqttGateway;
+import indi.zqc.mqtt.producer.mqtt.MqttGateway;
+import indi.zqc.mqtt.producer.mqtt.model.DeviceCmd;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,26 +10,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-/**
- * 功能描述: <br>
- * 〈测试接口〉
- *
- * @author LoadHao
- * @create 2018/12/13
- * @since 1.0.0
- */
+
 @Slf4j
 @RestController
-@RequestMapping(value = "/send")
+@RequestMapping(value = "/device")
 public class SendController {
     @Resource
     private MqttGateway mqttGateway;
 
-    @RequestMapping(value = "/data", method = RequestMethod.GET)
-    public String send(@RequestParam String sendData) {
-        this.mqttGateway.sendToMqtt(sendData);
-        log.info("Message send success! The message is " + sendData + ".");
-        return "Message send success! The message is " + sendData + ".";
+    @RequestMapping(value = "/buzzer", method = RequestMethod.GET)
+    public String buzzer(@RequestParam String sendData) {
+        return sendCmdByDevice("buzzer", sendData);
+    }
+
+    @RequestMapping(value = "/led", method = RequestMethod.GET)
+    public String led(@RequestParam String sendData) {
+        return sendCmdByDevice("led", sendData);
+    }
+
+    @RequestMapping(value = "/gps", method = RequestMethod.GET)
+    public String gps(@RequestParam String sendData) {
+        return sendCmdByDevice("gps", sendData);
+    }
+
+    @RequestMapping(value = "/adcChannel", method = RequestMethod.GET)
+    public String adcChannel(@RequestParam String sendData) {
+        return sendCmdByDevice("adcChannel", sendData);
+    }
+
+    private String sendCmdByDevice(String device, String sendData) {
+        String deviceCmd = new DeviceCmd(device, sendData).toString();
+        this.mqttGateway.sendToMqtt(deviceCmd);
+        log.info("deviceCmd {}", deviceCmd);
+        return deviceCmd;
     }
 
 }
