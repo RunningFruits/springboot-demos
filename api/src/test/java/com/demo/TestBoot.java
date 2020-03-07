@@ -23,7 +23,7 @@ public class TestBoot {
     @Autowired
     SmsUtils smsUtils;
 
-    @Test
+//    @Test
     public void smsTest() throws ClientException, InterruptedException {
         Map<String, String> map = new HashMap<>();
 

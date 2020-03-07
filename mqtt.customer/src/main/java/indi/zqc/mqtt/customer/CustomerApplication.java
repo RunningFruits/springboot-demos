@@ -10,7 +10,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class CustomerApplication {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(CustomerApplication.class).web(false).run(args);
+        new SpringApplicationBuilder(CustomerApplication.class).run(args);
     }
 
 }
