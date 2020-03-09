@@ -135,25 +135,25 @@
             <version>4.1-1.4.4</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>org.bytedeco</groupId>-->
-            <!--<artifactId>javacv</artifactId>-->
-            <!--<version>1.4.4</version>-->
+        <!--<groupId>org.bytedeco</groupId>-->
+        <!--<artifactId>javacv</artifactId>-->
+        <!--<version>1.4.4</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.bytedeco.javacpp-presets</groupId>-->
-            <!--<artifactId>ffmpeg-platform</artifactId>-->
-            <!--<version>4.1-1.4.4</version>-->
+        <!--<groupId>org.bytedeco.javacpp-presets</groupId>-->
+        <!--<artifactId>ffmpeg-platform</artifactId>-->
+        <!--<version>4.1-1.4.4</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacv-platform</artifactId>
-            <version>1.4.4</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.bytedeco</groupId>-->
+        <!--<artifactId>javacv-platform</artifactId>-->
+        <!--<version>1.4.4</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.bytedeco.javacpp-presets</groupId>
             <artifactId>opencv-platform</artifactId>
@@ -171,40 +171,21 @@
     </dependencies>
 
 
-    <!--<build>-->
-    <!--<plugins>-->
-    <!--<plugin>-->
-    <!--<groupId>org.springframework.boot</groupId>-->
-    <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-    <!--</plugin>-->
-    <!--<plugin>-->
-    <!--<groupId>org.apache.maven.plugins</groupId>-->
-    <!--<artifactId>maven-war-plugin</artifactId>-->
-    <!--<configuration>-->
-    <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
-    <!--</configuration>-->
-    <!--</plugin>-->
-    <!--</plugins>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-    <!--<resources>-->
-    <!--&lt;!&ndash; 打包时将jsp文件拷贝到META-INF目录下&ndash;&gt;-->
-    <!--<resource>-->
-    <!--&lt;!&ndash; 指定resources插件处理哪个目录下的资源文件 &ndash;&gt;-->
-    <!--<directory>src/main/webapp</directory>-->
-    <!--&lt;!&ndash;注意此次必须要放在此目录下才能被访问到&ndash;&gt;-->
-    <!--<targetPath>META-INF/resources</targetPath>-->
-    <!--<includes>-->
-    <!--<include>**/**</include>-->
-    <!--</includes>-->
-    <!--</resource>-->
-    <!--<resource>-->
-    <!--<directory>src/main/resources</directory>-->
-    <!--<includes>-->
-    <!--<include>**/**</include>-->
-    <!--</includes>-->
-    <!--<filtering>false</filtering>-->
-    <!--</resource>-->
-    <!--</resources>-->
-    <!--</build>-->
 
 </project>
