@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haiyu.manager.dao.UserAnswerMapper">
+    <resultMap id="BaseResultMap" type="com.haiyu.manager.pojo.UserAnswer">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="parent_name" jdbcType="VARCHAR" property="parentName"/>
+        <result column="score" jdbcType="VARCHAR" property="score"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    </resultMap>
+
+    <sql id="baseColumn">
+      id,openid,parent_name as parentName,score,create_time as createTime
+    </sql>
+
+
+    <select id="getList" resultType="com.haiyu.manager.dto.UserAnswerDTO">
+        SELECT
+        A.id,
+        A.openid,
+        A.parent_name as parentName,
+        A.score,
+        A.create_time as createTime,
+        B.parent_phone as parentPhone,
+        B.child_name as childName
+        FROM user_answer A
+        LEFT JOIN user_info B on A.openid = B.openid
+    </select>
+
+</mapper>
