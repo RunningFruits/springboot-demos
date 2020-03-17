@@ -1,55 +1,63 @@
 server:
-  tomcat:
-    uri-encoding: UTF-8
-  port: 8082
-  servlet:
-    context-path: /
-
+  port: 10096
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/basejpa?serverTimezone=UTC&useUnicode=true&charaterEncoding=utf-8&useSSL=false
+    profiles:
+      active: ${HUANZI_PROFILE:dev}
+    application:
+      name: springboot-security
+    thymeleaf:
+      prefix: classpath:/view/
+      cache: false
+    mvc:
+      date-format: yyyy-MM-dd HH:mm:ss #mvc接收参数时对日期进行格式化
+    jackson:
+      date-format: yyyy-MM-dd HH:mm:ss #jackson对响应回去的日期参数进行格式化
+      time-zone: GMT+8
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+    resources:
+      static-locations: classpath:/static
+
+---
+spring:
+  profiles: dev
+
+  datasource: #数据库相关
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&characterEncoding=utf-8
     username: root
     password: 123456
-#    password: helloWorld
+    driver-class-name: com.mysql.cj.jdbc.Driver
+captcha:
+  enable: true
+---
 
 
-  jackson:
-    serialization:
-      indent_output: false
+# 分布式文件系统fastdfs配置
+fdfs:
+  # socket连接超时时长
+  soTimeout: 1500
+  # 连接tracker服务器超时时长
+  connectTimeout: 600
+  pool:
+    # 从池中借出的对象的最大数目
+    max-total: 153
+    # 获取连接时的最大等待毫秒数100
+    max-wait-millis: 102
+  # 缩略图生成参数，可选
+  thumbImage:
+    width: 150
+    height: 150
+  # 跟踪服务器tracker_server请求地址,支持多个，这里只有一个，如果有多个在下方加- x.x.x.x:port
+  trackerList:
+    - 192.168.99.103:22122
+  #
+  # 存储服务器storage_server访问地址
+  web-server-url: http://192.168.99.103:10080/
+  spring:
+    http:
+      multipart:
+        max-file-size: 100MB # 最大支持文件大小
+        max-request-size: 100MB # 最大支持请求大小
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-    show-sql: true
-    properties:
-      hibernate:
-        show_sql: true
-        hbm2ddl:
-          auto: update
-          new_generator_mappings: false
-          format_sql: true
-          ddl_auto: update
-          show_sql: true
-        dialect: com.haiyu.manager.config.MysqlConfig  #配置类全路径
-        database-platform: com.haiyu.manager.config.MysqlConfig #类的全类名
-
-mybatis:
-  mapper-locations: classpath:mapper/*Mapper.xml
-
-
-# 配置ftp服务器信息
-ftp:
-  # ftp服务器的IP地址
-  url: 172.17.0.2
-  # 默认端口是21
-  port: 21
-  username: test
-  password: test
-  # ftp服务器存放文件的路径
-  remotePath: /home/vsftpd/test
-  # 本地需要上传的文件的路径
-  localDir: /home/vsftpd/test
-  # ftp上文件下载到本地存放的路径
-  downDir: /home/vsftpd/test
