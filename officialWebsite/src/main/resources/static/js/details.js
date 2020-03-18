@@ -25,9 +25,9 @@ layui.use(['form','layer','jquery','laypage'],function(){
                             imgOption += '<p> <img src='+ option[k] +'></p>';
                         }else {
                             imgOption += '<p> ' +
-                                '<video class="video-player" preload="auto" autoplay="autoplay" loop="loop" width="1100"> ' +
+                                '<admin class="admin-player" preload="auto" autoplay="autoplay" loop="loop" width="1100"> ' +
                                 '<source src='+ option[k] +'>' +
-                                '</video></p>';
+                                '</admin></p>';
                         }
                     }
                 }

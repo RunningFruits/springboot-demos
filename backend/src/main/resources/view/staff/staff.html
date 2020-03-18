@@ -1,0 +1,44 @@
+<html>
+<head>
+
+    <title></title>
+    <link rel="stylesheet" href="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/css/layui.css">
+    <script type="javascript" src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
+</head>
+
+<table class="layui-hide" id="dataTable"></table>
+
+<script>
+    layui.use('table', function () {
+        var $ = layui.$;
+        var table = layui.table, form = layui.form;
+        table.render({
+            elem: '#dataTable',
+            url: '/staff/list',
+            cellMinWidth: 80,
+            cols: [
+                [{
+                    checkbox: true,
+                    fixed: true
+                }, {
+                    field: 'staffId',
+                    title: '员工编号'
+                }, {
+                    field: 'staffName',
+                    title: '员工姓名'
+                }, {
+                    field: 'staffAge',
+                    title: '员工年龄'
+                }, {
+                    field: 'staffCardId',
+                    title: '身份证'
+                }]
+            ],
+            id: 'reloadId',
+            page: true
+        });
+
+    })
+</script>
+
+</html>

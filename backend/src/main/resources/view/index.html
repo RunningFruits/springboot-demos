@@ -90,7 +90,8 @@
         © XXX系统
     </div>
 </div>
-<script th:src="@{/js/jquery.js}"></script>
+
+<script th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/layui/layui.js}"></script>
 <script>
     layui.use('element', function () {
@@ -103,7 +104,7 @@
 
             //如果不存在
             if ($(".layui-tab-title").find("li[lay-id='" + id + "']").length <= 0) {
-                let height = document.documentElement.clientHeight - 160 + "px";
+                var height = document.documentElement.clientHeight - 160 + "px";
                 element.tabAdd('layFilterTab', {
                     title: text,
                     content: "<iframe onload='$(this)[0].height = document.documentElement.clientHeight-160' width='100%' height='" + height + "' frameborder='0' scrolling='auto' src=\"" + url + "\"></iframe>",

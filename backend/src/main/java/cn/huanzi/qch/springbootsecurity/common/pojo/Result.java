@@ -3,17 +3,13 @@ package cn.huanzi.qch.springbootsecurity.common.pojo;
 import lombok.Data;
 
 import java.io.Serializable;
-
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.Serializable;
 
 /**
  * 统一返回对象
  */
-
 @Data
 public class Result<T> implements Serializable {
 

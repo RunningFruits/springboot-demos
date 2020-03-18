@@ -137,6 +137,6 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, '104514555@qq.com', 1, '2018-08-29 21:09:37');
+INSERT INTO `user` VALUES (1, 'videoPlay', 'e10adc3949ba59abbe56e057f20f883e', 1, '104514555@qq.com', 1, '2018-08-29 21:09:37');
 
 SET FOREIGN_KEY_CHECKS = 1;

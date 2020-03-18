@@ -194,7 +194,7 @@ public class CodeDOM {
      * 创建controller类
      */
     private void createController(List<TableInfo> tableInfos) {
-        File file = FileUtil.createFile(basePath + "controller\\" + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + "Controller.java");
+        File file = FileUtil.createFile(basePath + "controller\\" + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + "StaffController.java");
         StringBuffer stringBuffer = new StringBuffer();
         String t = "String";
         //遍历属性
@@ -216,7 +216,7 @@ public class CodeDOM {
                         "\n" +
                         "@RestController\n" +
                         "@RequestMapping(\"/" + StringUtil.camelCaseName(tableName) + "/\")\n" +
-                        "public class " + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + "Controller extends CommonController<" + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + "Vo, " + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + ", " + t + "> {"
+                        "public class " + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + "StaffController extends CommonController<" + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + "Vo, " + StringUtil.captureName(StringUtil.camelCaseName(tableName)) + ", " + t + "> {"
         );
         stringBuffer.append("\n");
         stringBuffer.append("" +

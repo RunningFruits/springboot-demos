@@ -17,7 +17,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 public class ViewResolverConfiguration {
-    @Configuration//用来定义 DispatcherServlet 应用上下文中的 bean
+    @Configuration//用来定义 DispatcherServlet 应用上下文中的 entity
     @EnableWebMvc
     @ComponentScan("com.code.wxjspay.controller")
     public class WebConfig extends WebMvcConfigurerAdapter {

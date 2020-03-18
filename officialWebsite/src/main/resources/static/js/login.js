@@ -12,7 +12,7 @@ layui.config({
 			$(".audio-player").css({"width":$(window).width(),"height":"auto","left":-($(".audio-player").width()-$(window).width())/2});
 		}
 	}).resize();
-	
+
 	//登录按钮事件
 	form.on("submit(login)",function(data){
         var user = JSON.stringify(data.field);
@@ -26,7 +26,7 @@ layui.config({
             success:function(result){
                 layer.msg(result.msg,{icon:4});
                 if (result.code == 0){
-                    window.location.href = "/admin/index";
+                    window.location.href = "/videoPlay/index";
 				}
             }
         });

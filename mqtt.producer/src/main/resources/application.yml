@@ -3,8 +3,8 @@ spring:
     completionTimeout: 10000
     default:
       topic: topic
-    password: admin
+    password: videoPlay
     service:
       id: serverId
     url: tcp://47.98.119.123:1883
-    username: admin
+    username: videoPlay

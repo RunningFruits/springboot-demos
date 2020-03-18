@@ -1,7 +1,7 @@
 package com.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.demo.bean.UserInfo;
+import com.demo.entity.UserInfo;
 import com.demo.constant.UserConstant;
 import com.demo.model.JsonResult;
 import com.demo.model.ResultCode;

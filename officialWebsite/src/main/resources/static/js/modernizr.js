@@ -710,14 +710,14 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
 
-    // These tests evaluate support of the video/audio elements, as well as
+    // These tests evaluate support of the admin/audio elements, as well as
     // testing what types of content they support.
     //
     // We're using the Boolean constructor here, so that we can extend the value
-    // e.g.  Modernizr.video     // true
-    //       Modernizr.video.ogg // 'probably'
+    // e.g.  Modernizr.admin     // true
+    //       Modernizr.admin.ogg // 'probably'
     //
-    // Codec values from : github.com/NielsLeenheer/html5test/blob/9106a8/admin.ftl#L845
+    // Codec values from : github.com/NielsLeenheer/html5test/blob/9106a8/videoPlay.ftl#L845
     //                     thx to NielsLeenheer and zcorpan
 
     // Note: in some older browsers, "no" was a return value instead of empty string.
@@ -732,12 +732,12 @@ window.Modernizr = (function( window, document, undefined ) {
         try {
             if ( bool = !!elem.canPlayType ) {
                 bool      = new Boolean(bool);
-                bool.ogg  = elem.canPlayType('video/ogg; codecs="theora"')      .replace(/^no$/,'');
+                bool.ogg  = elem.canPlayType('admin/ogg; codecs="theora"')      .replace(/^no$/,'');
 
                 // Without QuickTime, this value will be `undefined`. github.com/Modernizr/Modernizr/issues/546
-                bool.h264 = elem.canPlayType('video/mp4; codecs="avc1.42E01E"') .replace(/^no$/,'');
+                bool.h264 = elem.canPlayType('admin/mp4; codecs="avc1.42E01E"') .replace(/^no$/,'');
 
-                bool.webm = elem.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/,'');
+                bool.webm = elem.canPlayType('admin/webm; codecs="vp8, vorbis"').replace(/^no$/,'');
             }
 
         } catch(e) { }
@@ -1250,7 +1250,7 @@ window.Modernizr = (function( window, document, undefined ) {
            * @memberOf html5
            * @type Array|String
            */
-          'elements': options.elements || 'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video',
+          'elements': options.elements || 'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time admin',
 
           /**
            * current version of html5shiv

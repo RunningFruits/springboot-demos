@@ -3,7 +3,7 @@ var form;
 
 $(function () {
 
-    layui.use('table', function () {
+    layui.use(['table'], function () {
         var table = layui.table;
         form = layui.form;
 
@@ -20,33 +20,22 @@ $(function () {
             response: {
                 statusName: 'code', //数据状态的字段名称，默认：code
                 statusCode: 200, //成功的状态码，默认：0
-                countName: 'totals', //数据总数的字段名称，默认：count
-                dataName: 'list' //数据列表的字段名称，默认：data
+                countName: 'count', //数据总数的字段名称，默认：count
+                dataName: 'rows' //数据列表的字段名称，默认：data
             },
             cols: [[
-                {type: 'numbers'}
-                , {field: 'id', hide: true}
-                , {field: 'openid', title: 'openid', align: 'center'}
-                , {field: 'parentName', title: '家长名称', align: 'center'}
-                , {field: 'parentPhone', title: '家长手机', align: 'center'}
-                , {field: 'childName', title: '孩子名称', align: 'center'}
-                , {field: 'score', title: '分数', align: 'center'}
-                , {
-                    field: 'createTime',
-                    title: '创建时间',
-                    templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy年MM月dd日 HH:mm:ss')}}</div>",
-                    align: 'center'
-                }
+                 {field: 'id', hide: true}
+                , {field: 'userId', title: 'userId', align: 'center'}
+                , {field: 'userName', title: '用户名', align: 'center'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#optBar'}
             ]],
             done: function (res, curr, count) {
-                $("[data-field='roleStatus']").children().each(function () {
-                    if ($(this).text() == '1') {
-                        $(this).text("有效")
-                    } else if ($(this).text() == '0') {
-                        $(this).text("失效")
-                    }
-                });
+                console.log("====== res ========");
+                console.log(res);
+
+                console.log("====== curr ========");
+                console.log(curr);
+
                 pageCurr = curr;
             }
         });
@@ -62,6 +51,7 @@ $(function () {
         });
 
         form.on('submit(exportExcel)', function (data) {
+
             var loading = layer.load(1, {shade: [0.3, '#fff']});
             var $ = layui.jquery;
             var excel = layui.excel;
@@ -72,12 +62,9 @@ $(function () {
                     field: JSON.stringify(data.field)
                 },
                 success: function (res) {
-
                     layer.close(loading);
                     layer.msg(res.msg);
 
-
-                    console.log(res.data);//
 
                     // 1. 数组头部新增表头
                     res.data.unshift({
@@ -108,8 +95,6 @@ $(function () {
 
 //重新加载table
 function load(obj) {
-    console.log("===== load ======");
-    console.log(obj);
 
     tableIns.reload({
         where: obj.f

@@ -60,22 +60,14 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <!--                </c:if>-->
-                <!--                <c:forEach items="${videoList.navigatepageNums}" var="navigatepageNums">-->
-                <!--                    <c:if test="${navigatepageNums==videoList.pageNum }">-->
-                <!--                        <li class="active"><a>${navigatepageNums }</a></li>-->
-                <!--                    </c:if>-->
-                <!--                    <c:if test="${navigatepageNums!=videoList.pageNum }">-->
-                <!--                        <li><a href="${APP_PATH}/getAllVideo2?pn=${navigatepageNums}">${navigatepageNums }</a></li>-->
-                <!--                    </c:if>-->
-                <!--                </c:forEach>-->
-                <!--                <c:if test="${videoList.hasNextPage}">-->
+
+
                 <li>
                     <a th:href="@{'getVideoListByUser?pageNum='+${pageInfo.pageNum+1}}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
-                <!--                </c:if>-->
+
                 <li><a th:href="@{'getVideoListByUser?pageNum='+${pageInfo.pages }}">末页</a></li>
             </ul>
         </nav>

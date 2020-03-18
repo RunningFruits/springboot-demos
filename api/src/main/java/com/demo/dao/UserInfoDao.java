@@ -1,6 +1,6 @@
 package com.demo.dao;
 
-import com.demo.bean.UserInfo;
+import com.demo.entity.UserInfo;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

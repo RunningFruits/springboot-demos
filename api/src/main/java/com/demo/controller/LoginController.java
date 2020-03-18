@@ -1,6 +1,6 @@
 package com.demo.controller;
 
-import com.demo.bean.UserInfo;
+import com.demo.entity.UserInfo;
 import com.demo.dao.UserInfoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

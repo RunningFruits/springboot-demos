@@ -22,7 +22,7 @@
 <body>
 
 <!-- Header Section -->
-<section class="tophead" role="tophead"> 
+<section class="tophead" role="tophead">
   <!-- Navigation Section -->
   <header id="header">
     <div class="header-content clearfix">
@@ -34,7 +34,7 @@
       </nav>
       <a href="#" class="nav-toggle">Menu<span></span></a> </div>
   </header>
-  <!-- Navigation Section --> 
+  <!-- Navigation Section -->
 </section>
 <!-- Header Section -->
 <!-- work details section -->
@@ -49,10 +49,10 @@
       <div class="col-md-8 work-detail-margin detail-image">
         <div id="imgVideo" class="work-image">
           <#--<p>-->
-              <#--<video class="video-player" preload="auto" autoplay="autoplay" loop="loop"-->
+              <#--<admin class="admin-player" preload="auto" autoplay="autoplay" loop="loop"-->
                      <#--width="1100">-->
-              <#--<source src="audio/login.mp4" type="video/mp4">-->
-              <#--</video>-->
+              <#--<source src="audio/login.mp4" type="admin/mp4">-->
+              <#--</admin>-->
           <#--</p>-->
           <#--<p> <img src="images/portfolio/work-1.jpg"></p>-->
           <#--<p> <img src="images/portfolio/work-3.jpg"></p>-->
@@ -88,14 +88,14 @@
         </div>
     </div>
 </footer>
-<!-- footer section --> 
+<!-- footer section -->
 
-<!-- JS FILES --> 
+<!-- JS FILES -->
 <script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/jquery.flexslider-min.js"></script> 
-<script src="js/retina.min.js"></script> 
-<script src="js/modernizr.js"></script> 
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.flexslider-min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/modernizr.js"></script>
 <script src="js/main.js"></script>
 <script src="/layui/layui.js" charset="utf-8"></script>
 <script src="js/details.js"></script>
