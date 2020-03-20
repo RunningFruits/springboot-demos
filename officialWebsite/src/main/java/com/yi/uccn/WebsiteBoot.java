@@ -5,13 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * 公司网站
- * @author YI
- * @date 2018-8-28 19:27:38
  */
 @SpringBootApplication
-public class UccnApplication {
+public class WebsiteBoot {
 
     public static void main(String[] args) {
-        SpringApplication.run(UccnApplication.class, args);
+        SpringApplication.run(WebsiteBoot.class, args);
     }
 }
