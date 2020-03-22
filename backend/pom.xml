@@ -11,8 +11,8 @@
     <groupId>com.init</groupId>
     <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
- 
- 
+
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -67,6 +67,18 @@
             <version>1.3.2</version>
         </dependency>
 
+        <!-- fastdfs start -->
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.27-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <!-- fastdfs end -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

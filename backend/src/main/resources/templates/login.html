@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <title>人员信息管理分析系统登录</title>
+    <style type="text/css">
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /*font-style: sans-serif;*/
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            font-family: '微软雅黑';
+            margin: 0;
+            background-color: #ffffff;
+        }
+
+        #login {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -170px 0 0 -400px;
+            width: 800px;
+            height: 350px;
+            border: none;
+        }
+
+        #login h1 {
+            color: #39abff;
+            text-align: center;
+        }
+
+        #login h2 {
+            color: #999;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #login form {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0.67em 0;
+        }
+
+        input {
+            width: 278px;
+            height: 18px;
+            margin-bottom: 10px;
+            outline: none;
+            padding: 10px;
+            font-size: 13px;
+            color: #000000;
+            border-top: 1px solid #312E3D;
+            border-left: 1px solid #312E3D;
+            border-right: 1px solid #312E3D;
+            border-bottom: 1px solid #56536A;
+            border-radius: 4px;
+        }
+
+        .but {
+            width: 300px;
+            min-height: 20px;
+            background-color: #39abff;
+            border: 1px solid #39abff;
+            color: #fff;
+            padding: 9px 14px;
+            font-size: 15px;
+            line-height: normal;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+
+        .divtop {
+            width: 100%;
+            height: 120px;
+            background-color: #39abff;
+        }
+    </style>
+</head>
+<body>
+<div class="divtop"></div>
+<div id="login">
+    <h1>服务平台</h1>
+    <!--<h2>登录</h2>-->
+    <form method="post" class="layui-form">
+        <div style="border: solid 2px #39abff;border-radius: 8px; width:400px; margin-left:200px; margin-top:10px; padding-top:20px; padding-bottom: 20px;">
+            <div><input type="text" id="username" name="username" lay-verify="required" placeholder="用户名"
+                        autocomplete="off"/></div>
+            <div><input type="password" id="password" name="password" lay-verify="required" placeholder="密码"
+                        autocomplete="off"/></div>
+            <div>
+                <button id="submit" lay-submit="" lay-filter="submit" class="but" type="button">登录</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/lib/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['form', 'layer', 'jquery'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        form.on('submit(submit)', function (data) {
+            var username = $('#username').val();
+            var password = $('#password').val();
+
+            $.ajax({
+                url: "/login",//请求路径
+                data: {
+                    "username": username,//字段和html页面的要对应  id和name一致
+                    "password": password,//字段和html页面的要对应
+                },
+                dataType: "json", type: 'post', async: false, success: function (data) {
+                    if (data.code == 402) {
+                        layer.alert("用户名不存在", function () {
+                            window.location.href = "/loginPage"
+                        });
+                    } else if (data.code == 403) {
+                        layer.alert(data.msg, function () {
+                            window.location.href = "/loginPage"
+                        });
+                    } else {
+                        //判断密码是否符合要求 以下代码暂时注释
+                        // var regex = new RegExp('(?=.*[0-9])(?=.*[a-zA-Z]).{8,16}');
+                        // if (!regex.test(password)) {
+                        //     sessionStorage.setItem("simple",1);
+                        //     layer.msg("您的密码复杂度太低（密码中必须包含字母、数字），请修改密码！", {
+                        //         icon: 6,
+                        //         time: 3000
+                        //     }, function () {
+                        //         top.location.href = '/index';
+                        //     });
+                        // } else {
+                        // 暂时注释结束
+                        sessionStorage.setItem("simple",-1);
+                            layer.msg("登陆成功, 即将跳转到首页!", {
+                                icon: 1,
+                                time: 1000
+                            }, function () {
+                                top.location.href = '/index';
+                            });
+                        // }
+                        //setTimeout(fn, 1000);
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

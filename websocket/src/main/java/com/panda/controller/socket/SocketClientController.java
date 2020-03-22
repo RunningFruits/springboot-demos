@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Set;
 
-/**
- * @author 丁许
- * @date 2019-01-25 9:46
- */
 @RestController
 @RequestMapping("/socket-client")
 @Slf4j

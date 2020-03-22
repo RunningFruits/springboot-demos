@@ -19,10 +19,6 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.concurrent.*;
 
-/**
- * @author 丁许
- * @date 2019-01-25 9:50
- */
 @Service
 @Slf4j
 public class SocketClientServiceImpl implements SocketClientService {
@@ -55,8 +51,7 @@ public class SocketClientServiceImpl implements SocketClientService {
 			}
 			client.setLastOnTime(new Date());
 
-			ScheduledExecutorService clientHeartExecutor = Executors
-					.newSingleThreadScheduledExecutor(r -> new Thread(r, "socket_client_heart_" + r.hashCode()));
+			ScheduledExecutorService clientHeartExecutor = Executors.newSingleThreadScheduledExecutor(r -> new Thread(r, "socket_client_heart_" + r.hashCode()));
 			ClientSocket clientSocket = new ClientSocket(client,clientHeartExecutor);
 			//登陆
 			ClientSendDto dto = new ClientSendDto();
@@ -92,7 +87,6 @@ public class SocketClientServiceImpl implements SocketClientService {
 			});
 			clientHeartExecutor.scheduleWithFixedDelay(() -> {
 				try {
-
 					Date lastOnTime = client.getLastOnTime();
 					long heartDuration = (new Date()).getTime() - lastOnTime.getTime();
 					if (heartDuration > SocketConstant.HEART_RATE) {

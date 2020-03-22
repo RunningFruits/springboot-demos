@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>菜单管理</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/iconfont/iconfont.css">
+</head>
+<body>
+<div>
+    <div style="height: 100%">
+        <div style="height: 100%">
+            <div style="padding: 20px; background-color: #F2F2F2;height:100%;">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md3">
+                        <div class="layui-card">
+                            <div class="layui-card-header">菜单树</div>
+                            <div class="layui-card-body" id="toolbarDiv">
+                                <ul id="menuTree" class="dtree" data-id="0"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md9">
+                        <div class="layui-card">
+                            <div class="layui-card-header" id="card-header">[菜单]的子菜单</div>
+                            <div class="layui-card-body">
+                                <table class="layui-hide" id="menuTable" lay-filter="menuTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row" id="menuEditDiv" style="display:none;">
+        <div class="z-body animated fadeIn">
+            <form id="editForm" lay-filter="editForm" action="" method="post" class="layui-form layui-form-pane"
+                  style="margin-top:20px;">
+                <input id="id_txt" name="id" type="hidden"/>
+                <input id="parentId_txt" name="parentId" type="hidden"/>
+                <input id="indexOf_txt" name="indexOf" type="hidden"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">显示名 </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="displayName_txt" name="displayName"
+                               lay-verify="required" lay-vertype="tips"
+                               autocomplete="off" placeholder="请输入显示名" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">url/控件 </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="name_txt" name="name"
+                               lay-verify="required|nameCheck" lay-vertype="tips"
+                               autocomplete="off" class="layui-input" placeholder="请输入url或者控件id">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否按钮</label>
+                    <div class="layui-input-block">
+                        <select name="button" lay-verify="">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">打开位置</label>
+                    <div class="layui-input-block">
+                        <select name="openType" lay-verify="">
+                            <option value="iframe">iframe</option>
+                            <option value="_blank">blank</option>
+                            <option value="_self">self</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        上级菜单
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="parent_txt" name="" class="layui-input layui-disabled">
+                    </div>
+                </div>
+
+                <div class="layui-form-item" style="margin-top:40px">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-submit" lay-submit="" lay-filter="saveBtn">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="toolbar">
+    <button type="button" class="layui-btn layui-btn-sm permissionBtn" lay-event="systemAction_add">
+        新增
+    </button>
+</script>
+
+<script type="text/html" id="column-toolbar">
+    <button type="button" class="layui-btn layui-btn-xs permissionBtn" lay-event="systemAction_edit">编辑</button>
+    <button type="button" class="layui-btn layui-btn-xs layui-btn-danger permissionBtn" lay-event="systemAction_delete">
+        删除
+    </button>
+</script>
+
+<script type="text/html" id="column-toolbar-sort">
+    <i class="zadmin-icon zadmin-icon-shangyimian zadmin-oper-area zadmin-blue" lay-event="up" title="上移"></i>
+    <i class="zadmin-icon zadmin-icon-xiayimian zadmin-oper-area zadmin-blue" lay-event="down" title="下移"></i>
+    <i class="zadmin-icon zadmin-icon-zhidingmian zadmin-oper-area zadmin-blue" lay-event="top" title="置顶"></i>
+    <i class="zadmin-icon zadmin-icon-zhidimian zadmin-oper-area zadmin-blue" lay-event="bottom" title="置底"></i>
+</script>
+<script type="text/javascript" src="/js/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/commonjs.js" charset="utf-8"></script>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<script>
+    var parentMenuId = 1;
+    var parentMenuName = "菜单";
+    layui.config({
+        base: '/lib/layui/extend/'
+    }).use(['jquery', 'dtree', 'layer', 'table', 'element', 'form'], function () {
+        var dtree = layui.dtree,
+            layer = layui.layer,
+            table = layui.table,
+            form = layui.form,
+            isSubmit = false;
+        var layerIndex;
+        var DTree = dtree.render({
+            elem: "#menuTree",
+            url: "/systemAction/findAllActionToDTree",
+            dataStyle: "layuiStyle",
+            initLevel: 2,   // 初始打开节点级别
+            method: "GET",
+            dot: false,     // 圆点是否显示
+            //toolbar: true,  // 右键工具栏
+            menubar: true,  // 树上方工具栏, 展开、收缩、刷新、搜索等
+            //toolbarShow: [],
+            toolbarScroll: "#toolbarDiv",
+            response: {
+                statusCode: 0,
+                message: "msg",
+                treeId: "id",
+                parentId: "parentId",
+                title: "title"
+            }
+        });
+
+        table.render({
+            elem: '#menuTable',
+            url: '/systemAction/listByParent',
+            where: {
+                parentId: parentMenuId
+            },
+            cellMinWidth: 80,
+            toolbar: '#toolbar',
+            smartReloadModel: true,
+            cols: [
+                [
+                    {type: 'numbers', title: 'ID', width: "5%"},
+                    {field: 'id', title: 'ID', hide: true},
+                    {field: 'displayName', title: '显示名', width: "15%"},
+                    {field: 'name', title: 'url/id', width: "25%"},
+                    {
+                        field: 'button', title: '按钮/路径', width: "10%",
+                        templet: function (d) {
+                            if (d.button == 1) return "按钮";
+                            else return "路径";
+                        }
+                    },
+                    {title: '排序', fixed: 'right', width: "15%", align: 'center', toolbar: '#column-toolbar-sort'},
+                    {title: '操作', align: 'center', toolbar: '#column-toolbar'}
+                ]
+            ],
+            done: function (res, curr, count) {
+                initBtnPermission();
+            }
+        });
+
+        dtree.on("node('menuTree')", function (obj) {
+            parentMenuId = obj.param.nodeId;
+            parentMenuName = obj.param.context;
+            table.reload('menuTable', {
+                where: {
+                    parentId: parentMenuId
+                }
+            });
+            $("#card-header").html("[" + parentMenuName + "]的子菜单");
+            $("#parent_txt").val(parentMenuName);
+            $("#parentId_txt").val(parentMenuId);
+        });
+
+        table.on('toolbar(menuTable)', function (obj) {
+            var event = obj.event;
+            if (event === 'systemAction_add') {
+                $("#parent_txt").val(parentMenuName);
+                $("#parentId_txt").val(parentMenuId);
+                add("新增");
+            }
+        });
+
+        table.on('tool(menuTable)', function (obj) {
+            var data = obj.data;
+            var event = obj.event;
+            var swapId;
+            var currentId;
+            if (event === 'systemAction_edit') {
+                form.val("editForm", data);
+                $("#parent_txt").val(parentMenuName);
+                add("编辑");
+            } else if (event === 'systemAction_delete') {
+                del(data.id);
+            } else if (event === "up") {
+                swapId = $(obj.tr).prev().find("td[data-field='id'] div").html();
+                currentId = data.id;
+                if (typeof swapId == 'undefined') {
+                    layer.msg("已是第一层");
+                    return;
+                }
+                swapSort(currentId, swapId);
+            } else if (event === "down") {
+                swapId = $(obj.tr).next().find("td[data-field='id'] div").html();
+                currentId = data.id;
+                if (typeof swapId == 'undefined') {
+                    layer.msg("已是最后一层");
+                    return;
+                }
+                swapSort(currentId, swapId);
+            } else if (event === "top") {
+                swapId = $("tr[data-index='0']").first().parent().children().first().find("td[data-field='id'] div").html();
+                currentId = data.id;
+                swapSort(currentId, swapId);
+            } else if (event === "bottom") {
+                swapId = $("tr[data-index='0']").first().parent().children().last().find("td[data-field='id'] div").html();
+                currentId = data.id;
+                swapSort(currentId, swapId);
+            }
+        });
+
+        form.verify({
+            nameCheck: function (value, item) { //value：表单的值、item：表单的DOM对象
+                var menuId = $("#id_txt").val();
+                var msg;
+                $.ajax({
+                    type: "POST",
+                    url: "/systemAction/checkName",
+                    async: false, //改为同步请求
+                    data: {name: value, id: menuId},
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.code != 0) {
+                            msg = "路径重复";
+                        }
+                    }
+                });
+                return msg;
+            }
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (form) {
+            $.ajax({
+                url: '/systemAction/save',
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'post',
+                data: JSON.stringify(form.field),
+                success: function (data, status) {
+                    if (data.code == 0 && status == 'success') {
+                        layer.msg('保存成功', {time: 3000, icon: 6});
+                        layer.close(layerIndex)
+                    } else
+                        layer.msg('保存失败', {icon: 2});
+                },
+                error: function (data, status) {
+                    layer.msg('请求失败', {icon: 2});
+                }
+            });
+            isSubmit = true;
+            return false;
+        });
+
+        function swapSort(currentId, swapId) {
+            $.post('/systemAction/swap', {currentId: currentId, swapId: swapId}, function (data) {
+                layer.msg("交换成功");
+                isSubmit = true;
+                refresh();
+            });
+        }
+
+        function del(id) {
+            layer.confirm("确定删除菜单吗?如果存在下级节点则一并删除！", {icon: 3, title: '提示'},
+                function (index) {
+                    $.get('/systemAction/deleteAction/' + id, function (data) {
+                        layer.close(index);
+                        if (data.code == 0) {
+                            layer.msg('删除成功', {time: 3000, icon: 6});
+                            table.reload("menuTable");
+                            DTree.menubarMethod().refreshTree();
+                        } else
+                            layer.msg('删除失败', {time: 3000, icon: 2});
+                    });
+                }, function (index) {
+                    layer.close(index);
+                }
+            );
+        }
+
+        function refresh() {
+            if (isSubmit) {
+                table.reload("menuTable");
+                DTree.menubarMethod().refreshTree();
+                isSubmit = false;
+            }
+            $("#editForm")[0].reset();
+            $("input[type='hidden']").val("");
+        }
+
+        function add(title) {
+            layerIndex = layer.open({ //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: title,
+                area: ['420px', '420px'],
+                content: $("#menuEditDiv"), //引用的弹出层的页面层的方式加载修改界面表单
+                end: function () {
+                    refresh();
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

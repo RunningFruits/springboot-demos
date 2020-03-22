@@ -6,10 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author 丁许
- * @date 2019-01-24 22:24
- */
 @Configuration
 @Slf4j
 public class SocketServerConfig {
@@ -22,9 +18,10 @@ public class SocketServerConfig {
             //用户名中包含了dingxu则允许登陆
             return userId.contains("dingxu");
         });
-        socketServer.setMessageHandler((connection, receiveDto) -> log.info("处理socket消息,userId:{},receiveDto:{}",
-                        connection.getUserId(),
-                        JSONObject.toJSONString(receiveDto))
+        socketServer.setMessageHandler(
+                (connection, receiveDto) -> log.info("处理socket消息,userId:{},receiveDto:{}",
+                connection.getUserId(),
+                JSONObject.toJSONString(receiveDto))
         );
         socketServer.start();
         return socketServer;

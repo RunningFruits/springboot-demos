@@ -2,12 +2,7 @@ package com.panda.core;
 
 /**
  * 对请求详细的结果进行重新封装，规范接口返回值
- *
  * @param <T>
- *
- * @ClassName：ResponseEntity
- * @author：huangyongfa
- * @date：2017年08月08日
  */
 public class ResponseEntity<T> {
 

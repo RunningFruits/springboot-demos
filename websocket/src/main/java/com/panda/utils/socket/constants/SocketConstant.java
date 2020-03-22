@@ -1,9 +1,5 @@
 package com.panda.utils.socket.constants;
 
-/**
- * @author 丁许
- * @date 2019-01-24 20:29
- */
 public class SocketConstant {
 
 	/**

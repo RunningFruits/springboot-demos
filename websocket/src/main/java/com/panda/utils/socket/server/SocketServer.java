@@ -14,9 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
 
-/**
- * @author 丁许
- */
+
 @Slf4j
 @Data
 public class SocketServer {

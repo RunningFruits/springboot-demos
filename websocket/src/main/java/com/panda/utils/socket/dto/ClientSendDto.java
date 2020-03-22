@@ -4,10 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author 丁许
- * @date 2019-01-24 16:11
- */
+
 @Data
 public class ClientSendDto implements Serializable {
 

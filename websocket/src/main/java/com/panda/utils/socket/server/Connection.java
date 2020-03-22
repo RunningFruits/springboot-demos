@@ -13,8 +13,6 @@ import static com.panda.utils.socket.constants.SocketConstant.RETRY_COUNT;
 
 /**
  * 封装socket添加println方法
- *
- * @author 丁许
  */
 @Slf4j
 @Data

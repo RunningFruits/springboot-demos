@@ -4,9 +4,6 @@ package com.panda.core;
  * 系统错误码，规范系统异常的构造
  *
  * @ClassName：ErrorCode
- * @Description：TODO
- * @author：huangyongfa
- * @date：2017年08月08日
  */
 public enum ErrorCode {
 

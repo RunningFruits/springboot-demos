@@ -15,8 +15,6 @@ import java.util.Date;
 
 /**
  * 每一个client连接开一个线程
- *
- * @author 丁许
  */
 @Slf4j
 @Data

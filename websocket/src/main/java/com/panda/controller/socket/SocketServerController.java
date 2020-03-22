@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.concurrent.ConcurrentMap;
 
-/**
- * @author 丁许
- * @date 2019-01-25 8:54
- */
 @RestController
 @RequestMapping("/socket-server")
 public class SocketServerController {

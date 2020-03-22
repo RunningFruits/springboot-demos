@@ -13,9 +13,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Date;
 
-/**
- * @author 丁许
- */
+
 @Slf4j
 @Data
 public class SocketClient {

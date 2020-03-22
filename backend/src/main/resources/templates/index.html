@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>XXX平台</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <style>
+        .layui-iframe1 {
+            position: absolute;
+            height: calc(100% - 80px) !important;
+            left: 20px;
+            top: 60px;
+            width: 98%;
+            bottom: 0;
+            border: none;
+        }
+
+        .ecict-system-name {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            line-height: 60px;
+            text-align: center;
+            color: #39abff;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="ecict-system-name">XXX服务平台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a id="curtUser" href="javascript:;"></a>
+                <!--<dl class="layui-nav-child">-->
+                <!--<dd><a href="">修改密码</a></dd>-->
+                <!--<dd><a href="">安全设置</a></dd>-->
+                <!--</dl>-->
+            </li>
+            <li class="layui-nav-item"><a href="/logout">退出</a></li>
+        </ul>
+    </div>
+    <div class="layui-side" style="position: absolute; left: 0;background-color: #eeeeee;">
+        <div id="leftTree" class="layui-side-scroll">
+        </div>
+    </div>
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab layui-tab-brief" lay-filter="mainContent" lay-allowclose="true">
+            <ul class="layui-tab-title">
+            </ul>
+            <div class="layui-tab-content">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer" style="text-align: center">
+        <!-- 底部固定区域 -->
+        © XXXXXX有限公司
+    </div>
+</div>
+<script src="/lib/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use(['jquery', 'element', 'tree'], function () {
+        var $ = layui.$,
+            element = layui.element,
+            tree = layui.tree,
+            openTabsCount = 0;
+        let v_openType;
+
+        //判断密码是否符合股则，是否强制修改密码
+        let simple = sessionStorage.getItem("simple");
+        if (simple == 1) {
+            window.location.href = "/systemUser/editPasswordPage";
+        } else {
+            // 获取该登录用户的顶级菜单
+            $.get("/systemAction/findMenuListByParentAndUser/1", function (data, status) {
+                if (status == 'success') {
+                    var treeData = data;
+                    tree.render({
+                        elem: '#leftTree'
+                        , data: treeData //数据源
+                        , id: 'id' //定义索引
+                        , click: function (obj) {
+                            let v_id = obj.data.id;
+                            let v_url = obj.data.href;
+                            getOpenType(treeData, v_id);
+                            if (v_openType == "iframe") {
+                                var bootLay = $('[lay-id="' + v_id + '"]');
+                                if (v_url != '/#') {
+                                    if (openTabsCount < 5) {
+                                        if (bootLay.length === 0) {
+                                            element.tabAdd('mainContent', {
+                                                title: obj.data.title,
+                                                content: '<iframe src="' + v_url + '" framborder="0" class="layui-iframe1" data-id="' + v_id + '" ></iframe>',
+                                                id: v_id
+                                            });
+                                            openTabsCount++;
+                                            element.tabChange('mainContent', v_id);
+                                        } else {
+                                            element.tabChange('mainContent', v_id);
+                                        }
+                                    } else {
+                                        layer.alert('最多打开5个标签页', {icon: 2});
+                                    }
+                                }
+                            } else {
+                                if (v_url != '/#') {
+                                    window.open(v_url, v_openType);
+                                }
+                            }
+
+                        }
+                    });
+                }
+            }, "json");
+
+            element.on('tabDelete(mainContent)', function (data) {
+                openTabsCount--;
+            });
+
+            // 获取该登录用户的所有按钮
+            $.post("/systemAction/findButtonList", function (data, status) {
+                if (status == 'success') {
+                    var allButton = data;
+                    layui.data('adminManager', {
+                        key: 'allButton'
+                        , value: allButton
+                    });
+                }
+            }, "json");
+
+            $.get("/index/getUser", function (data, status) {
+                if (status == 'success') {
+                    $("#curtUser").html("<i class='layui-icon layui-icon-username'></i>" + data.userName);
+                    layui.data('adminManager', {
+                        key: 'curtUser'
+                        , value: data
+                    });
+                }
+            });
+
+            $.get("/street/findAllStreets", function (data, status) {
+                if (status == 'success') {
+                    layui.data('adminManager', {
+                        key: 'streets'
+                        , value: data
+                    });
+                }
+            });
+
+            $("#logout").click(function () {
+                layui.data('adminManager', null);
+                sessionStorage.clear();
+            })
+        }
+
+        function getOpenType(data, id) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].id == id) {
+                    v_openType = data[i].openType;
+                    return;
+                } else {
+                    if (typeof data[i].children != 'undefined' && data[i].children != null && data[i].children.length > 0) {
+                        getOpenType(data[i].children, id);
+                    } else {
+                        continue;
+                    }
+                }
+            }
+        }
+
+    })
+    ;
+
+
+    // function logout() {
+    //     sessionStorage.removeItem("adminManager");
+    // }
+</script>
+</body>
+</html>

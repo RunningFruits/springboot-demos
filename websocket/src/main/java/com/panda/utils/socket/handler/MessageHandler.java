@@ -5,8 +5,6 @@ import com.panda.utils.socket.server.Connection;
 
 /**
  * 处理消息的接口
- *
- * @author 丁许
  */
 public interface MessageHandler {
 

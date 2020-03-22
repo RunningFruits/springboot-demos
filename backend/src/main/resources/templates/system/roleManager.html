@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>角色管理</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/zadmin.css">
+</head>
+<body>
+<div>
+    <form id="srchForm" class="layui-form zadmin-search-area input" lay-filter="srchForm">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">显示名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="displayName_like" autocomplete="off"
+                           id="displayName" class="layui-input">
+                </div>
+                <label class="layui-form-label">角色名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="roleName_like" autocomplete="off"
+                           id="roleName" class="layui-input">
+                </div>
+                <button lay-submit="" lay-filter="searchBtn"
+                        class="layui-btn layui-btn-sm layui-btn-primary table-action">
+                    <i class="layui-icon layui-icon-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <table class="layui-hide" id="dataTable" lay-filter="dataTable"></table>
+    <div class="layui-row" id="editDiv" style="display:none;">
+        <div class="layui-col-md10">
+            <form id="editForm" class="layui-form layui-from-pane" lay-filter="editForm" action=""
+                  style="margin-top:20px">
+                <input id="id_txt" name="id" type="hidden"/>
+                <div class="layui-form-item"><label class="layui-form-label">显示名</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="displayName_txt" name="displayName"
+                               lay-verify="required|checkDisplayName" autocomplete="off"
+                               placeholder="请输入显示名" class="layui-input"></div>
+                </div>
+                <div class="layui-form-item"><label class="layui-form-label">角色名</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="roleName_txt" name="roleName"
+                               lay-verify="required|checkRoleName" autocomplete="off"
+                               placeholder="请输入角色名" class="layui-input"></div>
+                </div>
+                <div class="layui-form-item"><label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="remark_txt" name="remark" autocomplete="off" placeholder="请输入备注"
+                               class="layui-input"></div>
+                </div>
+                <div class="layui-form-item" style="margin-top:40px">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-submit " lay-submit="" lay-filter="saveBtn">保存</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="/js/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/commonjs.js" charset="utf-8"></script>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/html" id="column-toolbar">
+    <button type="button" class="layui-btn layui-btn-xs permissionBtn" lay-event="systemRole_grantMenu">授权</button>
+    <button type="button" class="layui-btn layui-btn-xs permissionBtn" lay-event="systemRole_edit">编辑</button>
+    <button type="button" class="layui-btn layui-btn-xs layui-btn-danger permissionBtn" lay-event="systemRole_delete">
+        删除
+    </button>
+</script>
+<script type="text/html" id="toolbar">
+    <button type="button" class="layui-btn layui-btn-sm permissionBtn" lay-event="systemRole_add">
+        新增
+    </button>
+</script>
+<script>
+    layui.config({
+        base: '/lib/layui/extend/'
+    }).use(['table', 'form', 'jquery', 'dtree'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var dtree = layui.dtree;
+        var $ = layui.$;
+        var isSubmit = false;
+        var layerIndex;
+        table.render({
+            elem: '#dataTable',
+            url: '/systemRole/findAll/',
+            toolbar: '#toolbar',
+            cellMinWidth: 80,
+            smartReloadModel: true,
+            cols: [
+                [
+                    {field: 'id', title: 'ID'},
+                    {field: 'displayName', title: '显示名称'},
+                    {field: 'roleName', title: '角色名称'},
+                    {field: 'remark', title: '描述'},
+                    {title: '操作', fixed: 'right', align: 'center', toolbar: '#column-toolbar'}
+                ]
+            ],
+            page: true,
+            done: function (res, curr, count) {
+                initBtnPermission();
+            }
+        });
+
+        // 工具条点击事件
+        table.on('toolbar(dataTable)', function (obj) {
+            var event = obj.event;
+            if (event === 'systemRole_add') {
+                add("新增");
+            }
+        });
+
+        function add(title) {
+            var roleValue = $("#roleName_txt").val();
+            if (roleValue == "admin" || roleValue == "security" || roleValue == "auditor" || roleValue == "common") {
+                $('#displayName_txt').prop('readonly', true);
+                $('#roleName_txt').prop('readonly', true);
+                $("#displayName_txt").css("background-color", "#D3D3D3");
+                $("#roleName_txt").css("background-color", "#D3D3D3");
+            } else {
+                $('#displayName_txt').prop('readonly', false);
+                $('#roleName_txt').prop('readonly', false);
+                $("#displayName_txt").css("background-color", "#FFFFFF");
+                $("#roleName_txt").css("background-color", " #FFFFFF");
+            }
+            layerIndex = layer.open({ //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: title,
+                area: ['420px', '330px'],
+                content: $("#editDiv"), //引用的弹出层的页面层的方式加载修改界面表单
+                end: function () {
+                    refresh();
+                }
+            });
+        }
+
+        function refresh() {
+            if (isSubmit) {
+                table.reload("dataTable");
+                isSubmit = false;
+            }
+            $("#editForm")[0].reset();
+            $("input[type='hidden']").val("");
+        }
+
+        // 行点击事件
+        table.on('tool(dataTable)', function (obj) {
+            var data = obj.data;
+            var event = obj.event;
+            if (event === 'systemRole_edit') {
+                form.val("editForm", data);
+                add("编辑");
+            } else if (event === 'systemRole_grantMenu') {
+                layer.open({
+                    type: 1,
+                    title: "授权菜单",
+                    area: ["350px", "70%"],
+                    shadeClose: true,
+                    content: '<ul id="menuTree" class="dtree" data-id="0"></ul>',
+                    btn: ['确认选择'],
+                    success: function (layero, index) {
+                        dtree.render({
+                            obj: $(layero).find("#menuTree"),
+                            url: "/systemAction/findAllActionToDTree",
+                            dataStyle: "layuiStyle",
+                            method: "GET",
+                            dot: false,
+                            checkbar: true, // 开启复选框
+                            checkbarType: "p-casc",
+                            menubar: true,
+                            response: {
+                                statusCode: 0,
+                                message: "msg",
+                                treeId: "id",
+                                parentId: "parentId",
+                                title: "title"
+                            },
+                            done: function (response, obj) {  //使用异步加载回调
+                                layui.$.get('/systemRole/' + data.id + '/own/menu', function (data) {
+                                    dtree.chooseDataInit("menuTree", data.data.toString()); // 初始化复选框的值
+                                });
+                            }
+                        });
+                    },
+                    yes: function (index, layero) {
+                        var flag = true;
+                        var nodes = dtree.getCheckbarNodesParam("menuTree"); // 获取选中值
+                        var ids = [];
+                        for (var key in nodes) {
+                            var node = nodes[key];
+                            ids.push(node.nodeId);
+                        }
+                        $.post('/systemRole/' + data.id + '/grant/menu', {
+                            menuIds: ids
+                        }, function (data, status) {
+                            if (status == 'success' && data.code == 0) {
+                                layer.msg("授权成功", {icon: 6});
+                                layer.close(index);
+                            }
+                        });
+
+                    }
+                });
+            } else if (event === 'systemRole_delete') {
+                form.val("editForm", data);
+                del(data.id);
+            }
+        });
+
+        function del(id) {
+            var roleValue = $("#roleName_txt").val();
+            if (roleValue == "admin" ) {
+                var mes = "超级管理员不能删除";
+                layer.msg(mes, {time: 3000, icon: 6});
+                return;
+            }
+            layer.confirm("确定删除角色吗?", {icon: 3, title: '提示'},
+                function (index) {
+                    $.get('/systemRole/deleteRole/' + id, function (data) {
+                        layer.close(index);
+                        if (data.code == 0) {
+                            layer.msg('删除成功', {time: 3000, icon: 6});
+                            isSubmit = true;
+                            refresh();
+                        } else
+                            layer.msg('删除失败', {time: 3000, icon: 2});
+                    });
+                }, function (index) {
+                    layer.close(index);
+                }
+            );
+        }
+
+        form.on('submit(searchBtn)', function (form) {
+            table.reload('dataTable', {
+                page: {curr: 1},  // 这句是必须的，重新从第一页开始加载。
+                where: form.field
+            });
+            return false;
+        });
+
+        form.on('submit(saveBtn)', function (form) {
+            $.ajax({ // 注：这里必须是$.ajax 不能是$.post,其他页面同
+                url: '/systemRole/save',
+                dataType: 'json',
+                contentType: 'application/json', // 这句是必须的，不然java收不到，而$.post默认参数是application/x-www-form…… 且无法修改
+                type: 'post',
+                data: JSON.stringify(form.field),
+                success: function (data, status) {
+                    if (data.code == 0) {
+                        layer.msg('保存成功', {time: 3000, icon: 6});
+                        layer.close(layerIndex)
+                        $("#editForm")[0].reset();
+                    } else
+                        layer.msg('保存失败', {icon: 2});
+                },
+                error: function (data, status) {
+                    layer.msg('请求失败', {icon: 2});
+                }
+            });
+            isSubmit = true;
+            return false;
+        });
+        form.verify({
+            checkRoleName: function (value, item) {
+                var keyId = $("#id_txt").val();
+                var msg;
+                $.ajax({
+                    type: "POST",
+                    url: "/systemRole/checkRoleName",
+                    async: false, //改为同步请求
+                    data: {roleName: value, id: keyId},
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.code != 0) {
+                            msg = "角色名重复";
+                        }
+                    }
+                });
+                return msg;
+            },
+            checkDisplayName: function (value, item) {
+                var keyId = $("#id_txt").val();
+                var msg;
+                $.ajax({
+                    type: "POST",
+                    url: "/systemRole/checkDisplayName",
+                    async: false, //改为同步请求
+                    data: {displayName: value, id: keyId},
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.code != 0) {
+                            msg = "显示名重复";
+                        }
+                    }
+                });
+                return msg;
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
