@@ -80,6 +80,14 @@
         </dependency>
         <!-- fastdfs end -->
 
+        <!-- easypoi start -->
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-spring-boot-starter</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <!-- easypoi end -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

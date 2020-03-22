@@ -17,14 +17,13 @@ public class ExcelController {
     private ExcelService excelService;
 
     //跳转到上传文件的页面
-    @RequestMapping(path = "/upload", method = RequestMethod.GET)
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     public String goUpload() {
-        //跳转到 templates 目录下的 upload.html
         return "custom/excel/upload";
     }
 
-//    @ApiOperation(value = "导入Excel表", notes = "", httpMethod = "POST")
-    @RequestMapping(path = "/upload/excel", method = RequestMethod.POST)
+
+    @RequestMapping(path = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String upload(MultipartFile file) throws Exception {
         excelService.getExcel(file);
