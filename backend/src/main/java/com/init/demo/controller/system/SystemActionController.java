@@ -3,7 +3,7 @@ package com.init.demo.controller.system;
 import com.init.demo.annotation.OperationLog;
 import com.init.demo.entity.system.SystemAction;
 import com.init.demo.pojo.system.TreePojo;
-import com.init.demo.repository.SystemActionRepository;
+import com.init.demo.repository.system.SystemActionRepository;
 import com.init.demo.service.system.SystemActionService;
 import com.init.demo.utils.ResponseResult;
 import com.init.demo.utils.SessionUtil;

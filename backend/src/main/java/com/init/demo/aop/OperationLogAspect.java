@@ -4,7 +4,7 @@ package com.init.demo.aop;
 import com.init.demo.annotation.OperationLog;
 import com.init.demo.entity.system.SystemLog;
 import com.init.demo.entity.system.SystemUser;
-import com.init.demo.repository.SystemLogRepository;
+import com.init.demo.repository.system.SystemLogRepository;
 import com.init.demo.utils.SessionUtil;
 import com.init.demo.utils.WebUtil;
 import org.aspectj.lang.ProceedingJoinPoint;

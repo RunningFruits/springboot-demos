@@ -4,7 +4,7 @@ package com.init.demo.configure;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.init.demo.entity.system.SystemUser;
 import com.init.demo.pojo.system.SecurityUser;
-import com.init.demo.repository.SystemUserRepository;
+import com.init.demo.repository.system.SystemUserRepository;
 import com.init.demo.service.system.SystemLogService;
 import com.init.demo.utils.ResponseResult;
 import lombok.extern.slf4j.Slf4j;

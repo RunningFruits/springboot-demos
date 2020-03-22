@@ -3,7 +3,7 @@ package com.init.demo.controller.system;
 import com.init.demo.annotation.OperationLog;
 import com.init.demo.controller.BaseController;
 import com.init.demo.entity.system.SystemEnum;
-import com.init.demo.repository.SystemEnumRepository;
+import com.init.demo.repository.system.SystemEnumRepository;
 import com.init.demo.service.system.SystemEnumService;
 import com.init.demo.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;

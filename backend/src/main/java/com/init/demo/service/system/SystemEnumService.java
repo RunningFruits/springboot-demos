@@ -3,7 +3,7 @@ package com.init.demo.service.system;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.init.demo.entity.system.SystemEnum;
 import com.init.demo.pojo.system.DTreePojo;
-import com.init.demo.repository.SystemEnumRepository;
+import com.init.demo.repository.system.SystemEnumRepository;
 import com.init.demo.utils.ResponseResult;
 import com.init.demo.utils.TableQueryUtil;
 import com.init.demo.utils.TreeUtil;

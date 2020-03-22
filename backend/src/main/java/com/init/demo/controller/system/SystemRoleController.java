@@ -4,7 +4,7 @@ import com.init.demo.annotation.OperationLog;
 import com.init.demo.controller.BaseController;
 import com.init.demo.entity.system.SystemRole;
 import com.init.demo.pojo.system.SelectPojo;
-import com.init.demo.repository.SystemRoleRepository;
+import com.init.demo.repository.system.SystemRoleRepository;
 import com.init.demo.service.system.SystemRoleService;
 import com.init.demo.utils.PageRequestUtil;
 import com.init.demo.utils.PagingResult;

@@ -2,9 +2,9 @@ package com.init.demo.service.system;
 
 import com.init.demo.entity.system.SysRoleAction;
 import com.init.demo.entity.system.SystemRole;
-import com.init.demo.repository.SysRoleActionRepository;
-import com.init.demo.repository.SysUserRoleRepository;
-import com.init.demo.repository.SystemRoleRepository;
+import com.init.demo.repository.system.SysRoleActionRepository;
+import com.init.demo.repository.system.SysUserRoleRepository;
+import com.init.demo.repository.system.SystemRoleRepository;
 import com.init.demo.utils.PagingResult;
 import com.init.demo.utils.ResponseResult;
 import com.init.demo.utils.TableQueryUtil;

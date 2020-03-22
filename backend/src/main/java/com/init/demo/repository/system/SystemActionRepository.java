@@ -1,4 +1,4 @@
-package com.init.demo.repository;
+package com.init.demo.repository.system;
 
 import com.init.demo.entity.system.SystemAction;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
