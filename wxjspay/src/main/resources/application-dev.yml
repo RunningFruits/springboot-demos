@@ -1,7 +1,7 @@
 server:
   tomcat:
     uri-encoding: UTF-8
-  port: 8084
+  port: 8089
   servlet:
     context-path: /wxjspay
 

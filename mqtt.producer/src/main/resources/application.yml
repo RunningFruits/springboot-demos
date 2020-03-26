@@ -1,10 +1,14 @@
+server:
+  port: 8084
+
 spring:
   mqtt:
+    username: videoPlay
+    password: videoPlay
+    url: tcp://47.98.119.123:1883
+    service:
+      id: serverId
     completionTimeout: 10000
     default:
       topic: topic
-    password: videoPlay
-    service:
-      id: serverId
-    url: tcp://47.98.119.123:1883
-    username: videoPlay
+
