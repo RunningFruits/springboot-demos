@@ -3,6 +3,8 @@ server:
   servlet:
     session:
       timeout:
+    context-path: /
+
 
 spring:
   datasource:

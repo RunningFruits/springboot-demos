@@ -1,60 +1,41 @@
 package com.init.demo.controller.custom;
 
 
-import com.init.demo.pojo.custom.PersonExportVo;
+import com.init.demo.entity.custom.Person;
+import com.init.demo.utils.DateUtil;
 import com.init.demo.utils.easypoi.EasyPoiExcelUtils;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@RestController
-@RequestMapping("easyPoi")
+@Controller
+@RequestMapping("/easyPoi")
 public class EasyPoiController {
 
-    /**
-     * 导出
-     * @param response
-     */
-    @RequestMapping(value = "/export", method = RequestMethod.GET)
-    public void exportExcel(HttpServletResponse response) throws IOException {
-        List<PersonExportVo> personList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            PersonExportVo personVo = new PersonExportVo();
-            personVo.setName("张三" + i);
-            personVo.setUsername("张三" + i);
-            personVo.setPhoneNumber("18888888888");
-//            personVo.setImageUrl("/static/user1-128x128.jpg");
-            personList.add(personVo);
-        }
-        EasyPoiExcelUtils.exportExcel(personList, "员工信息表", "员工信息", PersonExportVo.class, "员工信息", response);
+    @RequestMapping("/export")
+    public void export(HttpServletResponse response) {
+        //模拟从数据库获取需要导出的数据
+        List<Person> personList = new ArrayList<>();
+        Person person1 = new Person("路飞", "1", new Date());
+        Person person2 = new Person("娜美", "2", DateUtil.addDate(new Date(), 3));
+        Person person3 = new Person("索隆", "1", DateUtil.addDate(new Date(), 10));
+        Person person4 = new Person("小狸猫", "1", DateUtil.addDate(new Date(), -10));
+        personList.add(person1);
+        personList.add(person2);
+        personList.add(person3);
+        personList.add(person4);
+
+        //导出操作
+        EasyPoiExcelUtils.exportExcel(personList, "花名册", "草帽一伙", Person.class, "海贼王.xls", response);
     }
 
-    /**
-     * 导出excel
-     *
-     * @return 结果
-     */
-    @GetMapping("/exportToFile")
-    public Map<String, Object> export() {
-        List<PersonExportVo> personList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            PersonExportVo personVo = new PersonExportVo();
-            personVo.setName("张三" + i);
-            personVo.setUsername("张三" + i);
-            personVo.setPhoneNumber("18888888888");
-//            personVo.setImageUrl("/static/user1-128x128.jpg");
-            personList.add(personVo);
-        }
-        String fileName = EasyPoiExcelUtils.exportExcelToFile(personList, "员工信息", PersonExportVo.class);
-        Map<String, Object> map = new HashMap<>();
-        map.put("fileName", fileName);
-        return map;
+    @RequestMapping(value = "/")
+    public String uploadPage() {
+        return "custom/easypoi/upload";
     }
 
     /**
@@ -63,8 +44,11 @@ public class EasyPoiController {
      * @param file
      */
     @RequestMapping(value = "/import", method = RequestMethod.POST)
+    @ResponseBody
     public Object importExcel(@RequestParam("file") MultipartFile file) throws IOException {
-        return EasyPoiExcelUtils.importExcel(file, PersonExportVo.class);
+        List<Person> personList = EasyPoiExcelUtils.importExcel(file, 1, 1, Person.class);
+
+        return personList;
     }
 
 }

@@ -92,10 +92,22 @@
     <!--<h2>登录</h2>-->
     <form method="post" class="layui-form">
         <div style="border: solid 2px #39abff;border-radius: 8px; width:400px; margin-left:200px; margin-top:10px; padding-top:20px; padding-bottom: 20px;">
-            <div><input type="text" id="username" name="username" lay-verify="required" placeholder="用户名"
-                        autocomplete="off"/></div>
-            <div><input type="password" id="password" name="password" lay-verify="required" placeholder="密码"
-                        autocomplete="off"/></div>
+            <div><input
+                    type="text"
+                    id="username"
+                    name="username"
+                    lay-verify="required"
+                    placeholder="用户名"
+                    autocomplete="off"/>
+            </div>
+            <div>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       lay-verify="required"
+                       placeholder="密码"
+                       autocomplete="off"/>
+            </div>
             <div>
                 <button id="submit" lay-submit="" lay-filter="submit" class="but" type="button">登录</button>
             </div>
@@ -107,6 +119,7 @@
     layui.use(['form', 'layer', 'jquery'], function () {
         var form = layui.form;
         var $ = layui.jquery;
+
         form.on('submit(submit)', function (data) {
             var username = $('#username').val();
             var password = $('#password').val();
@@ -139,13 +152,13 @@
                         //     });
                         // } else {
                         // 暂时注释结束
-                        sessionStorage.setItem("simple",-1);
-                            layer.msg("登陆成功, 即将跳转到首页!", {
-                                icon: 1,
-                                time: 1000
-                            }, function () {
-                                top.location.href = '/index';
-                            });
+                        sessionStorage.setItem("simple", -1);
+                        layer.msg("登陆成功, 即将跳转到首页!", {
+                            icon: 1,
+                            time: 1000
+                        }, function () {
+                            top.location.href = '/index';
+                        });
                         // }
                         //setTimeout(fn, 1000);
                     }

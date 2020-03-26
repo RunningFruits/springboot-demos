@@ -145,14 +145,14 @@
                 }
             });
 
-            $.get("/street/findAllStreets", function (data, status) {
-                if (status == 'success') {
-                    layui.data('adminManager', {
-                        key: 'streets'
-                        , value: data
-                    });
-                }
-            });
+            // $.get("/street/findAllStreets", function (data, status) {
+            //     if (status == 'success') {
+            //         layui.data('adminManager', {
+            //             key: 'streets'
+            //             , value: data
+            //         });
+            //     }
+            // });
 
             $("#logout").click(function () {
                 layui.data('adminManager', null);
