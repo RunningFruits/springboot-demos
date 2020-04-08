@@ -3,7 +3,7 @@ server:
     uri-encoding: UTF-8
   port: 8092
   servlet:
-    context-path: /basejpa
+    context-path: /
 
 ---
 #spring:
