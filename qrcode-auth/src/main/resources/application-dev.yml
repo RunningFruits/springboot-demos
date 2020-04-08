@@ -1,25 +1,33 @@
 server:
   tomcat:
     uri-encoding: UTF-8
-  port: 8081
+  port: 8092
   servlet:
     context-path: /basejpa
 
+---
+#spring:
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/basejpa
+#    username: root
+#    password: 123456
+---
+
+#spring:
+#  jpa:
+#    database: MYSQL
+#    hibernate:
+#      ddl-auto: update
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL5Dialect
+#    show-sql: true
+
+---
+
 spring:
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/basejpa
-    username: root
-    password: 123456
-  jpa:
-    database: MYSQL
-    hibernate:
-      ddl-auto: update
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
-    show-sql: true
   thymeleaf:
     cache: false
     enabled: true
@@ -30,18 +38,8 @@ spring:
     servlet:
       content-type: text/html
 
-  #jms
-  activemq:
-    broker-url: tcp://127.0.0.1:61616
+---
 
-
-#mqtt配置
-mqtt:
-  broker:
-    serverUri: tcp://localhost:1883
-    username: guest
-    password: guest
-  clientId: mqtt-producer
 
 # 配置ftp服务器信息
 ftp:

@@ -1,0 +1,13 @@
+server:
+  port: 8091
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+
+appid: ''
+appsecret: ''
+appusername: hello
+callBack: http://test.xcx.cxylt.cn/callBack
+scope: snsapi_login

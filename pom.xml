@@ -14,11 +14,13 @@
         <module>weixinpay</module>
         <module>wxjspay</module>
         <module>wxminiapp</module>
+        <module>wx-scan-login</module>
         <module>mqtt.customer</module>
         <module>mqtt.producer</module>
         <module>socket</module>
         <module>websocket</module>
         <module>officialWebsite</module>
+        <module>qrcode-auth</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
