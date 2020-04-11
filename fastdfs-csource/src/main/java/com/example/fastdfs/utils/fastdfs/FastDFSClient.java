@@ -1,4 +1,4 @@
-package com.init.demo.utils.fastdfs;
+package com.example.fastdfs.utils.fastdfs;
 
 import org.csource.common.NameValuePair;
 import org.csource.fastdfs.*;
@@ -14,7 +14,7 @@ public class FastDFSClient {
 
 	static {
 		try {
-			String filePath = new ClassPathResource("fdfs_client.conf").getFile().getAbsolutePath();;
+			String filePath = new ClassPathResource("fdfs_client.conf").getFile().getAbsolutePath();
 			ClientGlobal.init(filePath);
 		} catch (Exception e) {
 			logger.error("FastDFS Client Init Fail!",e);
@@ -34,9 +34,9 @@ public class FastDFSClient {
 			storageClient = getTrackerClient();
 			uploadResults = storageClient.upload_file(file.getContent(), file.getExt(), meta_list);
 		} catch (IOException e) {
-			logger.error("IO Exception when uploadind the file:" + file.getName(), e);
+			logger.error("IO Exception when uploading the file:" + file.getName(), e);
 		} catch (Exception e) {
-			logger.error("Non IO Exception when uploadind the file:" + file.getName(), e);
+			logger.error("Non IO Exception when uploading the file:" + file.getName(), e);
 		}
 		logger.info("upload_file time used:" + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -76,22 +76,19 @@ public class FastDFSClient {
 		return null;
 	}
 
-	public static void deleteFile(String groupName, String remoteFileName)
-			throws Exception {
+	public static void deleteFile(String groupName, String remoteFileName) throws Exception {
 		StorageClient storageClient = getTrackerClient();
 		int i = storageClient.delete_file(groupName, remoteFileName);
 		logger.info("delete file successfully!!!" + i);
 	}
 
-	public static StorageServer[] getStoreStorages(String groupName)
-			throws IOException {
+	public static StorageServer[] getStoreStorages(String groupName) throws IOException {
 		TrackerClient trackerClient = new TrackerClient();
 		TrackerServer trackerServer = trackerClient.getConnection();
 		return trackerClient.getStoreStorages(trackerServer, groupName);
 	}
 
-	public static ServerInfo[] getFetchStorages(String groupName,
-												String remoteFileName) throws IOException {
+	public static ServerInfo[] getFetchStorages(String groupName, String remoteFileName) throws IOException {
 		TrackerClient trackerClient = new TrackerClient();
 		TrackerServer trackerServer = trackerClient.getConnection();
 		return trackerClient.getFetchStorages(trackerServer, groupName, remoteFileName);

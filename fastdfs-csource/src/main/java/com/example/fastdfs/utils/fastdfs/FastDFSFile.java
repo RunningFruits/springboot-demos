@@ -1,4 +1,4 @@
-package com.init.demo.utils.fastdfs;
+package com.example.fastdfs.utils.fastdfs;
 
 public class FastDFSFile {
 	private String name;

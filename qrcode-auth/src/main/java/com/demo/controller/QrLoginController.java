@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.demo.auth.LoginResponse;
 import com.demo.auth.WebSecurityConfig;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +32,17 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 
 @Controller
-public class MainController {
+public class QrLoginController {
 
-    private final String host = "http://localhost:8092";
+    @Value("${server.port}")
+    String port;
+
+    @Value("${project.domain}")
+    String domain;
+
+
+    @Value("${project.host}")
+    String host;
 
     /**
      * 存储登录状态
@@ -112,7 +121,7 @@ public class MainController {
             if (!loginMap.containsKey(loginId)) {
                 loginResponse = new LoginResponse();
                 loginMap.put(loginId, loginResponse);
-            } else{
+            } else {
                 loginResponse = loginMap.get(loginId);
             }
 

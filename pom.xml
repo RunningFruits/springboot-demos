@@ -21,7 +21,9 @@
         <module>websocket</module>
         <module>officialWebsite</module>
         <module>qrcode-auth</module>
-        <module>fastdfs</module>
+        <module>fastdfs-tobato</module>
+        <module>fastdfs-csource</module>
+        <module>opencv</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

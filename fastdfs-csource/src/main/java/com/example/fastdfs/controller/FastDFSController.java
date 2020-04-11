@@ -1,8 +1,8 @@
-package com.init.demo.controller.custom;
+package com.example.fastdfs.controller;
 
 
-import com.init.demo.utils.fastdfs.FastDFSClient;
-import com.init.demo.utils.fastdfs.FastDFSFile;
+import com.example.fastdfs.utils.fastdfs.FastDFSClient;
+import com.example.fastdfs.utils.fastdfs.FastDFSFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -23,29 +23,29 @@ public class FastDFSController {
 
     @GetMapping("")
     public String index() {
-        return "custom/fdfs/upload";
+        return "fdfs/upload";
     }
 
     @PostMapping("/upload") //new annotation since 4.3
     public String singleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:custom/fdfs/uploadStatus";
+            redirectAttributes.addFlashAttribute("message", "请选择一个文件上传！");
+            return "redirect:fdfs/uploadStatus";
         }
         try {
             // Get the file and save it somewhere
             String path = saveFile(file);
-            redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + file.getOriginalFilename() + "'");
-            redirectAttributes.addFlashAttribute("path", "file path url '" + path + "'");
+            redirectAttributes.addFlashAttribute("message", "成功上传： '" + file.getOriginalFilename() + "'");
+            redirectAttributes.addFlashAttribute("path", "文件路径 url '" + path + "'");
         } catch (Exception e) {
-            logger.error("upload file failed", e);
+            logger.error("上传文件失败！", e);
         }
-        return "redirect:custom/fdfs/uploadStatus";
+        return "redirect:fdfs/uploadStatus";
     }
 
     @GetMapping("/uploadStatus")
     public String uploadStatus() {
-        return "custom/fdfs/uploadStatus";
+        return "fdfs/uploadStatus";
     }
 
     /**
@@ -67,14 +67,16 @@ public class FastDFSController {
         inputStream.close();
         FastDFSFile file = new FastDFSFile(fileName, file_buff, ext);
         try {
-            fileAbsolutePath = FastDFSClient.upload(file);  //upload to fastdfs
+            fileAbsolutePath = FastDFSClient.upload(file);  //上传到 fastdfs
         } catch (Exception e) {
-            logger.error("upload file Exception!", e);
+            logger.error("上传文件异常!", e);
         }
         if (fileAbsolutePath == null) {
-            logger.error("upload file failed,please upload again!");
+            logger.error("上传文件失败,请重试!");
         }
         String path = FastDFSClient.getTrackerUrl() + fileAbsolutePath[0] + "/" + fileAbsolutePath[1];
         return path;
     }
+
+
 }

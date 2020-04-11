@@ -21,7 +21,8 @@
             $http.get('/login/getQrCode').success(function (data) {
                 if (!data || !data.loginId || !data.image)
                     return;
-                $scope.src = 'data:image/png;base64,' + data.image
+
+                $scope.src = 'data:image/png;base64,' + data.image;
                 $scope.getResponse(data.loginId)
             });
         };
