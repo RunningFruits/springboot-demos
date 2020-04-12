@@ -1,8 +1,6 @@
 package com.opencv.springboot.entity;
 
-/**
- * Created by frkn on 16/01/2017.
- */
+
 public class FaceEntity {
     private int x;
     private int y;
