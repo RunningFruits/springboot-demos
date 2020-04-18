@@ -24,6 +24,7 @@
         <module>fastdfs-tobato</module>
         <module>fastdfs-csource</module>
         <module>opencv</module>
+        <module>video</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

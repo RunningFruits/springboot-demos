@@ -37,3 +37,8 @@ spring:
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 
+
+#极光配置
+jpush:
+  appKey:
+  masterSecret:
