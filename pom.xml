@@ -28,6 +28,8 @@
         <module>http</module>
         <module>fileupload</module>
         <module>email</module>
+        <module>qiniu</module>
+        <module>qiniu-layui</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
