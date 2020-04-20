@@ -89,7 +89,6 @@ public class VideoUtil {
             BufferedReader br = new BufferedReader(isr);
             String line = null;
             while ( (line = br.readLine()) != null);
-
         } catch (IOException e) {
             throw new Exception("截图图片失败");
         }

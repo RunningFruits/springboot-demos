@@ -7,9 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by 7le on 2017/5/21 0021.
- */
+
 @Service
 public class UserServiceImpl extends BaseServiceImpl implements UserService {
 

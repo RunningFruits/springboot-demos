@@ -65,9 +65,7 @@ public class CollectController extends BaseController {
     @RequestMapping(value = "/collect/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "删除收藏", httpMethod = "DELETE", notes = "删除收藏")
     public ResultBean delete(HttpServletRequest request, @PathVariable Integer id) throws Exception {
-
-        if (Constant.USER_TYPE_SPECIAL != (int) request.getAttribute("type") &&
-                Constant.USER_TYPE_ORDINARY != (int) request.getAttribute("type")) {
+        if (Constant.USER_TYPE_SPECIAL != (int) request.getAttribute("type") && Constant.USER_TYPE_ORDINARY != (int) request.getAttribute("type")) {
             throw new HttpMessageNotReadableException("该用户没有删除收藏权限");
         }
         collectService.delete((Integer) request.getAttribute("userId"), id);

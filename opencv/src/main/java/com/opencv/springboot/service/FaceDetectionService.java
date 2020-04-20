@@ -17,10 +17,8 @@ import java.util.List;
 /**
  * Created by frkn on 16/01/2017.
  */
-
 @Service
 public class FaceDetectionService {
-
 
     private Resource faceResource = new ClassPathResource("haarcascades/haarcascade_frontalface_alt.xml");
 

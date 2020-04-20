@@ -8,10 +8,7 @@ import com.shine.video.service.VideoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * 总控制器
- * Created by 7le on 2017/5/18 0018.
- */
+
 public class BaseController {
 
     protected static final Logger videoLogger = Logger.getLogger("video");

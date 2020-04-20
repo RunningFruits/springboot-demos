@@ -20,11 +20,13 @@
         <module>socket</module>
         <module>websocket</module>
         <module>officialWebsite</module>
-        <module>qrcode-auth</module>
+        <module>qrcode-login</module>
         <module>fastdfs-tobato</module>
         <module>fastdfs-csource</module>
         <module>opencv</module>
         <module>video</module>
+        <module>httpclient</module>
+        <module>fileupload</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

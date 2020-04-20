@@ -19,7 +19,6 @@ import javax.sql.DataSource;
 @SpringBootApplication
 public class VideoBoot implements TransactionManagementConfigurer {
 
-
     @Resource(name = "txManager1")
     private PlatformTransactionManager txManager1;
 
@@ -36,16 +35,14 @@ public class VideoBoot implements TransactionManagementConfigurer {
 
     @Configuration
     static class WebMvcConfigurer extends WebMvcConfigurerAdapter {
-
         @Bean
         LoginInterceptor loginInterceptor() {
             return new LoginInterceptor();
         }
-
         public void addInterceptors(InterceptorRegistry registry) {
             registry.addInterceptor(loginInterceptor())
-                    .addPathPatterns("/user/**", "/collect/**", "/register", "/video/**")
-                    .excludePathPatterns("/video/show/**", "/video", "/video/transCode");
+                    .addPathPatterns("/user/**", "/collect/**", "/video/**")
+                    .excludePathPatterns( "/register","/video/show/**", "/video", "/video/transCode");
         }
     }
 
