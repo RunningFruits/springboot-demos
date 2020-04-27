@@ -220,25 +220,6 @@
 
         var layerIndex;
 
-        function edit(selectData) {
-            var userRoles;
-            $.get("/mainControl/getUserRoles/" + selectData.id, function (data, status) {
-                userRoles = data;
-            });
-            formSelects.config('role-select', {
-                searchUrl: '/mainControl/findAllRoleListForSelect',
-                success: function (id, url, searchVal, result) {
-                    formSelects.value('role-select', userRoles);
-                }
-            });
-            layerIndex = layer.open({ //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                type: 1,
-                title: "角色",
-                area: ['550px', '450px'],
-                content: $("#editDiv"), //引用的弹出层的页面层的方式加载修改界面表单
-            });
-        }
-
         function add(title) {
             layerIndex = layer.open({ //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                 type: 1,
@@ -261,10 +242,10 @@
         }
 
         function del(obj) {
-            layer.confirm("确定删除用户吗?", {icon: 3, title: '提示'},
+            layer.confirm("确定删除吗?", {icon: 3, title: '提示'},
                 function (index) {//确定回调
                     var id = obj.data.id;
-                    $.get('/mainControl/deleteUser/' + id, function (data) {
+                    $.get('/mainControl/delete/' + id, function (data) {
                         layer.close(index);
                         if (data.code == 0) {
                             layer.msg('删除成功', {time: 3000, icon: 6});
@@ -308,18 +289,7 @@
             return false;
         });
 
-        // form.on('submit(saveBtn)', function (form) {
-        //     $.post('/mainControl/save', form.field, function (data) {
-        //         if (data.code == 0) {
-        //             layer.msg('保存成功', {time: 3000, icon: 6});
-        //             $("#editForm")[0].reset();
-        //             formSelects.value('role-select', []); // 这两个第三方插件只能手动清空
-        //             layer.close(layerIndex)
-        //         } else
-        //             layer.msg("保存失败!三员不能兼任，不能同时为：" + data.msg, {icon: 2});
-        //     });
-        //     return false;
-        // });
+
     });
 </script>
 </body>

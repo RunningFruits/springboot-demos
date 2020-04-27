@@ -28,6 +28,7 @@ public class MainControlController {
         MainControl mainControl = new MainControl();
 
         mainControl.setMac(params.get("mac").toString());
+        mainControl.setIp(params.get("ip").toString());
         mainControl.setLocation(params.get("longitude").toString());
         mainControl.setLatitude(params.get("latitude").toString());
         mainControl.setLocation(params.get("location").toString());
