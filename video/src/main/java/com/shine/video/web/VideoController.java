@@ -26,10 +26,10 @@ public class VideoController extends BaseController {
     @ApiOperation(value = "视频列表", httpMethod = "GET", notes = "视频列表")
     public ResultBean list(
             HttpServletRequest request,
-            @ApiParam(required = true, name = "pageNo", value = "第几页") @RequestParam(defaultValue = "1", value = "pageNo")
-                    Integer pageNo,
-            @ApiParam(required = true, name = "pageSize", value = "每页显示条数") @RequestParam(defaultValue = "10", value = "pageSize")
-                    Integer pageSize,
+            @ApiParam(required = true, name = "pageNo", value = "第几页")
+            @RequestParam(defaultValue = "1", value = "pageNo") Integer pageNo,
+            @ApiParam(required = true, name = "pageSize", value = "每页显示条数")
+            @RequestParam(defaultValue = "10", value = "pageSize") Integer pageSize,
             @ApiParam(name = "name", value = "视频名称") String name
     ) throws Exception {
 

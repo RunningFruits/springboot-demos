@@ -1,13 +1,11 @@
 package com.shine.video.web;
 
 
-import com.shine.video.bean.Constant;
 import com.shine.video.bean.ResultBean;
 import com.shine.video.dao.model.User;
 import com.shine.video.util.EncryptUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;

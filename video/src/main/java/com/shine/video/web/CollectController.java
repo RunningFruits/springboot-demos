@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by 7le on 2017/5/21 0021.
- */
+
 @RestController
 public class CollectController extends BaseController {
-
 
     /**
      * 收藏列表展示接口

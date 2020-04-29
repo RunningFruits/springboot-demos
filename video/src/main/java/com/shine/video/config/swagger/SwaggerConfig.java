@@ -4,7 +4,7 @@ import static com.google.common.base.Predicates.or;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 import com.google.common.base.Predicate;
-import org.springframework.boot.autoconfigure.web.BasicErrorController;
+import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,10 +19,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * @author 7le
- * @since 2017-05-17
- */
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -53,8 +50,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Shine-video")//大标题
-                .contact(new Contact("7le", "https://github.com/7le", "silk.heqian@gmail.com"))//作者
+                .title("LuckyClover-video")//大标题
+                .contact(new Contact("brightereyer", "https://github.com/brightereyer", "lanlonggu@foxmail.com"))//作者
                 .version("1.0")//版本
                 .build();
     }
@@ -62,9 +59,7 @@ public class SwaggerConfig {
 
     /**
      * SpringBoot默认已经将classpath:/META-INF/resources/和classpath:/META-INF/resources/webjars/映射
-     * 所以该方法不需要重写，如果在SpringMVC中，可能需要重写定义（我没有尝试）
-     * 重写该方法需要 extends WebMvcConfigurerAdapter
-     *
+     * 所以该方法不需要重写，如果在SpringMVC中，可能需要重写定义（我没有尝试） 重写该方法需要 extends WebMvcConfigurerAdapter
      */
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {

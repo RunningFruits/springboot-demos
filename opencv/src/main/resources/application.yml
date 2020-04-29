@@ -4,3 +4,8 @@ server:
     session:
       timeout:
     context-path: /opencv
+
+
+swagger:
+  is:
+    enable: true
