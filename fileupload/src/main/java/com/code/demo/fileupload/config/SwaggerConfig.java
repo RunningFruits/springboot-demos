@@ -34,9 +34,10 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
     private boolean swagger_is_enable;
 
     //api接口包扫描路径
-    public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.code.demo.ftpupload.controller";
+    public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.code.demo.fileupload.controller";
     public static final String GROUP_NAME = "fileupload";
     public static final String API_INFO_TITLE = "fileupload";
+    public static final String API_INFO_DESCRIPTION = "描述";
     public static final String VERSION = "1.0.0";
 
     public static final String CONTACT_NAME = "brightereyer";
@@ -104,7 +105,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title(API_INFO_TITLE)
-                .description("api演示接口")
+                .description(API_INFO_DESCRIPTION)
                 .contact(new Contact(CONTACT_NAME, CONTACT_URL, CONTACT_EMAIL))
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")

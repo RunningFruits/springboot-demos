@@ -34,3 +34,4 @@ ftp:
   port: 21
   username: test
   password: test
+  remotePath: /tmp/images

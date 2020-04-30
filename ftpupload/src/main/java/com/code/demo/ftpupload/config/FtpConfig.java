@@ -1,10 +1,14 @@
 package com.code.demo.ftpupload.config;
 
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import org.springframework.beans.factory.annotation.Value;
 
 import lombok.Getter;
+
+import javax.servlet.MultipartConfigElement;
 
 @Getter
 @Component
@@ -34,22 +38,29 @@ public class FtpConfig {
     @Value("${ftp.password}")
     private String password;
 
-//    /**
-//     * ftp服务器存放文件的路径
-//     */
-//    @Value("${ftp.remotePath}")
-//    private String remotePath;
-//
+    /**
+     * ftp服务器存放文件的路径
+     */
+    @Value("${ftp.remotePath}")
+    private String remotePath;
+
 //    /**
 //     * 本地需要上传的文件的路径
 //     */
 //    @Value("${ftp.localDir}")
 //    private String localDir;
-//
+
 //    /**
 //     * 下载文件时，存放在本地的路径
 //     */
 //    @Value("${ftp.downDir}")
 //    private String downDir;
+
+    @Bean
+    MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setLocation("/app/tmp");
+        return factory.createMultipartConfig();
+    }
 
 }

@@ -1,8 +1,6 @@
 package com.code.demo.fileupload.controller;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 
@@ -12,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -19,49 +18,39 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+@Api(value = "file", description = "文件上传")
 @RestController
+@RequestMapping("file")
 @Slf4j
 public class FileController {
 
     private String host = "http://brightereyer.com:8080/fileupload"; // 上传后的路径;
     private String remotePath = "/tmp/images/"; // 上传后的路径;
 
-    @ApiOperation(value = "upload", notes = "文件上传")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "form", name = "file", value = "文件", required = true, dataType = "file")
-    })
-    @PostMapping(value = "/upload")
-    public ResponseEntity upload(
-            @RequestParam(value = "file") MultipartFile file
-    ) {
-        if (file.isEmpty()) {
-            log.info("文件为空空");
-        }
-        String fileName = file.getOriginalFilename();  // 文件名
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        fileName = UUID.randomUUID() + suffixName; // 新文件名
-        File dest = new File(remotePath + fileName);
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
+
+    @ApiOperation(value = "list", notes = "文件列表")
+    @PostMapping(value = "list")
+    public ResponseEntity list() {
         try {
-            file.transferTo(dest);
-        } catch (IOException e) {
+            File imageDir = ResourceUtils.getFile(remotePath);
+
+            return ResponseEntity.status(200).body(imageDir.list());
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("filename", host + remotePath + fileName);
-        return ResponseEntity.ok(resultMap);
+        return ResponseEntity.status(200).body("文件列表");
     }
-
 
     /**
      * 实现文件上传
      */
-    @RequestMapping("fileUpload")
-    @ResponseBody
-    public ResponseEntity fileUpload(@RequestParam("fileName") MultipartFile file) {
+    @ApiOperation(value = "uploadFile", notes = "文件上传")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "form", name = "file", value = "文件", required = true, dataType = "file")
+    })
+    @PostMapping(value = "uploadFile")
+    public ResponseEntity uploadFile(@RequestParam(value = "file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.status(400).body("文件不能为空！");
         }
@@ -78,22 +67,23 @@ public class FileController {
             return ResponseEntity.status(200).body("文件上传成功！");
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+//            e.printStackTrace();
             return ResponseEntity.status(400).body("文件上传失败！");
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+//            e.printStackTrace();
             return ResponseEntity.status(400).body("文件上传失败！");
         }
     }
 
-    /**
-     * 实现多文件上传
-     */
-    @RequestMapping(value = "multiFileUpload", method = RequestMethod.POST)
+    @ApiOperation(value = "uploadFiles", notes = "多文件上传")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "form", name = "files", value = "文件", required = true, dataType = "file")
+    })
+    @PostMapping(value = "uploadFiles")
     @ResponseBody
-    public ResponseEntity multiFileUpload(HttpServletRequest request) {
-        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("fileName");
+    public ResponseEntity uploadFiles(HttpServletRequest request) {
+        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("files");
         if (files.isEmpty()) {
             return ResponseEntity.status(400).body("文件上传失败！");
         }
@@ -113,7 +103,7 @@ public class FileController {
                     file.transferTo(dest);
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+//                    e.printStackTrace();
                     return ResponseEntity.status(400).body("文件上传失败！");
                 }
             }
@@ -121,10 +111,14 @@ public class FileController {
         return ResponseEntity.status(200).body("文件上传成功！");
     }
 
-    @RequestMapping("/download")
-    public String download(HttpServletResponse response) throws UnsupportedEncodingException {
-        String filename = "2.xlsx";
-        String filePath = "D:/download";
+    @ApiOperation(value = "download", notes = "文件下载")
+    @RequestMapping("download")
+    public String download(HttpServletResponse response,
+                           @ApiParam(value = "outName", required = true) @RequestParam(value = "outName") String outName,
+                           @ApiParam(value = "outPath", required = true) @RequestParam(value = "outPath") String outPath
+    ) throws UnsupportedEncodingException {
+        String filename = outName;
+        String filePath = outPath;
 
         File file = new File(filePath + "/" + filename);
         if (file.exists()) { //判断文件父目录是否存在
@@ -158,7 +152,7 @@ public class FileController {
                 e.printStackTrace();
             }
         }
-        return null;
+        return "";
     }
 
 }

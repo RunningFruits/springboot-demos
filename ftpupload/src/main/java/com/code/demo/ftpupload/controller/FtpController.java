@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Api(value = "/ftp",description = "请求ftp服务器")
+@Api(value = "/ftp", description = "请求ftp服务器")
 @RestController
 @RequestMapping(value = "/ftp")
 @Slf4j(topic = "请求ftp服务器")
@@ -36,27 +36,38 @@ public class FtpController {
     private String remoteDirPath = "/tmp/images/";
 
 
-    @ApiOperation(value="/uploadFile", notes="上传文件")
-    @GetMapping("/uploadFile")
+    @ApiOperation(value = "/uploadFile", notes = "上传文件", httpMethod = "POST")
+    @PostMapping("/uploadFile")
     public ResponseEntity uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        String remoteFileName = file.getName();
-        String uploadFilePath = null;
+        if (file.isEmpty()) {
+            return ResponseEntity.status(400).body("文件不能为空！");
+        }
+        String fileName = file.getOriginalFilename();
+        int size = (int) file.getSize();
+        log.info(fileName + "-->" + size);
+
+        File dest = new File(remoteDirPath + "/" + fileName);
+        if (!dest.getParentFile().exists()) { //判断文件父目录是否存在
+            dest.getParentFile().mkdir();
+        }
+
         try {
-            uploadFilePath = file.getResource().getFile().getAbsolutePath();
+            file.transferTo(dest); //保存文件
+
+            boolean resultFlag = storageService.uploadFile(remoteDirPath, fileName, dest.getAbsolutePath());
+
+            return ResponseEntity.status(200).body(resultFlag);
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            return ResponseEntity.status(400).body("文件上传失败！");
         } catch (IOException e) {
-//            e.printStackTrace();
+            // TODO Auto-generated catch block
+            return ResponseEntity.status(400).body("文件上传失败！");
         }
-        boolean resultFlag = storageService.uploadFile(remoteDirPath, remoteFileName, uploadFilePath);
-        if (resultFlag) {
-            logger.info("Upload Local File: {} successful", uploadFilePath);
-        } else {
-            logger.info("Upload Local File: {} failed", uploadFilePath);
-        }
-        return ResponseEntity.status(200).body("");
     }
 
-    @ApiOperation(value="/uploadFile", notes="上传目录")
-    @GetMapping("/uploadDir")
+    @ApiOperation(value = "/uploadDir", notes = "上传目录", httpMethod = "POST")
+    @PostMapping("/uploadDir")
     public void uploadDir() {
         String uploadDirPath = null;
         try {
@@ -72,11 +83,12 @@ public class FtpController {
         }
     }
 
-    @ApiOperation(value="/uploadFile", notes="下载文件")
-    @GetMapping("/downloadFile")
-    public void downloadFile(@RequestParam(value = "file") MultipartFile file) {
-        String remoteFileName = "中文测试.txt";
-        String localFilePath = "F://aa";
+    @ApiOperation(value = "/downloadFile", notes = "下载文件", httpMethod = "POST")
+    @PostMapping("/downloadFile")
+    public void downloadFile(
+            @RequestParam(value = "remoteFileName") String remoteFileName,
+            @RequestParam(value = "localFilePath") String localFilePath
+    ) {
         boolean resultFlag = storageService.downloadFile(remoteDirPath, remoteFileName, localFilePath);
         if (resultFlag) {
             logger.info("download file: {} successful", remoteDirPath + "/" + remoteFileName);
@@ -85,10 +97,11 @@ public class FtpController {
         }
     }
 
-    @ApiOperation(value="/downloadDir", notes="下载目录")
-    @GetMapping("/downloadDir")
-    public void downloadDir() {
-        String localDirPath = "F://bb";
+    @ApiOperation(value = "/downloadDir", notes = "下载目录", httpMethod = "POST")
+    @PostMapping("/downloadDir")
+    public void downloadDir(
+            @RequestParam(value = "localDirPath") String localDirPath
+    ) {
         boolean resultFlag = storageService.downloadDirectory(remoteDirPath, localDirPath);
         if (resultFlag) {
             logger.info("download directory: {} successful", remoteDirPath);
@@ -97,28 +110,35 @@ public class FtpController {
         }
     }
 
-    @ApiOperation(value="/deleteFile", notes="删除文件")
-    @GetMapping("/deleteFile")
-    public void deleteFile() {
-        String remoteFilePath = remoteDirPath + "中文测试.txt";
+    @ApiOperation(value = "/deleteFile", notes = "删除文件", httpMethod = "POST")
+    @PostMapping("/deleteFile")
+    public ResponseEntity deleteFile(
+            @RequestParam(value = "fileName") String fileName
+    ) {
+        String remoteFilePath = remoteDirPath + fileName;
         boolean resultFlag = storageService.deleteFile(remoteFilePath);
         if (resultFlag) {
             logger.info("delete file: {} successful", remoteFilePath);
+            return ResponseEntity.status(200).body(remoteFilePath + "删除成功！");
         } else {
             logger.info("delete file: {} failed", remoteFilePath);
+            return ResponseEntity.status(400).body(remoteFilePath + "删除失败！");
         }
     }
 
 
-    @ApiOperation(value="/deleteDir", notes="递归删除目录")
-    @GetMapping("/deleteDir")
-    public void deleteDir() {
+    @ApiOperation(value = "/deleteDir", notes = "递归删除目录", httpMethod = "POST")
+    @PostMapping("/deleteDir")
+    public ResponseEntity deleteDir() {
         boolean resultFlag = storageService.deleteDirectory(remoteDirPath);
         if (resultFlag) {
             logger.info("delete directory: {} successful", remoteDirPath);
+            return ResponseEntity.status(200).body("删除成功！");
         } else {
             logger.info("delete directory: {} failed", remoteDirPath);
+            return ResponseEntity.status(400).body("删除失败！");
         }
     }
+
 
 }
