@@ -1,5 +1,4 @@
-package com.code.demo.ftpupload.controller;
-
+package com.code.demo.fileupload.controller;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

@@ -1,4 +1,4 @@
-package com.code.demo.ftpupload.config;
+package com.code.demo.fileupload.config;
 
 
 import com.google.common.base.Predicate;

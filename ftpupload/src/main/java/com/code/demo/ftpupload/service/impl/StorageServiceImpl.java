@@ -21,16 +21,16 @@ public class StorageServiceImpl implements StorageService {
 
 
     @Autowired
-    private FtpUtil ftpUtil;
+    FtpUtil ftpUtil;
 
     @Value("${ftp.host}")
-    private String ftpHost;
+    String ftpHost;
     @Value("${ftp.port}")
-    private Integer ftpPort;
-    @Value("${ftp.user}")
-    private String ftpUser;
+    Integer ftpPort;
+    @Value("${ftp.username}")
+    String ftpUser;
     @Value("${ftp.password}")
-    private String ftpPassWord;
+    String ftpPassWord;
 
 
     @Override

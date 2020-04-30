@@ -28,8 +28,9 @@ server:
 # 配置ftp服务器信息
 ftp:
   # ftp服务器的IP地址
-  url: 47.98.119.123
+  # host: 47.98.119.123
+  host: 192.168.99.100
   # 默认端口是21
   port: 21
-  username: ftpuser
-  password: ftpuser
+  username: test
+  password: test

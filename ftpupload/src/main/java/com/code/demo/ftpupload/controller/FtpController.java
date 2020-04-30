@@ -3,6 +3,8 @@ package com.code.demo.ftpupload.controller;
 
 import com.code.demo.ftpupload.service.StorageService;
 import com.code.demo.ftpupload.utils.FtpUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.*;
 import java.net.URLDecoder;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Api(value = "/ftp",description = "请求ftp服务器")
 @RestController
 @RequestMapping(value = "/ftp")
 @Slf4j(topic = "请求ftp服务器")
@@ -32,17 +36,15 @@ public class FtpController {
     private String remoteDirPath = "/tmp/images/";
 
 
-    /**
-     * 上传文件
-     */
+    @ApiOperation(value="/uploadFile", notes="上传文件")
     @GetMapping("/uploadFile")
-    public void uploadFile(@RequestParam(value = "file") MultipartFile file) {
+    public ResponseEntity uploadFile(@RequestParam(value = "file") MultipartFile file) {
         String remoteFileName = file.getName();
         String uploadFilePath = null;
         try {
             uploadFilePath = file.getResource().getFile().getAbsolutePath();
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         boolean resultFlag = storageService.uploadFile(remoteDirPath, remoteFileName, uploadFilePath);
         if (resultFlag) {
@@ -50,11 +52,10 @@ public class FtpController {
         } else {
             logger.info("Upload Local File: {} failed", uploadFilePath);
         }
+        return ResponseEntity.status(200).body("");
     }
 
-    /**
-     * 上传目录
-     */
+    @ApiOperation(value="/uploadFile", notes="上传目录")
     @GetMapping("/uploadDir")
     public void uploadDir() {
         String uploadDirPath = null;
@@ -71,9 +72,7 @@ public class FtpController {
         }
     }
 
-    /**
-     * 下载文件
-     */
+    @ApiOperation(value="/uploadFile", notes="下载文件")
     @GetMapping("/downloadFile")
     public void downloadFile(@RequestParam(value = "file") MultipartFile file) {
         String remoteFileName = "中文测试.txt";
@@ -86,9 +85,7 @@ public class FtpController {
         }
     }
 
-    /**
-     * 下载目录
-     */
+    @ApiOperation(value="/downloadDir", notes="下载目录")
     @GetMapping("/downloadDir")
     public void downloadDir() {
         String localDirPath = "F://bb";
@@ -100,9 +97,7 @@ public class FtpController {
         }
     }
 
-    /**
-     * 删除文件
-     */
+    @ApiOperation(value="/deleteFile", notes="删除文件")
     @GetMapping("/deleteFile")
     public void deleteFile() {
         String remoteFilePath = remoteDirPath + "中文测试.txt";
@@ -114,9 +109,8 @@ public class FtpController {
         }
     }
 
-    /**
-     * 递归删除目录
-     */
+
+    @ApiOperation(value="/deleteDir", notes="递归删除目录")
     @GetMapping("/deleteDir")
     public void deleteDir() {
         boolean resultFlag = storageService.deleteDirectory(remoteDirPath);

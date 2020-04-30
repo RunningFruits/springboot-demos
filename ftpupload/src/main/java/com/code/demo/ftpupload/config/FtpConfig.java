@@ -9,11 +9,12 @@ import lombok.Getter;
 @Getter
 @Component
 public class FtpConfig {
+
     /**
      * ftp服务器地址
      */
-    @Value("${ftp.url}")
-    private String url;
+    @Value("${ftp.host}")
+    private String host;
 
     /**
      * ftp服务器端口
@@ -33,22 +34,22 @@ public class FtpConfig {
     @Value("${ftp.password}")
     private String password;
 
-    /**
-     * ftp服务器存放文件的路径
-     */
-    @Value("${ftp.remotePath}")
-    private String remotePath;
-
-    /**
-     * 本地需要上传的文件的路径
-     */
-    @Value("${ftp.localDir}")
-    private String localDir;
-
-    /**
-     * 下载文件时，存放在本地的路径
-     */
-    @Value("${ftp.downDir}")
-    private String downDir;
+//    /**
+//     * ftp服务器存放文件的路径
+//     */
+//    @Value("${ftp.remotePath}")
+//    private String remotePath;
+//
+//    /**
+//     * 本地需要上传的文件的路径
+//     */
+//    @Value("${ftp.localDir}")
+//    private String localDir;
+//
+//    /**
+//     * 下载文件时，存放在本地的路径
+//     */
+//    @Value("${ftp.downDir}")
+//    private String downDir;
 
 }
