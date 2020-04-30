@@ -2,25 +2,21 @@ package com.code.demo.ftpupload.controller;
 
 
 import com.code.demo.ftpupload.service.StorageService;
-import com.code.demo.ftpupload.utils.FtpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
-import java.net.URLDecoder;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ClassUtils;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Api(value = "/ftp", description = "请求ftp服务器")
 @RestController
@@ -33,12 +29,15 @@ public class FtpController {
     @Autowired
     private StorageService storageService;
 
-    private String remoteDirPath = "/tmp/images/";
+    @Value("${ftp.remotePath}")
+    String remoteDirPath;
 
 
     @ApiOperation(value = "/uploadFile", notes = "上传文件", httpMethod = "POST")
     @PostMapping("/uploadFile")
-    public ResponseEntity uploadFile(@RequestParam(value = "file") MultipartFile file) {
+    public ResponseEntity uploadFile(
+            @ApiParam(value = "file", required = true) @RequestParam(value = "file") MultipartFile file
+    ) {
         if (file.isEmpty()) {
             return ResponseEntity.status(400).body("文件不能为空！");
         }
@@ -53,9 +52,7 @@ public class FtpController {
 
         try {
             file.transferTo(dest); //保存文件
-
             boolean resultFlag = storageService.uploadFile(remoteDirPath, fileName, dest.getAbsolutePath());
-
             return ResponseEntity.status(200).body(resultFlag);
         } catch (IllegalStateException e) {
             // TODO Auto-generated catch block
@@ -68,52 +65,60 @@ public class FtpController {
 
     @ApiOperation(value = "/uploadDir", notes = "上传目录", httpMethod = "POST")
     @PostMapping("/uploadDir")
-    public void uploadDir() {
-        String uploadDirPath = null;
-        try {
-            uploadDirPath = ResourceUtils.getFile("classpath:data").getAbsolutePath();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public ResponseEntity uploadDir(
+            @ApiParam(value = "uploadDirPath", required = true) @RequestParam(value = "uploadDirPath") String uploadDirPath
+    ) {
         boolean resultFlag = storageService.uploadDir(uploadDirPath, remoteDirPath);
         if (resultFlag) {
             logger.info("Upload Local Dir: {} successful", uploadDirPath);
+            return ResponseEntity.status(200).body(uploadDirPath);
         } else {
             logger.info("Upload Local Dir: {} failed", uploadDirPath);
+            return ResponseEntity.status(400).body(uploadDirPath);
         }
     }
 
     @ApiOperation(value = "/downloadFile", notes = "下载文件", httpMethod = "POST")
     @PostMapping("/downloadFile")
-    public void downloadFile(
-            @RequestParam(value = "remoteFileName") String remoteFileName,
-            @RequestParam(value = "localFilePath") String localFilePath
+    public ResponseEntity downloadFile(
+            @ApiParam(value = "remoteFileName", required = true) @RequestParam(value = "remoteFileName") String remoteFileName,
+            @ApiParam(value = "localFilePath", required = true) @RequestParam(value = "localFilePath") String localFilePath
     ) {
         boolean resultFlag = storageService.downloadFile(remoteDirPath, remoteFileName, localFilePath);
         if (resultFlag) {
-            logger.info("download file: {} successful", remoteDirPath + "/" + remoteFileName);
+            String file =  remoteDirPath + "/" + remoteFileName;
+            logger.info("download file: {} successful",file);
+
+            return ResponseEntity.status(200).body(file);
         } else {
-            logger.info("download file: {} failed", remoteDirPath + "/" + remoteFileName);
+            String file =  remoteDirPath + "/" + remoteFileName;
+            logger.info("download file: {} failed",file);
+
+            return ResponseEntity.status(400).body(file);
         }
     }
 
     @ApiOperation(value = "/downloadDir", notes = "下载目录", httpMethod = "POST")
     @PostMapping("/downloadDir")
-    public void downloadDir(
-            @RequestParam(value = "localDirPath") String localDirPath
+    public ResponseEntity downloadDir(
+            @ApiParam(value = "localDirPath", required = true) @RequestParam(value = "localDirPath") String localDirPath
     ) {
         boolean resultFlag = storageService.downloadDirectory(remoteDirPath, localDirPath);
         if (resultFlag) {
             logger.info("download directory: {} successful", remoteDirPath);
+
+            return ResponseEntity.status(200).body(remoteDirPath);
         } else {
             logger.info("download directory: {} failed", remoteDirPath);
+
+            return ResponseEntity.status(400).body(remoteDirPath);
         }
     }
 
     @ApiOperation(value = "/deleteFile", notes = "删除文件", httpMethod = "POST")
     @PostMapping("/deleteFile")
     public ResponseEntity deleteFile(
-            @RequestParam(value = "fileName") String fileName
+            @ApiParam(value = "fileName", required = true) @RequestParam(value = "fileName") String fileName
     ) {
         String remoteFilePath = remoteDirPath + fileName;
         boolean resultFlag = storageService.deleteFile(remoteFilePath);
