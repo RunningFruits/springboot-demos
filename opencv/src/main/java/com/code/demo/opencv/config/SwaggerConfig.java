@@ -8,9 +8,12 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -26,25 +29,34 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @Slf4j
-public class SwaggerConfig  {
-//public class SwaggerConfig extends WebMvcConfigurationSupport implements EnvironmentAware {
+public class SwaggerConfig extends WebMvcConfigurationSupport implements EnvironmentAware {
 
     @Value("${swagger.is.enable}")
     private boolean swagger_is_enable;
 
-//    private Environment environment;
-//    @Override
-//    public void setEnvironment(Environment environment) {
-//        this.environment = environment;
-//    }
+    private Environment environment;
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/opencv/**")
-//                .allowedMethods("*")
-//                .allowedOrigins("*")
-//                .allowedHeaders("*");
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/opencv/**")
+                .allowedMethods("*")
+                .allowedOrigins("*")
+                .allowedHeaders("*");
+    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        super.addResourceHandlers(registry);
+    }
 
     @Bean
     public Docket createRestApi() {
@@ -70,25 +82,12 @@ public class SwaggerConfig  {
     }
 
 
-
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/static/**")
-//                .addResourceLocations("classpath:/static/");
-//        registry.addResourceHandler("swagger-ui.html")
-//                .addResourceLocations("classpath:/META-INF/resources/");
-//        registry.addResourceHandler("/webjars/**")
-//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-//        super.addResourceHandlers(registry);
-//    }
-
-
     @Bean
     public Docket opencvDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("opencv")
                 .genericModelSubstitutes(DeferredResult.class)
-//                .genericModelSubstitutes(ResponseEntity.class)
+                .genericModelSubstitutes(ResponseEntity.class)
                 .useDefaultResponseMessages(false)
                 .forCodeGeneration(true)
                 .pathMapping("/")// base，最终调用接口后会和paths拼接在一起

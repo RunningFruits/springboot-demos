@@ -30,7 +30,7 @@ case "$1" in
 start)
         ## 启动eureka
         echo "--------eureka 开始启动--------------"
-        nohup java -jar $EUREKA >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $EUREKA >/dev/null 2>&1 &
         EUREKA_pid=`lsof -i:$EUREKA_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$EUREKA_pid" ]
             do
@@ -41,7 +41,7 @@ start)
 
         ## 启动GZGL
         echo "--------开始启动GZGL---------------"
-        nohup java -jar $GZGL >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $GZGL >/dev/null 2>&1 &
         GZGL_pid=`lsof -i:$GZGL_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$GZGL_pid" ]
             do
@@ -52,7 +52,7 @@ start)
 
 		## 启动COLLECTER
         echo "--------开始启动COLLECTER---------------"
-        nohup java -jar $COLLECTER >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $COLLECTER >/dev/null 2>&1 &
         COLLECTER_pid=`lsof -i:$COLLECTER_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$COLLECTER_pid" ]
             do
@@ -63,7 +63,7 @@ start)
 
 		## 启动ZDMB
         echo "--------开始启动ZDMB---------------"
-        nohup java -jar $ZDMB >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $ZDMB >/dev/null 2>&1 &
         ZDMB_pid=`lsof -i:$ZDMB_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$ZDMB_pid" ]
             do
@@ -74,7 +74,7 @@ start)
 
 		## 启动XTSZ
         echo "--------开始启动XTSZ---------------"
-        nohup java -jar $XTSZ >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $XTSZ >/dev/null 2>&1 &
         XTSZ_pid=`lsof -i:$XTSZ_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$XTSZ_pid" ]
             do
@@ -85,7 +85,7 @@ start)
 
 		## 启动QBSJ
         echo "--------开始启动QBSJ---------------"
-        nohup java -jar $QBSJ >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $QBSJ >/dev/null 2>&1 &
         QBSJ_pid=`lsof -i:$QBSJ_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$QBSJ_pid" ]
             do
@@ -96,7 +96,7 @@ start)
 
 		## 启动FILE
         echo "--------开始启动FILE---------------"
-        nohup java -jar $FILE >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $FILE >/dev/null 2>&1 &
         FILE_pid=`lsof -i:$FILE_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$FILE_pid" ]
             do
@@ -107,7 +107,7 @@ start)
 
 		## 启动PTAQ
         echo "--------开始启动PTAQ---------------"
-        nohup java -jar $PTAQ >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $PTAQ >/dev/null 2>&1 &
         PTAQ_pid=`lsof -i:$PTAQ_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$PTAQ_pid" ]
             do
@@ -118,7 +118,7 @@ start)
 
 		## 启动QYXZ
         echo "--------开始启动QYXZ---------------"
-        nohup java -jar $QYXZ >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $QYXZ >/dev/null 2>&1 &
         QYXZ_pid=`lsof -i:$QYXZ_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$QYXZ_pid" ]
             do
@@ -129,7 +129,7 @@ start)
 
 		## 启动FXPG
         echo "--------开始启动FXPG---------------"
-        nohup java -jar $FXPG >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $FXPG >/dev/null 2>&1 &
         FXPG_pid=`lsof -i:$FXPG_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$FXPG_pid" ]
             do
@@ -140,7 +140,7 @@ start)
 
 		## 启动OPEN
         echo "--------开始启动OPEN---------------"
-        nohup java -jar $OPEN >/dev/null 2>&1 &
+        nohup java -Xms128m -Xmx128m -jar $OPEN >/dev/null 2>&1 &
         OPEN_pid=`lsof -i:$OPEN_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$OPEN_pid" ]
             do

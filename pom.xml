@@ -10,6 +10,7 @@
         <module>echarts</module>
         <module>common</module>
         <module>api</module>
+        <module>jwt-api</module>
         <module>backend</module>
         <module>weixinpay</module>
         <module>wxjspay</module>
@@ -27,6 +28,7 @@
         <module>video</module>
         <module>http</module>
         <module>fileupload</module>
+        <module>ftpupload</module>
         <module>email</module>
         <module>qiniu</module>
         <module>qiniu-layui</module>

@@ -14,9 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by frkn on 16/01/2017.
- */
+
 @Service
 public class FaceDetectionService {
 

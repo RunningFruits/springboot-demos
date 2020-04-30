@@ -30,28 +30,24 @@ public class FaceDetectController {
             @ApiParam(required = true, name = "file", value = "图片文件")
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        ResponseEntity responseEntity;
         if (!validateImage(file)) {
-            responseEntity = new ResponseEntity(new byte[1], HttpStatus.OK);
-            return responseEntity;
+            return ResponseEntity.status(HttpStatus.OK).body(new byte[1]);
         }
-        responseEntity = new ResponseEntity(faceDetectionService.detectFace(file).toImage(), HttpStatus.OK);
+        ResponseEntity responseEntity = new ResponseEntity(faceDetectionService.detectFace(file).toImage(), HttpStatus.OK);
         return responseEntity;
     }
 
     @ApiOperation(value = "/json", httpMethod = "POST", notes = "验证图片")
-    @ResponseBody
     @RequestMapping(value = "/json", method = RequestMethod.POST)
+    @ResponseBody
     public ResponseEntity json(
             @ApiParam(required = true, name = "file", value = "图片文件")
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        ResponseEntity responseEntity;
         if (!validateImage(file)) {
-            responseEntity = new ResponseEntity(new ArrayList<>(), HttpStatus.OK);
-            return responseEntity;
+            return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
         }
-        responseEntity = new ResponseEntity(faceDetectionService.detectFace(file).toList(), HttpStatus.OK);
+        ResponseEntity responseEntity = new ResponseEntity(faceDetectionService.detectFace(file).toList(), HttpStatus.OK);
         return responseEntity;
     }
 

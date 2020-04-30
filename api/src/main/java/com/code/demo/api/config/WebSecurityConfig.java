@@ -15,8 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /**
  * SpringSecurity的配置
  * 通过SpringSecurity的配置，将JWTLoginFilter，JWTAuthenticationFilter组合在一起
- *
- * @author zhaoxinguo on 2017/9/13.
  */
 @Configuration
 @Order(SecurityProperties.BASIC_AUTH_ORDER)

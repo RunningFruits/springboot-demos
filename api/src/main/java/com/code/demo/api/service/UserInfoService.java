@@ -1,7 +1,7 @@
 package com.code.demo.api.service;
 
 
-import com.code.demo.api.dao.UserInfoDao;
+import com.code.demo.api.dao.UserInfoRepository;
 import com.code.demo.api.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class UserInfoService {
 
     @Autowired
-    UserInfoDao userInfoDao;
+    UserInfoRepository userInfoRepository;
 
     public UserInfo selectByOpenId(String open_id) {
 //        userInfoDao.findByUsernameAndPassword();

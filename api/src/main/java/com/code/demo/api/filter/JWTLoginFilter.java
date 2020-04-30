@@ -1,6 +1,5 @@
 package com.code.demo.api.filter;
 
-import com.code.demo.api.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
