@@ -11,12 +11,13 @@
         <module>common</module>
         <module>api</module>
         <module>app-auth</module>
-        <module>weixin-sell</module>
         <module>jwt-api</module>
         <module>backend</module>
         <module>weixinpay</module>
         <module>wxjspay</module>
         <module>wxminiapp</module>
+        <module>weixin-sell</module>
+        <module>wxapp-diancan/wxdc-boot</module>
         <module>wx-scan-login</module>
         <module>mqtt.customer</module>
         <module>mqtt.producer</module>

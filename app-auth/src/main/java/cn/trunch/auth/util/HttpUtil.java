@@ -10,6 +10,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class HttpUtil {
+
     public static String doGet(String httpurl) {
         HttpURLConnection connection = null;
         InputStream is = null;

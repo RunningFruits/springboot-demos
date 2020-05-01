@@ -183,12 +183,12 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>${io.springfox.version}</version>
         </dependency>
+        <!-- swagger end -->
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
-        <!-- swagger end -->
-
     </dependencies>
     <!--<build>-->
         <!--<plugins>-->
