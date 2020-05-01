@@ -1,18 +1,24 @@
 package com.shine.video.config.swagger;
 
-import static com.google.common.base.Predicates.or;
-import static springfox.documentation.builders.PathSelectors.regex;
-
 import com.google.common.base.Predicate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -22,8 +28,48 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class SwaggerConfig extends WebMvcConfigurationSupport implements EnvironmentAware {
 
+
+    @Value("${swagger.is.enable}")
+    private boolean swagger_is_enable;
+
+    //api接口包扫描路径
+    public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.shine.video.controller";
+    public static final String VERSION = "1.0.0";
+
+    public static final String GROUP_NAME = "opencv";
+    public static final String API_INFO_TITLE = "opencv接口";
+    public static final String API_INFO_DESCRIPTION = "接口描述";
+
+    public static final String CONTACT_NAME = "brightereyer";
+    public static final String CONTACT_URL = "https://github.coom/brightereyer";
+    public static final String CONTACT_EMAIL = "lanlonggu@foxmail.com";
+
+
+    private Environment environment;
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/video/**")
+                .allowedMethods("*")
+                .allowedOrigins("*")
+                .allowedHeaders("*");
+    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        super.addResourceHandlers(registry);
+    }
 
     @Bean
     public Docket createRestApi() {
@@ -48,85 +94,33 @@ public class SwaggerConfig {
                 .build();
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("LuckyClover-video")//大标题
-                .contact(new Contact("brightereyer", "https://github.com/brightereyer", "lanlonggu@foxmail.com"))//作者
-                .version("1.0")//版本
-                .build();
-    }
 
-
-    /**
-     * SpringBoot默认已经将classpath:/META-INF/resources/和classpath:/META-INF/resources/webjars/映射
-     * 所以该方法不需要重写，如果在SpringMVC中，可能需要重写定义（我没有尝试） 重写该方法需要 extends WebMvcConfigurerAdapter
-     */
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("swagger-ui.html")
-//                .addResourceLocations("classpath:/META-INF/resources/");
-//
-//        registry.addResourceHandler("/webjars/**")
-//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-//    }
-
-    /**
-     * 可以定义多个组，比如本类中定义把test和demo区分开了
-     * （访问页面就可以看到效果了）
-     *
-     */
     @Bean
-    public Docket testApi() {
+    public Docket apiDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("test")
+                .groupName(GROUP_NAME)
                 .genericModelSubstitutes(DeferredResult.class)
-//                .genericModelSubstitutes(ResponseEntity.class)
+                .genericModelSubstitutes(ResponseEntity.class)
                 .useDefaultResponseMessages(false)
                 .forCodeGeneration(true)
                 .pathMapping("/")// base，最终调用接口后会和paths拼接在一起
                 .select()
-                .paths(or(regex("/api/.*")))//过滤的接口
+                .apis(RequestHandlerSelectors.basePackage(SWAGGER_SCAN_BASE_PACKAGE))
+//                .paths(or(regex("/opencv/.*")))//过滤的接口
+                .paths(PathSelectors.any())
                 .build()
-                .apiInfo(testApiInfo());
+                .apiInfo(apiInfo());
     }
 
-    @Bean
-    public Docket demoApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("demo")
-                .genericModelSubstitutes(DeferredResult.class)
-//              .genericModelSubstitutes(ResponseEntity.class)
-                .useDefaultResponseMessages(false)
-                .forCodeGeneration(false)
-                .pathMapping("/")
-                .select()
-                .paths(or(regex("/demo/.*")))//过滤的接口
-                .build()
-                .apiInfo(demoApiInfo());
-    }
-
-    private ApiInfo testApiInfo() {
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Electronic Health Record(EHR) Platform API")//大标题
-                .description("EHR Platform's REST API, all the applications could access the Object model data via JSON.")//详细描述
-                .version("1.0")//版本
-                .termsOfServiceUrl("NO terms of service")
-                .contact(new Contact("7le", "https://github.com/7le", "silk.heqian@gmail.com"))//作者
-                .license("The Apache License, Version 2.0")
+                .title(API_INFO_TITLE)
+                .description(API_INFO_DESCRIPTION)
+                .contact(new Contact(CONTACT_NAME, CONTACT_URL, CONTACT_EMAIL))
+                .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+                .version(VERSION)
                 .build();
     }
 
-    private ApiInfo demoApiInfo() {
-        return new ApiInfoBuilder()
-                .title("Electronic Health Record(EHR) Platform API")//大标题
-                .description("EHR Platform's REST API, all the applications could access the Object model data via JSON.")//详细描述
-                .version("1.0")//版本
-                .termsOfServiceUrl("NO terms of service")
-                .contact(new Contact("silk", "https://github.com/7le", "silk.heqian@gmail.com"))//作者
-                .license("The Apache License, Version 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .build();
-
-    }
 }

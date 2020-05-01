@@ -19,3 +19,6 @@ spring:
     hibernate:
       ddl-auto: update
 
+swagger:
+  is:
+    enable: true

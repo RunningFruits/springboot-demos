@@ -5,13 +5,11 @@ import com.shine.video.service.CollectService;
 import com.shine.video.service.LoginService;
 import com.shine.video.service.UserService;
 import com.shine.video.service.VideoService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+@Slf4j
 public class BaseController {
-
-    protected static final Logger videoLogger = Logger.getLogger("video");
 
     //业务层
     @Autowired

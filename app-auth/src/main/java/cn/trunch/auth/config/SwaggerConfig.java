@@ -1,4 +1,4 @@
-package com.code.demo.opencv.config;
+package cn.trunch.auth.config;
 
 import com.google.common.base.Predicate;
 import lombok.extern.slf4j.Slf4j;
@@ -8,10 +8,8 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -26,7 +24,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-
 @Configuration
 @EnableSwagger2
 @Slf4j
@@ -36,30 +33,28 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
     private boolean swagger_is_enable;
 
     //api接口包扫描路径
-    public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.shine.video.controller";
+    public static final String SWAGGER_SCAN_BASE_PACKAGE = "cn.trunch.auth.controller";
     public static final String VERSION = "1.0.0";
 
-    public static final String GROUP_NAME = "opencv";
-    public static final String API_INFO_TITLE = "opencv接口";
-    public static final String API_INFO_DESCRIPTION = "接口描述";
+    public static final String GROUP_NAME = "app-auth";
+    public static final String API_INFO_TITLE = "app-auth接口";
+    public static final String API_INFO_DESCRIPTION = "app-auth接口描述";
 
     public static final String CONTACT_NAME = "brightereyer";
     public static final String CONTACT_URL = "https://github.coom/brightereyer";
     public static final String CONTACT_EMAIL = "lanlonggu@foxmail.com";
 
-
     private Environment environment;
     @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
-    @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/opencv/**")
+        registry.addMapping("/auth/**")
                 .allowedMethods("*")
                 .allowedOrigins("*")
                 .allowedHeaders("*");
+    }
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -95,19 +90,13 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
                 .build();
     }
 
-
     @Bean
-    public Docket opencvDocket() {
+    public Docket apiDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(swagger_is_enable)
                 .groupName(GROUP_NAME)
-                .genericModelSubstitutes(DeferredResult.class)
-                .genericModelSubstitutes(ResponseEntity.class)
-                .useDefaultResponseMessages(false)
-                .forCodeGeneration(true)
-                .pathMapping("/")// base，最终调用接口后会和paths拼接在一起
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(SWAGGER_SCAN_BASE_PACKAGE))
-//                .paths(or(regex("/opencv/.*")))//过滤的接口
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());

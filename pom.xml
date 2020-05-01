@@ -10,6 +10,7 @@
         <module>echarts</module>
         <module>common</module>
         <module>api</module>
+        <module>app-auth</module>
         <module>jwt-api</module>
         <module>backend</module>
         <module>weixinpay</module>

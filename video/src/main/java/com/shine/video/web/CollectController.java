@@ -25,7 +25,8 @@ public class CollectController extends BaseController {
                            @ApiParam(required = true, name = "pageNo", value = "第几页")
                            @RequestParam(defaultValue = "1", value = "pageNo") Integer pageNo,
                            @ApiParam(required = true, name = "pageSize", value = "每页显示条数")
-                           @RequestParam(defaultValue = "10", value = "pageSize") Integer pageSize) throws Exception {
+                           @RequestParam(defaultValue = "10", value = "pageSize") Integer pageSize)
+            throws Exception {
 
         if (Constant.USER_TYPE_SPECIAL != (int) request.getAttribute("type") &&
                 Constant.USER_TYPE_ORDINARY != (int) request.getAttribute("type")) {
