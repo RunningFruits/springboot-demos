@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("cn.trunch.auth.dao")
-public class AuthBoot {
+public class AppAuthBoot {
 
     public static void main(String[] args) {
-        SpringApplication.run(AuthBoot.class, args);
+        SpringApplication.run(AppAuthBoot.class, args);
     }
 
 }

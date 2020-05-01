@@ -6,10 +6,11 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 public interface UserDao {
-    @Select("select user_password from user where user_id = #{userId}")
-    String getUserPassword(String userId);
 
-    @Select("SELECT * FROM user WHERE user_id = #{userId}")
+    @Select("select password from user where id = #{userId}")
+    String getPassword(String userId);
+
+    @Select("SELECT * FROM user WHERE id = #{userId}")
     @Results({
             @Result(property = "userId", column = "user_id"),
             @Result(property = "userPassword", column = "user_password"),

@@ -1,7 +1,18 @@
 package cn.trunch.auth.entity;
 
-public class Message {
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+
+@Data
+@ApiModel(value="基础返回类",description="基础返回类")
+public class Message implements Serializable {
+
+    @ApiModelProperty(example="200")
     private Integer code;
+    @ApiModelProperty(example="操作成功")
     private String message;
     private Object data;
 

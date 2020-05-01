@@ -36,7 +36,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
     public static final String SWAGGER_SCAN_BASE_PACKAGE = "cn.trunch.auth.controller";
     public static final String VERSION = "1.0.0";
 
-    public static final String GROUP_NAME = "app-auth";
+    public static final String GROUP_NAME = "appAuth";
     public static final String API_INFO_TITLE = "app-auth接口";
     public static final String API_INFO_DESCRIPTION = "app-auth接口描述";
 
@@ -45,17 +45,20 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
     public static final String CONTACT_EMAIL = "lanlonggu@foxmail.com";
 
     private Environment environment;
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/auth/**")
+        registry.addMapping("/appAuth/**")
                 .allowedMethods("*")
                 .allowedOrigins("*")
                 .allowedHeaders("*");
     }
+
     @Override
     public void setEnvironment(Environment environment) {
         this.environment = environment;
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
@@ -75,9 +78,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
                 Class<?> declaringClass = input.declaringClass();
                 if (declaringClass == BasicErrorController.class)// 排除
                     return false;
-                if(declaringClass.isAnnotationPresent(RestController.class)) // 被注解的类
+                if (declaringClass.isAnnotationPresent(RestController.class)) // 被注解的类
                     return true;
-                if(input.isAnnotatedWith(ResponseBody.class)) // 被注解的方法
+                if (input.isAnnotatedWith(ResponseBody.class)) // 被注解的方法
                     return true;
                 return false;
             }

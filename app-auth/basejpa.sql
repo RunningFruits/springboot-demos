@@ -22,11 +22,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `auth`;
 CREATE TABLE `auth`  (
-  `auth_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `auth_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `auth_ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `auth_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `auth_state` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0等待验证，1验证成功，2正在验证，3验证失败（过期）',
+  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `state` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0等待验证，1验证成功，2正在验证，3验证失败（过期）',
   `user_id` int(12) NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -35,12 +35,12 @@ CREATE TABLE `auth`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `user_id` int(12) NOT NULL,
-  `user_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `user_avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `user_phone` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`user_id`) USING BTREE
+  `id` int(12) NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `phone` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

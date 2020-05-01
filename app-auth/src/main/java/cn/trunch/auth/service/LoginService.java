@@ -19,7 +19,7 @@ public class LoginService {
             return new Message(201, "登录失败", new User());
         if (null == user)
             return new Message(202, "登录失败", new User());
-        if (!userPassword.equals(user.getUserPassword()))
+        if (!userPassword.equals(user.getPassword()))
             return new Message(203, "登录失败", new User());
         return new Message(200, "登录成功", user);
     }

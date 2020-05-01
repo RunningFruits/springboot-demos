@@ -1,57 +1,24 @@
 package cn.trunch.auth.entity;
 
+import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
+@Data
 public class User {
 
-  private long userId;
-  private String userPassword;
-  private String userName;
-  private String userAvatar;
-  private long userPhone;
+    @Id
+    @GeneratedValue
+    private long id;
+    private String password;
+    private String name;
+    private String avatar;
+    private String phone;
 
-
-  public long getUserId() {
-    return userId;
-  }
-
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
-
-
-  public String getUserPassword() {
-    return userPassword;
-  }
-
-  public void setUserPassword(String userPassword) {
-    this.userPassword = userPassword;
-  }
-
-
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-
-  public String getUserAvatar() {
-    return userAvatar;
-  }
-
-  public void setUserAvatar(String userAvatar) {
-    this.userAvatar = userAvatar;
-  }
-
-
-  public long getUserPhone() {
-    return userPhone;
-  }
-
-  public void setUserPhone(long userPhone) {
-    this.userPhone = userPhone;
-  }
 
 }

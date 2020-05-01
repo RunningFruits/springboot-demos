@@ -1,5 +1,7 @@
 server:
-  port: 80
+  port: 9080
+  servlet:
+    context-path: /appAuth
 
 
 spring:
@@ -10,9 +12,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
-  mvc:
-    servlet:
-      path: /
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 
 swagger:

@@ -1,69 +1,28 @@
 package cn.trunch.auth.entity;
 
 
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "auth")
+@Data
 public class Auth {
 
-  private String authToken;
-  private Timestamp authTime;
-  private String authIp;
-  private String authAddress;
-  private Integer authState;
-  private long userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(name = "id")
+    private String id;
 
-
-  public String getAuthToken() {
-    return authToken;
-  }
-
-  public void setAuthToken(String authToken) {
-    this.authToken = authToken;
-  }
-
-
-  public Timestamp getAuthTime() {
-    return authTime;
-  }
-
-  public void setAuthTime(Timestamp authTime) {
-    this.authTime = authTime;
-  }
-
-
-  public String getAuthIp() {
-    return authIp;
-  }
-
-  public void setAuthIp(String authIp) {
-    this.authIp = authIp;
-  }
-
-
-  public String getAuthAddress() {
-    return authAddress;
-  }
-
-  public void setAuthAddress(String authAddress) {
-    this.authAddress = authAddress;
-  }
-
-
-  public Integer getAuthState() {
-    return authState;
-  }
-
-  public void setAuthState(Integer authState) {
-    this.authState = authState;
-  }
-
-
-  public long getUserId() {
-    return userId;
-  }
-
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+    private String authToken;
+    private Timestamp authTime;
+    private String authIp;
+    private String authAddress;
+    private Integer authState;
+    private long userId;
 
 }
