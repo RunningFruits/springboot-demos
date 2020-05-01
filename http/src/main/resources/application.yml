@@ -12,3 +12,8 @@ http:
   connectTimeout: 1000
   #从连接池中获取到连接的最长时间
   connectionRequestTimeout: 500
+
+
+swagger:
+  is:
+    enable: true

@@ -18,6 +18,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <io.springfox.version>2.6.1</io.springfox.version>
     </properties>
 
     <dependencies>
@@ -53,11 +54,28 @@
             <artifactId>fastdfs-client</artifactId>
             <version>1.26.2</version>
         </dependency>
+
+
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
         </dependency>
+
+        <!-- swagger start -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${io.springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${io.springfox.version}</version>
+        </dependency>
+        <!-- swagger end -->
+
     </dependencies>
 
     <build>

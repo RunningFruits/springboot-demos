@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Api(value = "/user", description = "用户接口")
+@Api(value = "user", description = "用户接口")
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -27,11 +27,11 @@ public class UserController {
 
     @ApiOperation(value = "signup", notes = "用户注册接口", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", name = "userName", value = "验证码", required = true, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = "userName", value = "用户名", required = true, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "password", value = "密码", required = true, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "confirmPassword", value = "确认密码", required = true, dataType = "String"),
     })
-    @RequestMapping("/signup")
+    @RequestMapping("signup")
     public ResponseEntity signup(HttpServletRequest request) {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
@@ -50,7 +50,12 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/login")
+    @ApiOperation(value = "login", notes = "用户注册接口", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "userName", value = "用户名", required = true, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = "password", value = "密码", required = true, dataType = "String")
+    })
+    @RequestMapping("login")
     public ResponseEntity login(HttpServletRequest request) {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");

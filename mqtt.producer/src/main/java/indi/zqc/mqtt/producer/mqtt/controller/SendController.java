@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping(value = "/device")
 public class SendController {
+
     @Resource
     private MqttGateway mqttGateway;
 

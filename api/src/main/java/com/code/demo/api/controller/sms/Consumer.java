@@ -1,7 +1,9 @@
 package com.code.demo.api.controller.sms;
 
+import com.alibaba.fastjson.JSON;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,7 @@ import java.util.Map;
 
 
 @Component
+@Slf4j
 public class Consumer {
 
     @Resource(name = "smsUtils")
@@ -20,11 +23,11 @@ public class Consumer {
     public void jmsListener(Map<String, String> map) {
         try {
             SendSmsResponse smsResponse = smsUtils.sendSms(map);
-            System.out.println("code:" + smsResponse.getCode() + "message:" + smsResponse.getMessage());
+            log.info("code:" + smsResponse.getCode() + "message:" + smsResponse.getMessage());
         } catch (ClientException e) {
             e.printStackTrace();
         }
-        System.out.println(map);
+        log.info(JSON.toJSONString(map));
     }
 
 

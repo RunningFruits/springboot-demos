@@ -9,6 +9,10 @@ import com.panda.service.impl.SocketClientServiceImpl;
 import com.panda.utils.socket.client.SocketClient;
 import com.panda.utils.socket.dto.ClientSendDto;
 import com.panda.utils.socket.enums.FunctionCodeEnum;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.StringUtils;
@@ -17,64 +21,75 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Set;
 
+@Api(value = "socket-client", description = "socket客户端")
 @RestController
 @RequestMapping("/socket-client")
 @Slf4j
 public class SocketClientController {
 
-	@Resource(name = "clientTaskPool")
-	private ThreadPoolTaskExecutor clientExecutor;
+    @Resource(name = "clientTaskPool")
+    private ThreadPoolTaskExecutor clientExecutor;
 
-	@Resource
-	private SocketClientService socketClientService;
+    @Resource
+    private SocketClientService socketClientService;
 
-	/**
-	 * @param paramVo 用户id
-	 *
-	 * @return 是否操作成功
-	 */
-//	@PostMapping("/start")
-	@RequestMapping("/start")
-	public ResponseEntity<?> startClient(@RequestBody ClientParamVo paramVo) {
-		String userId = paramVo.getUserId();
-		socketClientService.startOneClient(userId);
-		return ResponseEntity.success();
-	}
+    /**
+     * @param paramVo 用户id
+     * @return 是否操作成功
+     */
+    @ApiOperation(value = "/start", notes = "开启socket", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", dataType = "MessageParam", name = "param"),
+    })
+    @RequestMapping("/start")
+    public ResponseEntity<?> startClient(@RequestBody ClientParamVo paramVo) {
+        String userId = paramVo.getUserId();
+        socketClientService.startOneClient(userId);
+        return ResponseEntity.success();
+    }
 
-	/**
-	 * 关闭客户端
-	 *
-	 * @param paramVo userId
-	 *
-	 * @return 是否操作成功
-	 */
-	@PostMapping("/close")
-	public ResponseEntity<?> closeClient(@RequestBody ClientParamVo paramVo) {
-		String userId = paramVo.getUserId();
-		socketClientService.closeOneClient(userId);
-		return ResponseEntity.success();
-	}
+    /**
+     * 关闭客户端
+     *
+     * @param paramVo userId
+     * @return 是否操作成功
+     */
+    @ApiOperation(value = "/close", notes = "关闭socket", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", dataType = "MessageParam", name = "param"),
+    })
+    @PostMapping("/close")
+    public ResponseEntity<?> closeClient(@RequestBody ClientParamVo paramVo) {
+        String userId = paramVo.getUserId();
+        socketClientService.closeOneClient(userId);
+        return ResponseEntity.success();
+    }
 
-	@GetMapping("/get-users")
-	public ResponseEntity<Set<String>> getUsers() {
-		return ResponseEntity.success(SocketClientServiceImpl.existSocketClientMap.keySet());
-	}
+    @ApiOperation(value = "/get-users", notes = "获取连接用户", httpMethod = "GET")
+    @GetMapping("/get-users")
+    public ResponseEntity<Set<String>> getUsers() {
+        return ResponseEntity.success(SocketClientServiceImpl.existSocketClientMap.keySet());
+    }
 
-	@PostMapping("/send-message")
-	public ResponseEntity<?> sendMessage(@RequestBody ClientParamVo paramVo) {
-		if (StringUtils.isEmpty(paramVo.getUserId()) || StringUtils.isEmpty(paramVo.getMessage())) {
-			throw new ServiceException("参数不全");
-		}
-		if (!SocketClientServiceImpl.existSocketClientMap.containsKey(paramVo.getUserId())) {
-			throw new ServiceException("并没有客户端连接");
-		}
-		SocketClient client = SocketClientServiceImpl.existSocketClientMap.get(paramVo.getUserId()).getSocketClient();
-		ClientSendDto dto = new ClientSendDto();
-		dto.setFunctionCode(FunctionCodeEnum.MESSAGE.getValue());
-		dto.setUserId(paramVo.getUserId());
-		dto.setMessage(paramVo.getMessage());
-		client.println(JSONObject.toJSONString(dto));
-		return ResponseEntity.success();
+    @ApiOperation(value = "/send-message", notes = "发送消息", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", dataType = "MessageParam", name = "param"),
+    })
+    @PostMapping("/send-message")
+    public ResponseEntity<?> sendMessage(@RequestBody ClientParamVo paramVo) {
+        if (StringUtils.isEmpty(paramVo.getUserId()) || StringUtils.isEmpty(paramVo.getMessage())) {
+            throw new ServiceException("参数不全");
+        }
+        if (!SocketClientServiceImpl.existSocketClientMap.containsKey(paramVo.getUserId())) {
+            throw new ServiceException("并没有客户端连接");
+        }
+        SocketClient client = SocketClientServiceImpl.existSocketClientMap.get(paramVo.getUserId()).getSocketClient();
+        ClientSendDto dto = new ClientSendDto();
+        dto.setFunctionCode(FunctionCodeEnum.MESSAGE.getValue());
+        dto.setUserId(paramVo.getUserId());
+        dto.setMessage(paramVo.getMessage());
+        client.println(JSONObject.toJSONString(dto));
+        return ResponseEntity.success();
+    }
 
-	}
 }

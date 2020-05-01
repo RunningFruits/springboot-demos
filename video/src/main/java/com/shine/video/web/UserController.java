@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
-@Api(value = "user",description = "用户相关接口")
+@Api(value = "user", description = "用户相关接口")
 @RestController
 @RequestMapping(value = "user")
 public class UserController extends BaseController {
@@ -27,8 +26,8 @@ public class UserController extends BaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ApiOperation(value = "注册接口", httpMethod = "POST", notes = "注册接口")
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @ApiOperation(value = "register", httpMethod = "POST", notes = "注册接口")
     public ResultBean register(
             HttpServletRequest request, HttpServletResponse response,
             @ApiParam(required = true, name = "username", value = "用户名") @RequestParam String username,
@@ -44,8 +43,8 @@ public class UserController extends BaseController {
     /**
      * 登录
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ApiOperation(value = "登录接口", httpMethod = "POST", notes = "登录接口")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @ApiOperation(value = "login", httpMethod = "POST", notes = "登录接口")
     public ResultBean login(
             HttpServletRequest request, HttpServletResponse response,
             @ApiParam(required = true, name = "username", value = "用户名") @RequestParam String username,
@@ -62,8 +61,8 @@ public class UserController extends BaseController {
     /**
      * 普通用户列表
      */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ApiOperation(value = "普通用户列表", httpMethod = "GET", notes = "普通用户列表")
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @ApiOperation(value = "list", httpMethod = "GET", notes = "普通用户列表")
     public ResultBean list(
             HttpServletRequest request,
             @ApiParam(required = true, name = "pageNo", value = "第几页")
@@ -84,8 +83,11 @@ public class UserController extends BaseController {
      * 删除用户
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    @ApiOperation(value = "删除用户", httpMethod = "DELETE", notes = "删除用户")
-    public ResultBean delete(HttpServletRequest request, @PathVariable Integer id) throws Exception {
+    @ApiOperation(value = "/delete/{id}", httpMethod = "DELETE", notes = "删除用户")
+    public ResultBean delete(
+            HttpServletRequest request,
+            @ApiParam(required = true, name = "id", value = "收藏id") @PathVariable Integer id
+    ) throws Exception {
         if (Constant.USER_TYPE_SPECIAL != (int) request.getAttribute("type")) {
             throw new HttpMessageNotReadableException("该用户没有删除收藏权限");
         }

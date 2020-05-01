@@ -32,10 +32,7 @@ import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Created by 廖师兄
- * 2017-06-11 18:43
- */
+
 @Service
 @Slf4j
 public class OrderServiceImpl implements OrderService {
@@ -111,7 +108,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO findOne(String orderId) {
 
-        OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
+        OrderMaster orderMaster = orderMasterRepository.findById(orderId).get();
         if (orderMaster == null) {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
@@ -125,7 +122,6 @@ public class OrderServiceImpl implements OrderService {
         BeanUtils.copyProperties(orderMaster, orderDTO);
         orderDTO.setOrderDetailList(orderDetailList);
         orderDTO.setOrderStatusStr(orderDTO.getOrderStatusStr(orderDTO.getOrderStatus()));
-
 
         return orderDTO;
     }
@@ -239,4 +235,5 @@ public class OrderServiceImpl implements OrderService {
 
         return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
+
 }

@@ -36,6 +36,9 @@
         <module>qiniu</module>
         <module>qiniu-layui</module>
         <module>zigbee</module>
+
+        <module>tcp/socket-client</module>
+        <module>tcp/socket-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

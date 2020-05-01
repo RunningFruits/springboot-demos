@@ -3,7 +3,6 @@ package com.shine.video.config.redis;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurationSelector;
 import org.springframework.cache.annotation.EnableCaching;
@@ -17,8 +16,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Redis配置类
@@ -26,7 +23,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableCaching
-public class RedisConfig extends CachingConfigurationSelector{
+public class RedisConfig extends CachingConfigurationSelector {
     /**
      * 生成key的策略
      *
@@ -57,9 +54,10 @@ public class RedisConfig extends CachingConfigurationSelector{
     @SuppressWarnings("rawtypes")
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
-        RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
+//        RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
+        RedisCacheManager rcm = null;
         //设置缓存过期时间
-        rcm.setDefaultExpiration(60*24);//秒
+//        rcm.setDefaultExpiration(60 * 24);//秒
         //设置value的过期时间
         //Map<String,Long> map=new HashMap();
         //map.put("test",60L);
@@ -69,6 +67,7 @@ public class RedisConfig extends CachingConfigurationSelector{
 
     /**
      * RedisTemplate配置
+     *
      * @param factory
      * @return
      */

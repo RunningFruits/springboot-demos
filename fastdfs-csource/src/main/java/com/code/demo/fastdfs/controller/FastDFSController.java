@@ -3,6 +3,7 @@ package com.code.demo.fastdfs.controller;
 
 import com.code.demo.fastdfs.utils.fastdfs.FastDFSClient;
 import com.code.demo.fastdfs.utils.fastdfs.FastDFSFile;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -20,16 +21,17 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+@Api(value = "fdfs", description = "分布式文件")
 @Controller
-@RequestMapping(value = "/fdfs")
+@RequestMapping(value = "fdfs")
 public class FastDFSController {
     private static Logger logger = LoggerFactory.getLogger(FastDFSController.class);
 
-    @ApiOperation(value = "/upload", notes = "上传图片", httpMethod = "POST")
+    @ApiOperation(value = "upload", notes = "上传图片", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "form", name = "file", value = "文件", required = true, dataType = "file"),
+            @ApiImplicitParam(paramType = "form", dataType = "file", name = "file", value = "文件", required = true)
     })
-    @PostMapping("/upload")
+    @PostMapping("upload")
     public ResponseEntity singleFileUpload(@RequestParam("file") MultipartFile file) {
         Map<String, Object> resultMap = new HashMap<>();
         if (file.isEmpty()) {

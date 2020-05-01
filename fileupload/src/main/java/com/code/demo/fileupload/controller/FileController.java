@@ -28,7 +28,6 @@ public class FileController {
     private String host = "http://brightereyer.com:8080/fileupload"; // 上传后的路径;
     private String remotePath = "/tmp/images/"; // 上传后的路径;
 
-
     @ApiOperation(value = "list", notes = "文件列表")
     @PostMapping(value = "list")
     public ResponseEntity list() {

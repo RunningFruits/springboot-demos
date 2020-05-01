@@ -8,12 +8,17 @@ import com.panda.utils.socket.dto.ServerSendDto;
 import com.panda.utils.socket.enums.FunctionCodeEnum;
 import com.panda.utils.socket.server.Connection;
 import com.panda.utils.socket.server.SocketServer;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.concurrent.ConcurrentMap;
 
+@Api(value = "socket-server", description = "socket服务端")
 @RestController
 @RequestMapping("/socket-server")
 public class SocketServerController {
@@ -21,6 +26,7 @@ public class SocketServerController {
 	@Resource
 	private SocketServer socketServer;
 
+	@ApiOperation(value = "/get-users", notes = "获取连接用户", httpMethod = "GET")
 	@GetMapping("/get-users")
 	public ResponseEntity<JSONObject> getLoginUsers() {
 		ConcurrentMap<String, Connection> userMaps = socketServer.getExistSocketMap();
@@ -30,6 +36,10 @@ public class SocketServerController {
 		return ResponseEntity.success(result);
 	}
 
+	@ApiOperation(value = "/send-message", notes = "获取连接用户", httpMethod = "POST")
+	@ApiImplicitParams({
+			@ApiImplicitParam(paramType = "body", dataType = "MessageParam", name = "param"),
+	})
 	@PostMapping("/send-message")
 	public ResponseEntity<?> sendMessage(@RequestBody ServerParamVo paramVo) {
 
@@ -47,4 +57,5 @@ public class SocketServerController {
 		connection.println(JSONObject.toJSONString(dto));
 		return ResponseEntity.success();
 	}
+
 }
