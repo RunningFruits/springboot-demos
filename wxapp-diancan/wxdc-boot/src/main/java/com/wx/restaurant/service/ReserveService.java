@@ -16,16 +16,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @param
- * @author
- * @date 2018/8/13 10:43
- */
+
 @Service
 public class ReserveService {
+
     @Autowired
     ReserveMapper reserveMapper;
-
 
     public Map<String, Object> reserveSave(Reserve reserve) {
         Map<String, Object> result = new HashMap<>();
@@ -34,7 +30,7 @@ public class ReserveService {
         reserve.setCreateTime(time);
         reserve.setUpdateTime(time);
         reserve.setIsDelete(DeleteEnum.DISPLAY.getIndex());
-        Integer isReserveCount = isReserve(reserve.getReserveDate(),reserve.getOpenId());
+        Integer isReserveCount = isReserve(reserve.getReserveDate(), reserve.getOpenId());
         //当天是否已经预约，目前设计每个人每天只能预约一次
         if (isReserveCount < 1) {
             Integer count = reserveList(reserve.getReserveDate(), ReserveStatusEnum.RESERVE.getIndex());
@@ -53,8 +49,8 @@ public class ReserveService {
             }
             reserveMapper.insertSelective(reserve);
             result.put("status", StatusEnum.SUCCESS.getIndex());
-        }else {
-            result.put("errmsg","您已预约");
+        } else {
+            result.put("errmsg", "您已预约");
             result.put("status", StatusEnum.FAIL.getIndex());
         }
         return result;
@@ -66,10 +62,11 @@ public class ReserveService {
         example.createCriteria().andEqualTo("reserveStatus", reserveStatus).andLike("reserveDate", str[0] + "%");
         return reserveMapper.selectCountByExample(example);
     }
+
     public Integer isReserve(String date, String openId) {
         String str[] = date.split(" ");
         Example example = new Example(Reserve.class);
-        example.createCriteria().andEqualTo("openId", openId).andLike("reserveDate", str[0] + "%").andBetween("reserveStatus",ReserveStatusEnum.RESERVE.getIndex(),ReserveStatusEnum.WAIT.getIndex());
+        example.createCriteria().andEqualTo("openId", openId).andLike("reserveDate", str[0] + "%").andBetween("reserveStatus", ReserveStatusEnum.RESERVE.getIndex(), ReserveStatusEnum.WAIT.getIndex());
         return reserveMapper.selectCountByExample(example);
     }
 

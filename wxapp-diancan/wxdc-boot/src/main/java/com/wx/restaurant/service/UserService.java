@@ -13,13 +13,10 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
-/**
- * @param
- * @author Joe.Cai
- * @date 2018/8/11 22:37
- */
+
 @Service
 public class UserService {
+
     @Autowired
     MyCouponMapper myCouponMapper;
     @Autowired

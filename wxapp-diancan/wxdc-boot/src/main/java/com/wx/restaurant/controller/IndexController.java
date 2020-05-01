@@ -7,6 +7,11 @@ import com.wx.restaurant.mybatis.model.Coupon;
 import com.wx.restaurant.mybatis.model.MyCoupon;
 import com.wx.restaurant.service.CouponService;
 import com.wx.restaurant.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @param
- * @author
- * @date 2018/8/11 21:50
- */
+@Api(value = "/index/coupon", description = "用户优惠券接口")
 @RestController
-@RequestMapping("/index")
+@RequestMapping("/index/coupon")
+@Slf4j
 public class IndexController {
 
     @Autowired
@@ -34,9 +36,10 @@ public class IndexController {
     /**
      * 获取优惠券接口
      */
-    @GetMapping("/coupon/list")
-    public JSONArray couponList() {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>调用获取优惠券接口");
+    @ApiOperation(value = "/list", notes = "调用获取优惠券接口", httpMethod = "GET")
+    @GetMapping("/list")
+    public JSONArray list() {
+        log.info(">>>>>>>>>>>>>>>>>调用获取优惠券接口");
         List<Coupon> couponList = couponService.couponList();
         String str = JSONObject.toJSONString(couponList);
         return JSONObject.parseArray(str);
@@ -48,9 +51,16 @@ public class IndexController {
      * @param openid 小程序openid
      * @param yhqid  优惠券id
      */
-    @GetMapping("/coupon/receive")
-    public Map<String, Object> userSave(@RequestParam("openid") String openid,
-                                        @RequestParam("yhqid") Integer yhqid) {
+    @ApiOperation(value = "/receive", notes = "用户领取优惠券接口", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "openid", value = "openid", required = true, dataType = "String"),
+            @ApiImplicitParam(paramType = "query", name = "yhqid", value = "yhqid", required = true, dataType = "String"),
+    })
+    @GetMapping("/receive")
+    public Map<String, Object> receive(
+            @RequestParam("openid") String openid,
+            @RequestParam("yhqid") Integer yhqid
+    ) {
         Map<String, Object> result = new HashMap<>();
         //调用获取我的某种优惠券数量  TODO:此接口可以修改成count
         List<MyCoupon> myCouponList = userService.userList(openid, yhqid);
@@ -59,7 +69,7 @@ public class IndexController {
             result.put("status", StatusEnum.FAIL.getIndex());
         } else {
             try {
-                System.out.println(">>>>>>>>>>>>>>>>>调用用户领取优惠券接口");
+                log.info(">>>>>>>>>>>>>>>>>调用用户领取优惠券接口");
                 userService.userSave(openid, yhqid);
                 result.put("msg", "领取成功");
                 result.put("status", StatusEnum.SUCCESS.getIndex());
