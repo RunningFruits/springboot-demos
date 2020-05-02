@@ -16,10 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Api(value = "用户答题接口")
 @RestController
 @RequestMapping("/answer")
-@Api(value = "用户答题接口")
 public class AnswerController {
 
     @Autowired

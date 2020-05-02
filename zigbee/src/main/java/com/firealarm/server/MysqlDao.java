@@ -131,7 +131,6 @@ public class MysqlDao implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
             conn.close();
         }
     }

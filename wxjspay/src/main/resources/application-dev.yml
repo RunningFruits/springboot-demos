@@ -11,3 +11,8 @@ wechat:
     url: ''
     callbackUrl: ''
     oauth2Url: ''
+
+
+swagger:
+  is:
+    enable: true

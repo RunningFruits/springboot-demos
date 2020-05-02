@@ -37,6 +37,8 @@
         <module>qiniu-layui</module>
         <module>zigbee</module>
 
+        <module>netty-protobuf</module>
+
         <module>tcp/socket-client</module>
         <module>tcp/socket-server</module>
     </modules>
