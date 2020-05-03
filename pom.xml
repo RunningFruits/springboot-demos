@@ -45,6 +45,7 @@
         <module>tcp/socket-server</module>
 
         <module>easypoi</module>
+        <module>xunfei</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
