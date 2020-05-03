@@ -1,4 +1,4 @@
-package com.code.demo.api.utils;
+package com.code.demo.common;
 
 import com.code.demo.api.exception.ServiceException;
 import org.springframework.validation.BindingResult;

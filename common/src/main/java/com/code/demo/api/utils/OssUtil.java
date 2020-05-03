@@ -1,4 +1,4 @@
-package com.code.demo.backend.api.utils;
+package com.code.demo.api.utils;
 
 import com.aliyun.oss.ClientConfiguration;
 import com.aliyun.oss.OSSClient;

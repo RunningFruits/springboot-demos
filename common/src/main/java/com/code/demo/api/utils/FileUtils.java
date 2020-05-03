@@ -1,4 +1,4 @@
-package com.code.demo.backend.api.utils;
+package com.code.demo.api.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;

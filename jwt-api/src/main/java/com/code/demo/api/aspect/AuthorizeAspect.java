@@ -2,7 +2,7 @@ package com.code.demo.api.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.code.demo.api.enums.ResultEnum;
-import com.code.demo.api.utils.JWTUtil;
+import com.code.demo.common.JWTUtil;
 import com.code.demo.api.exception.ServiceException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;

@@ -1,8 +1,8 @@
 package com.code.demo.api.controller;
 
 import com.code.demo.api.dataobject.vo.ResultVO;
-import com.code.demo.api.utils.CodeGenerator;
-import com.code.demo.api.utils.ResultVOUtil;
+import com.code.demo.common.CodeGenerator;
+import com.code.demo.common.ResultVOUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

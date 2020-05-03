@@ -4,7 +4,6 @@ package com.code.demo.wxjspay.controller;
 import com.code.demo.wxjspay.constant.WxPayConstant;
 import com.code.demo.wxjspay.utils.wxpay.PayInfo;
 import com.code.demo.wxjspay.utils.wxpay.WxPayUtil;
-import com.code.demo.backend.api.utils.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

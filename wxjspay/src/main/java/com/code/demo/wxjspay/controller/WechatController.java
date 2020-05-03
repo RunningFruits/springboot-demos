@@ -4,7 +4,7 @@ package com.code.demo.wxjspay.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.code.demo.wxjspay.service.IWeChatService;
 import com.code.demo.wxjspay.utils.WxOpenIdUtil;
-import com.code.demo.backend.api.utils.StrKit;
+import com.code.demo.api.utils.StrKit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

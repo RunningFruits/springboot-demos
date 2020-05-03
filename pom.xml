@@ -39,8 +39,12 @@
 
         <module>netty-protobuf</module>
 
+        <module>bpmn-cloudisk</module>
+
         <module>tcp/socket-client</module>
         <module>tcp/socket-server</module>
+
+        <module>easypoi</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

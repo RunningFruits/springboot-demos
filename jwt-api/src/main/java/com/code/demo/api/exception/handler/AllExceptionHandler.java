@@ -3,7 +3,7 @@ package com.code.demo.api.exception.handler;
 
 import com.code.demo.api.dataobject.vo.ResultVO;
 import com.code.demo.api.enums.ResultEnum;
-import com.code.demo.api.utils.ResultVOUtil;
+import com.code.demo.common.ResultVOUtil;
 import com.code.demo.api.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,4 +1,4 @@
-package com.code.demo.api.utils;
+package com.code.demo.common;
 
 import org.springframework.beans.BeanUtils;
 

@@ -38,8 +38,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport implements Environ
     public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.shine.video.controller";
     public static final String VERSION = "1.0.0";
 
-    public static final String GROUP_NAME = "opencv";
-    public static final String API_INFO_TITLE = "opencv接口";
+    public static final String GROUP_NAME = "video";
+    public static final String API_INFO_TITLE = "video接口";
     public static final String API_INFO_DESCRIPTION = "接口描述";
 
     public static final String CONTACT_NAME = "brightereyer";

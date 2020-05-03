@@ -58,4 +58,5 @@ public class ExceptionAdvice extends BaseController{
         videoLogger.error("服务运行异常", e);
         return new ResultBean(HttpStatus.INTERNAL_SERVER_ERROR.value(),HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
+
 }
