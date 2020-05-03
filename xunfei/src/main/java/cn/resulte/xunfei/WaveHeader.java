@@ -8,7 +8,6 @@ public class WaveHeader {
     public final char fileID[] = {'R', 'I', 'F', 'F'};
     public int fileLength;
     public char wavTag[] = {'W', 'A', 'V', 'E'};
-    ;
     public char FmtHdrID[] = {'f', 'm', 't', ' '};
     public int FmtHdrLeth;
     public short FormatTag;
@@ -18,7 +17,7 @@ public class WaveHeader {
     public short BlockAlign;
     public short BitsPerSample;
     public char DataHdrID[] = {'d', 'a', 't', 'a'};
-    public int DataHdrLeth;
+    public int DataHdrLength;
 
     public byte[] getHeader() throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -34,7 +33,7 @@ public class WaveHeader {
         WriteShort(bos, BlockAlign);
         WriteShort(bos, BitsPerSample);
         WriteChar(bos, DataHdrID);
-        WriteInt(bos, DataHdrLeth);
+        WriteInt(bos, DataHdrLength);
         bos.flush();
         byte[] r = bos.toByteArray();
         bos.close();

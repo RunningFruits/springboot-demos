@@ -20,7 +20,7 @@ import java.util.UUID;
 @Slf4j
 public class XunfeiToVoice {
 
-    private static String[] speecher = {"xiaoyan","aisjiuxu","aisxping","aisjinger","aisbabyxu"};
+    private static String[] speecher = {"xiaoyan", "aisjiuxu", "aisxping", "aisjinger", "aisbabyxu"};
 
     public static String changeToVoice(String data, int index) throws IOException {
 
@@ -29,11 +29,11 @@ public class XunfeiToVoice {
         //合成监听器
         SynthesizeToUriListener synthesizeToUriListener = XunfeiLib.getSynthesize();
         // 默认是生成 pcm 文件，所以后面有一步是转换成 wav 文件才能正常播放
-        String fileName= XunfeiLib.getFileName("tts_test.pcm");
+        String fileName = XunfeiLib.getFileName("tts_test.pcm");
         XunfeiLib.delDone(fileName);
 
         //1.创建SpeechSynthesizer对象
-        SpeechSynthesizer mTts= SpeechSynthesizer.createSynthesizer( );
+        SpeechSynthesizer mTts = SpeechSynthesizer.createSynthesizer();
         //2.合成参数设置，详见《MSC Reference Manual》SpeechSynthesizer 类
         mTts.setParameter(SpeechConstant.VOICE_NAME, speecher[index]);//设置发音人
         mTts.setParameter(SpeechConstant.SPEED, "50");//设置语速，范围0~100
@@ -42,35 +42,35 @@ public class XunfeiToVoice {
 
         //3.开始合成
         //设置合成音频保存位置（可自定义保存位置），默认保存在“./tts_test.pcm”
-        mTts.synthesizeToUri(data,fileName ,synthesizeToUriListener);
+        mTts.synthesizeToUri(data, fileName, synthesizeToUriListener);
 
         //设置最长时间
-        int timeOut=30;
-        int star=0;
+        int timeOut = 30;
+        int star = 0;
 
         //校验文件是否生成
-        while(!XunfeiLib.checkDone(fileName)){
+        while (!XunfeiLib.checkDone(fileName)) {
 
             try {
                 Thread.sleep(1000);
                 star++;
-                if(star>timeOut){
-                    throw new Exception("合成超过"+timeOut+"秒！");
+                if (star > timeOut) {
+                    throw new Exception("合成超过" + timeOut + "秒！");
                 }
             } catch (Exception e) {
                 // TODO 自动生成的 catch 块
-                log.error("Exception: {}",e.getMessage());
+                log.error("Exception: {}", e.getMessage());
                 return e.getMessage();
             }
 
         }
 
-        String wavPath = fileName.replaceAll(".pcm",".wav");
-        pcmToWav(fileName,wavPath);
+        String wavPath = fileName.replaceAll(".pcm", ".wav");
+        pcmToWav(fileName, wavPath);
 
         File file = new File(wavPath);
-        FileInputStream  input = new FileInputStream(file);
-        MultipartFile multipartFile =new MockMultipartFile("file", file.getName(), "text/plain", IOUtils.toByteArray(input));
+        FileInputStream input = new FileInputStream(file);
+        MultipartFile multipartFile = new MockMultipartFile("file", file.getName(), "text/plain", IOUtils.toByteArray(input));
         String filePath = saveVoice(multipartFile);
         deleteFile(wavPath);
         deleteFile(fileName);
@@ -78,36 +78,37 @@ public class XunfeiToVoice {
 
 
     }
+
     // 保存到服务器上的地址
-    private static String saveVoice(MultipartFile  voiceFile) throws IOException {
+    private static String saveVoice(MultipartFile voiceFile) throws IOException {
 
         Date date = new Date();
         //log.info("wikiVoice: {}", ResourceUtil.wikiVoice());
-        String dirPath = ("\\voice"+ new SimpleDateFormat("yyyyMMdd").format(date));
+        String dirPath = ("\\voice" + new SimpleDateFormat("yyyyMMdd").format(date));
         File dir = new File("D:\\IdeaProjects\\SpeechTransfer\\src\\main\\webapp\\data\\file" + dirPath);
         if (!dir.exists()) {
             dir.mkdirs();
         }
         //Runtime.getRuntime().exec("chmod -R 777 " + dir);
         String filePath = dirPath + "\\" + UUID.randomUUID().toString().replace("-", "") + ".wav";
-        File file = new File("D:\\IdeaProjects\\SpeechTransfer\\src\\main\\webapp\\data\\file"+ filePath);
+        File file = new File("D:\\IdeaProjects\\SpeechTransfer\\src\\main\\webapp\\data\\file" + filePath);
         if (!file.exists()) {
             file.createNewFile();
         }
         //Runtime.getRuntime().exec("chmod -R 777 " + file);
         voiceFile.transferTo(file);
-        return "data\\file"+filePath;
+        return "data\\file" + filePath;
 
     }
 
 
-    private static void deleteFile(String fileName){
+    private static void deleteFile(String fileName) {
         File file = new File(fileName);
         XunfeiLib.delDone(fileName);
         file.deleteOnExit();
     }
-    private static void pcmToWav(String src, String target) throws IOException {
 
+    private static void pcmToWav(String src, String target) throws IOException {
         FileInputStream fis = new FileInputStream(src);
         FileOutputStream fos = new FileOutputStream(target);
 
@@ -132,7 +133,7 @@ public class XunfeiToVoice {
         header.SamplesPerSec = 16000;
         header.BlockAlign = (short) (header.Channels * header.BitsPerSample / 8);
         header.AvgBytesPerSec = header.BlockAlign * header.SamplesPerSec;
-        header.DataHdrLeth = PCMSize;
+        header.DataHdrLength = PCMSize;
 
         byte[] h = header.getHeader();
 
@@ -149,9 +150,7 @@ public class XunfeiToVoice {
         fis.close();
         fos.close();
         log.info("Convert OK!");
-
     }
-
 
 
 }

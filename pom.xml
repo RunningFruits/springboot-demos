@@ -46,6 +46,8 @@
 
         <module>easypoi</module>
         <module>xunfei</module>
+
+        <module>video-web</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

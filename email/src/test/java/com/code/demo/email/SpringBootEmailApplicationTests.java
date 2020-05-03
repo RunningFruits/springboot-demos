@@ -1,6 +1,6 @@
 package com.code.demo.email;
 
-import com.code.demo.http.service.MailService;
+import com.code.demo.email.service.MailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

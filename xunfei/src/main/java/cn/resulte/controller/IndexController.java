@@ -23,9 +23,8 @@ public class IndexController {
     }
 
     @ResponseBody
-    @PostMapping("/xunfeiConvert")
-    public String xunfeiConvert(HttpServletRequest request, HttpServletResponse response) {
-
+    @PostMapping("/convert")
+    public String convert(HttpServletRequest request, HttpServletResponse response) {
         String message = request.getParameter("message");
         String index = request.getParameter("index");
         log.info(index);
@@ -48,7 +47,6 @@ public class IndexController {
         }
         */
         return path;
-
     }
 
 }
