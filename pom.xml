@@ -48,6 +48,11 @@
         <module>xunfei</module>
 
         <module>video-web</module>
+
+        <module>word-ftl</module>
+        <module>word-export2zip</module>
+
+        <module>spider</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
