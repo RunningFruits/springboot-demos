@@ -45,19 +45,19 @@
         <module>tcp/socket-server</module>
 
         <module>easypoi</module>
-        <module>xunfei</module>
+        <module>speechtransfer</module>
 
         <module>video-web</module>
 
         <module>word-ftl</module>
         <module>word-export2zip</module>
 
-        <module>spider</module>
+        <module>crawler</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.1.7.RELEASE</version>
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

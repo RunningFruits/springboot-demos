@@ -8,7 +8,7 @@ case "$1" in
 start)
         ## 启动fileupload
         echo "--------fileupload 开始启动--------------"
-        java -Xms128m -Xmx128m -jar $FILEUPLOAD &
+        java -Xms512m -Xmx512m -jar $FILEUPLOAD &
         FILEUPLOAD_pid=`lsof -i:$FILEUPLOAD_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$FILEUPLOAD_pid" ]
             do

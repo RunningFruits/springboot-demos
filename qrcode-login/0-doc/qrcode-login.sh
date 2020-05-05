@@ -8,7 +8,7 @@ case "$1" in
 start)
         ## 启动qrcode-login
         echo "--------qrcode-login 开始启动--------------"
-        java -Xms128m -Xmx128m -jar $QRCODE_LOGIN &
+        java -Xms512m -Xmx512m -jar $QRCODE_LOGIN &
         QRCODE_LOGIN_pid=`lsof -i:$QRCODE_LOGIN_port|grep "LISTEN"|awk '{print $2}'`
         until [ -n "$QRCODE_LOGIN_pid" ]
             do
