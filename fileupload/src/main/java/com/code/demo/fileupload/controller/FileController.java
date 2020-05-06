@@ -1,5 +1,6 @@
 package com.code.demo.fileupload.controller;
 
+import com.code.demo.fileupload.entity.ResultMap;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
@@ -25,20 +25,29 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class FileController {
 
-    private String host = "http://brightereyer.com:8080/fileupload"; // 上传后的路径;
     private String remotePath = "G:/tmp/images/"; // 上传后的路径;
+
+    public FileController() {
+        File dir = new File(remotePath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+    }
 
     @ApiOperation(value = "list", notes = "文件列表", httpMethod = "POST")
     @PostMapping(value = "list")
     public ResponseEntity list() {
+        ResultMap resultMap = new ResultMap();
         try {
             File imageDir = ResourceUtils.getFile(remotePath);
+            resultMap.setData(imageDir.list());
 
-            return ResponseEntity.status(200).body(imageDir.list());
+            return ResponseEntity.status(200).body(resultMap.toMap());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
-        return ResponseEntity.status(200).body("文件列表");
+
+        return ResponseEntity.status(200).body(resultMap.toMap());
     }
 
     /**
@@ -50,6 +59,8 @@ public class FileController {
     })
     @PostMapping(value = "uploadFile")
     public ResponseEntity uploadFile(@RequestParam(value = "file") MultipartFile file) {
+        ResultMap resultMap = new ResultMap();
+
         if (file.isEmpty()) {
             return ResponseEntity.status(400).body("文件不能为空！");
         }
@@ -63,16 +74,16 @@ public class FileController {
         }
         try {
             file.transferTo(dest); //保存文件
-            return ResponseEntity.status(200).body("文件上传成功！");
+
+            resultMap.setStatus(200);
+            resultMap.setMsg("文件上传成功!");
+            return ResponseEntity.status(200).body(resultMap.toMap());
         } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-//            e.printStackTrace();
-            return ResponseEntity.status(400).body("文件上传失败！");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-//            e.printStackTrace();
-            return ResponseEntity.status(400).body("文件上传失败！");
         }
+        resultMap.setStatus(400);
+        resultMap.setMsg("文件上传失败！");
+        return ResponseEntity.status(400).body(resultMap);
     }
 
     @ApiOperation(value = "uploadFiles", notes = "多文件上传", httpMethod = "POST")
@@ -82,9 +93,13 @@ public class FileController {
     @PostMapping(value = "uploadFiles")
     @ResponseBody
     public ResponseEntity uploadFiles(HttpServletRequest request) {
+        ResultMap resultMap = new ResultMap();
+
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("files");
         if (files.isEmpty()) {
-            return ResponseEntity.status(400).body("文件上传失败！");
+            resultMap.setStatus(400);
+            resultMap.setMsg("文件上传失败!");
+            return ResponseEntity.status(400).body(resultMap.toMap());
         }
         for (MultipartFile file : files) {
             String fileName = file.getOriginalFilename();
@@ -92,7 +107,9 @@ public class FileController {
             log.info(fileName + "-->" + size);
 
             if (file.isEmpty()) {
-                return ResponseEntity.status(400).body("文件上传失败！");
+                resultMap.setStatus(400);
+                resultMap.setMsg("文件上传失败!");
+                return ResponseEntity.status(400).body(resultMap.toMap());
             } else {
                 File dest = new File(remotePath + "/" + fileName);
                 if (!dest.getParentFile().exists()) { //判断文件父目录是否存在
@@ -101,29 +118,33 @@ public class FileController {
                 try {
                     file.transferTo(dest);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
-//                    e.printStackTrace();
-                    return ResponseEntity.status(400).body("文件上传失败！");
+                    resultMap.setStatus(400);
+                    resultMap.setMsg("文件上传失败!");
+                    return ResponseEntity.status(400).body(resultMap.toMap());
                 }
             }
         }
+
+        resultMap.setStatus(200);
+        resultMap.setMsg("文件上传成功!");
         return ResponseEntity.status(200).body("文件上传成功！");
     }
 
     @ApiOperation(value = "download", notes = "文件下载", httpMethod = "POST")
     @RequestMapping("download")
-    public String download(HttpServletResponse response,
+    public ResponseEntity download(HttpServletResponse response,
                            @ApiParam(value = "outName", required = true) @RequestParam(value = "outName") String outName,
                            @ApiParam(value = "outPath", required = true) @RequestParam(value = "outPath") String outPath
     ) throws UnsupportedEncodingException {
-        String filename = outName;
-        String filePath = outPath;
+        ResultMap resultMap = new ResultMap();
 
-        File file = new File(filePath + "/" + filename);
+        String fileName = outName;
+        String filePath = outPath;
+        File file = new File(filePath + "/" + fileName);
         if (file.exists()) { //判断文件父目录是否存在
             response.setContentType("application/vnd.ms-excel;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(filename, "UTF-8"));
+            response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(fileName, "UTF-8"));
             byte[] buffer = new byte[1024];
             FileInputStream fis = null; //文件输入流
             BufferedInputStream bis = null;
@@ -139,19 +160,25 @@ public class FileController {
                     i = bis.read(buffer);
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                resultMap.setStatus(400);
+                resultMap.setMsg("下载失败!");
+                return ResponseEntity.status(400).body(resultMap.toMap());
             }
-            log.info("----------file download---" + filename);
+            log.info("----------file download---" + fileName);
             try {
                 bis.close();
                 fis.close();
+
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                resultMap.setStatus(200);
+                resultMap.setMsg("io异常失败!");
+                return ResponseEntity.status(400).body(resultMap.toMap());
             }
         }
-        return "";
+
+        resultMap.setStatus(200);
+        resultMap.setMsg("下载成功!");
+        return ResponseEntity.status(200).body(resultMap.toMap());
     }
 
 }
