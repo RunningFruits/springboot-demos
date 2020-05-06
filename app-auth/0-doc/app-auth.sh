@@ -2,7 +2,7 @@
 export APP_AUTH=app-auth-0.0.1-SNAPSHOT.jar
 
 
-export APP_AUTH_port=8081
+export APP_AUTH_port=9080
 
 
 case "$1" in

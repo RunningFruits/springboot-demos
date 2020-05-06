@@ -29,7 +29,10 @@
         <module>fastdfs-csource</module>
         <module>opencv</module>
         <module>video</module>
+
         <module>http</module>
+        <module>httpclient</module>
+
         <module>fileupload</module>
         <module>ftpupload</module>
         <module>email</module>

@@ -1,4 +1,4 @@
-package com.demo.util;
+package com.code.demo.httpclient.util;
 
 
 import java.io.IOException;
@@ -155,8 +155,11 @@ public class HttpClient {
                 .build();
         // 为httpPost实例设置配置
         httpPost.setConfig(requestConfig);
-        // 设置请求头
-        httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        if (headerMap.keySet().size() == 0) {
+            // 设置请求头
+            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+        }
 
         for (String key : headerMap.keySet()) {
             httpPost.addHeader(key, headerMap.get(key).toString());

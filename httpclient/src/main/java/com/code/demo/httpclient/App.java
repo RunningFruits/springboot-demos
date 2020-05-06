@@ -1,7 +1,6 @@
-package com.demo;
+package com.code.demo.httpclient;
 
-import com.demo.util.HttpClient;
-
+import com.code.demo.httpclient.util.HttpClient;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,8 +8,6 @@ public class App {
 
     public static void main(String[] args) {
         HttpClient client = new HttpClient();
-        String result = doLogin();
-        System.out.println(result);
     }
 
     public static String doLogin() {
@@ -27,5 +24,6 @@ public class App {
         String result = HttpClient.doPost("http://183.63.8.250:8081/dchiphotel/api/user/login", headerMap, paramMap);
         return result;
     }
+
 
 }

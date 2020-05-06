@@ -26,9 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 public class FileController {
 
     private String host = "http://brightereyer.com:8080/fileupload"; // 上传后的路径;
-    private String remotePath = "/tmp/images/"; // 上传后的路径;
+    private String remotePath = "G:/tmp/images/"; // 上传后的路径;
 
-    @ApiOperation(value = "list", notes = "文件列表")
+    @ApiOperation(value = "list", notes = "文件列表", httpMethod = "POST")
     @PostMapping(value = "list")
     public ResponseEntity list() {
         try {
@@ -44,7 +44,7 @@ public class FileController {
     /**
      * 实现文件上传
      */
-    @ApiOperation(value = "uploadFile", notes = "文件上传")
+    @ApiOperation(value = "uploadFile", notes = "文件上传", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "form", name = "file", value = "文件", required = true, dataType = "file")
     })
@@ -75,7 +75,7 @@ public class FileController {
         }
     }
 
-    @ApiOperation(value = "uploadFiles", notes = "多文件上传")
+    @ApiOperation(value = "uploadFiles", notes = "多文件上传", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "form", name = "files", value = "文件", required = true, dataType = "file")
     })
@@ -110,7 +110,7 @@ public class FileController {
         return ResponseEntity.status(200).body("文件上传成功！");
     }
 
-    @ApiOperation(value = "download", notes = "文件下载")
+    @ApiOperation(value = "download", notes = "文件下载", httpMethod = "POST")
     @RequestMapping("download")
     public String download(HttpServletResponse response,
                            @ApiParam(value = "outName", required = true) @RequestParam(value = "outName") String outName,
