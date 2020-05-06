@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class IpUtil {
+
     public static String getIpAddr(HttpServletRequest request) {
         String ipAddress = null;
         try {
@@ -36,7 +37,7 @@ public class IpUtil {
                 }
             }
         } catch (Exception e) {
-            ipAddress="";
+            ipAddress = "";
         }
         // ipAddress = this.getRequest().getRemoteAddr();
 

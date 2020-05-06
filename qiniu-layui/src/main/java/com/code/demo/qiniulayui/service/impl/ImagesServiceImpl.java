@@ -37,15 +37,15 @@ public class ImagesServiceImpl implements ImagesService {
         if (!file2.exists()) {
             file2.mkdir();
         }
-        File file1 = new File(path + "/" + name);
-        file.transferTo(file1);
-        QiniuUtil.upload(file1.getPath(), name);
+        File tmpFile = new File(path + "/" + name);
+        file.transferTo(tmpFile);
+        QiniuUtil.upload(tmpFile.getPath(), name);
         Images images = new Images();
         images.setIp(ipAddr);
         images.setName(name);
-        images.setSize(file1.length() / 1024);
+        images.setSize(tmpFile.length() / 1024);
         images.setTime(time);
-        file1.delete();
+        tmpFile.delete();
         imagesMapper.insert(images);
     }
 
