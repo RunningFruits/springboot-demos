@@ -25,8 +25,8 @@
         <module>websocket</module>
         <module>officialWebsite</module>
         <module>qrcode-login</module>
-        <module>fastdfs-tobato</module>
-        <module>fastdfs-csource</module>
+
+        <module>fastdfs/fastdfs-client</module>
         <module>opencv</module>
         <module>video</module>
 

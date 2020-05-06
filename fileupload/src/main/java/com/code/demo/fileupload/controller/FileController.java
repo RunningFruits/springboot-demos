@@ -6,11 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.springframework.util.FileSystemUtils;
 import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@Api(value = "file", description = "文件上传")
+@Api(value = "file", description = "文件的查询、上传、下载")
 @RestController
 @RequestMapping("file")
 @Slf4j
@@ -44,9 +44,7 @@ public class FileController {
 
             return ResponseEntity.status(200).body(resultMap.toMap());
         } catch (FileNotFoundException e) {
-//            e.printStackTrace();
         }
-
         return ResponseEntity.status(200).body(resultMap.toMap());
     }
 
@@ -76,7 +74,7 @@ public class FileController {
             file.transferTo(dest); //保存文件
 
             resultMap.setStatus(200);
-            resultMap.setMsg("文件上传成功!");
+            resultMap.setMsg("文件上传成功！");
             return ResponseEntity.status(200).body(resultMap.toMap());
         } catch (IllegalStateException e) {
         } catch (IOException e) {
@@ -98,7 +96,7 @@ public class FileController {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("files");
         if (files.isEmpty()) {
             resultMap.setStatus(400);
-            resultMap.setMsg("文件上传失败!");
+            resultMap.setMsg("文件上传失败！");
             return ResponseEntity.status(400).body(resultMap.toMap());
         }
         for (MultipartFile file : files) {
@@ -108,7 +106,7 @@ public class FileController {
 
             if (file.isEmpty()) {
                 resultMap.setStatus(400);
-                resultMap.setMsg("文件上传失败!");
+                resultMap.setMsg("文件上传失败！");
                 return ResponseEntity.status(400).body(resultMap.toMap());
             } else {
                 File dest = new File(remotePath + "/" + fileName);
@@ -119,66 +117,91 @@ public class FileController {
                     file.transferTo(dest);
                 } catch (Exception e) {
                     resultMap.setStatus(400);
-                    resultMap.setMsg("文件上传失败!");
+                    resultMap.setMsg("文件上传失败！");
                     return ResponseEntity.status(400).body(resultMap.toMap());
                 }
             }
         }
 
         resultMap.setStatus(200);
-        resultMap.setMsg("文件上传成功!");
+        resultMap.setMsg("文件上传成功！");
         return ResponseEntity.status(200).body("文件上传成功！");
     }
 
     @ApiOperation(value = "download", notes = "文件下载", httpMethod = "POST")
     @RequestMapping("download")
-    public ResponseEntity download(HttpServletResponse response,
-                           @ApiParam(value = "outName", required = true) @RequestParam(value = "outName") String outName,
-                           @ApiParam(value = "outPath", required = true) @RequestParam(value = "outPath") String outPath
-    ) throws UnsupportedEncodingException {
+    public void download(HttpServletResponse response,
+                                   @ApiParam(value = "fileName", required = true) @RequestParam(value = "fileName") String fileName,
+                                   @ApiParam(value = "outPath", required = true) @RequestParam(value = "outPath") String outPath,
+                                   @ApiParam(value = "outName", required = false) @RequestParam(value = "outName",required = false) String outName
+                                   ) throws UnsupportedEncodingException {
         ResultMap resultMap = new ResultMap();
 
-        String fileName = outName;
-        String filePath = outPath;
-        File file = new File(filePath + "/" + fileName);
-        if (file.exists()) { //判断文件父目录是否存在
-            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(fileName, "UTF-8"));
-            byte[] buffer = new byte[1024];
-            FileInputStream fis = null; //文件输入流
-            BufferedInputStream bis = null;
-
-            OutputStream os = null; //输出流
-            try {
-                os = response.getOutputStream();
-                fis = new FileInputStream(file);
-                bis = new BufferedInputStream(fis);
-                int i = bis.read(buffer);
-                while (i != -1) {
-                    os.write(buffer);
-                    i = bis.read(buffer);
-                }
-            } catch (Exception e) {
-                resultMap.setStatus(400);
-                resultMap.setMsg("下载失败!");
-                return ResponseEntity.status(400).body(resultMap.toMap());
-            }
-            log.info("----------file download---" + fileName);
-            try {
-                bis.close();
-                fis.close();
-
-            } catch (IOException e) {
-                resultMap.setStatus(200);
-                resultMap.setMsg("io异常失败!");
-                return ResponseEntity.status(400).body(resultMap.toMap());
-            }
+        File remoteFile = new File(remotePath + fileName);
+        if (!remoteFile.exists()) { //判断 远程文件父目录是否存在
+            resultMap.setStatus(400);
+            resultMap.setMsg("文件不存在！");
+//            return ResponseEntity.status(400).body(resultMap.toMap());
+            return;
         }
 
-        resultMap.setStatus(200);
-        resultMap.setMsg("下载成功!");
-        return ResponseEntity.status(200).body(resultMap.toMap());
+        if(StringUtils.isEmpty(outName)){
+            outName = fileName;
+        }
+
+        File clientFile = new File(outPath+ File.separator + outName);
+        if (!clientFile.getParentFile().exists()) { //判断 输出文件父目录是否存在
+            clientFile.getParentFile().mkdir();
+            log.info("客户端创建下载目录：");
+            log.info(clientFile.getParentFile().getAbsolutePath());
+        }
+        try {
+            FileSystemUtils.copyRecursively(remoteFile,clientFile);
+            log.info("递归拷贝完成！");
+        } catch (IOException e) {
+            resultMap.setStatus(400);
+            resultMap.setMsg("下载失败！");
+//            return ResponseEntity.status(400).body(resultMap.toMap());
+            return;
+        }
+
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(outName, "UTF-8"));
+        byte[] buffer = new byte[1024];
+
+        FileInputStream fis = null; //文件输入流
+        BufferedInputStream bis = null;
+        OutputStream os = null; //输出流
+        try {
+            os = response.getOutputStream();
+            fis = new FileInputStream(clientFile);
+            bis = new BufferedInputStream(fis);
+            int i = bis.read(buffer);
+            while (i != -1) {
+                os.write(buffer);
+                i = bis.read(buffer);
+            }
+        } catch (Exception e) {
+            resultMap.setStatus(400);
+            resultMap.setMsg("下载失败！");
+//            return ResponseEntity.status(400).body(resultMap.toMap());
+            return;
+        }
+        try {
+            bis.close();
+            fis.close();
+
+            resultMap.setStatus(200);
+            resultMap.setMsg("下载成功！");
+//            return ResponseEntity.status(200).body(resultMap.toMap());
+            return;
+        } catch (IOException e) {
+            resultMap.setStatus(200);
+            resultMap.setMsg("io异常失败！");
+//            return ResponseEntity.status(400).body(resultMap.toMap());
+            return;
+        }
     }
 
 }
