@@ -39,7 +39,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Librairies versions -->
         <commons-lang3.version>3.5</commons-lang3.version>
-        <commons-io.version>2.5</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-pool2.version>2.4.2</commons-pool2.version>
         <spring.version>4.3.8.RELEASE</spring.version>
